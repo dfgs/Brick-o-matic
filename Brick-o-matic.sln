@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brick-o-matic.Math.UnitTest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brick-o-matic.Primitives", "Brick-o-matic.Primitives\Brick-o-matic.Primitives.csproj", "{43C68275-CB05-44D2-9D80-81624B5DA9BC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brick-o-matic.Primitives.UnitTest", "Brick-o-matic.Primitives.UnitTest\Brick-o-matic.Primitives.UnitTest.csproj", "{A3EED6E5-C066-48E8-9FD2-1DDEE6AF4D45}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,12 +31,17 @@ Global
 		{43C68275-CB05-44D2-9D80-81624B5DA9BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43C68275-CB05-44D2-9D80-81624B5DA9BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43C68275-CB05-44D2-9D80-81624B5DA9BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3EED6E5-C066-48E8-9FD2-1DDEE6AF4D45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3EED6E5-C066-48E8-9FD2-1DDEE6AF4D45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3EED6E5-C066-48E8-9FD2-1DDEE6AF4D45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3EED6E5-C066-48E8-9FD2-1DDEE6AF4D45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F620D8CA-F56D-40F1-A444-BE891E790200} = {1AB16A87-2BC4-42D1-B5F6-871A3AF04752}
+		{A3EED6E5-C066-48E8-9FD2-1DDEE6AF4D45} = {1AB16A87-2BC4-42D1-B5F6-871A3AF04752}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {737B69F0-592A-4FFB-953F-68629DC477A0}
