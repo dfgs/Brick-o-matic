@@ -15,6 +15,7 @@ namespace Brick_o_matic.Math.UnitTest
 			Assert.IsNotNull( new Box(-1, -1, -1, 1, 1, 1));
 			Assert.IsNotNull(new Box(0, 0, 0, 1));
 			Assert.IsNotNull(new Box(0, 0, 0));
+			Assert.IsNotNull(new Box(-1, -1, -1, new Vector(1,1,1)));
 		}
 
 		[TestMethod]
@@ -22,6 +23,12 @@ namespace Brick_o_matic.Math.UnitTest
 		{
 			Assert.ThrowsException<ArgumentException>(() => new Box(0, 0, 0, 0));
 			Assert.ThrowsException<ArgumentException>(() => new Box(0, 0, 0, -1));
+			Assert.ThrowsException<ArgumentException>(() => new Box(0, 0, 0, new Vector(0, 1, 1)));
+			Assert.ThrowsException<ArgumentException>(() => new Box(0, 0, 0, new Vector(1, 0, 1)));
+			Assert.ThrowsException<ArgumentException>(() => new Box(0, 0, 0, new Vector(1, 1, 0)));
+			Assert.ThrowsException<ArgumentException>(() => new Box(0, 0, 0, new Vector(-1, 1, 1)));
+			Assert.ThrowsException<ArgumentException>(() => new Box(0, 0, 0, new Vector(1, -1, 1)));
+			Assert.ThrowsException<ArgumentException>(() => new Box(0, 0, 0, new Vector(1, 1, -1)));
 		}
 		[TestMethod]
 		public void ShouldNotInstanciateIfSizeXInvalid()
@@ -45,7 +52,7 @@ namespace Brick_o_matic.Math.UnitTest
 			Assert.ThrowsException<ArgumentException>(() => new Box(0, 0, 0, 1, 1, -1));
 		}
 
-		[TestMethod]
+		/*[TestMethod]
 		public void ShouldNotSetInvalidSizeX()
 		{
 			Box box;
@@ -80,7 +87,7 @@ namespace Brick_o_matic.Math.UnitTest
 			Assert.ThrowsException<ArgumentException>(() => { box.SizeZ = 0; });
 			Assert.ThrowsException<ArgumentException>(() => { box.SizeZ = -1; });
 		}
-
+		//*/
 		[TestMethod]
 		public void ShouldReturnValidX2()
 		{
@@ -136,7 +143,7 @@ namespace Brick_o_matic.Math.UnitTest
 		}
 
 
-		[TestMethod]
+		/*[TestMethod]
 		public void ShouldNotIntersectIfOtherBoxIsNull()
 		{
 			Box box1;
@@ -144,7 +151,7 @@ namespace Brick_o_matic.Math.UnitTest
 			box1 = new Box(0, 0, 0, 1, 1, 1);
 			
 			Assert.ThrowsException<ArgumentNullException>(()=>box1.IntersectWith(null));
-		}
+		}//*/
 		[TestMethod]
 		public void ShouldNotIntersect()
 		{
@@ -218,7 +225,7 @@ namespace Brick_o_matic.Math.UnitTest
 
 
 
-		[TestMethod]
+		/*[TestMethod]
 		public void ShouldNotSplitIfOtherBoxIsNull()
 		{
 			Box box1;
@@ -226,11 +233,11 @@ namespace Brick_o_matic.Math.UnitTest
 			box1 = new Box(0, 0, 0, 1, 1, 1);
 
 			Assert.ThrowsException<ArgumentNullException>(() => box1.SplitWith(null).ToArray());
-		}
+		}//*/
 		
-		private static Box FindBox(IEnumerable<Box> Items,int X,int Y,int Z,int SizeX,int SizeY,int SizeZ)
+		private static Box FindBox(IEnumerable<Box> Items,int X,int Y,int Z,Vector Size)
 		{
-			return Items.FirstOrDefault(item => (item.X1 == X) && (item.Y1 == Y) && (item.Z1 == Z) && (item.SizeX == SizeX) && (item.SizeY == SizeY) && (item.SizeZ == SizeZ));
+			return Items.FirstOrDefault(item => (item.X1 == X) && (item.Y1 == Y) && (item.Z1 == Z) && (item.Size == Size) );
 		}
 
 		[TestMethod]
@@ -244,13 +251,13 @@ namespace Brick_o_matic.Math.UnitTest
 
 			splits = box1.SplitWith(box2).ToArray();
 			Assert.AreEqual(2, splits.Length);
-			Assert.IsNotNull(FindBox(splits, 0, 0, 0, 1, 1, 1));
-			Assert.IsNotNull(FindBox(splits, 3, 3, 3, 2, 2, 2));
+			Assert.IsNotNull(FindBox(splits, 0, 0, 0,new Vector( 1, 1, 1)));
+			Assert.IsNotNull(FindBox(splits, 3, 3, 3, new Vector(2, 2, 2)));
 
 			splits = box2.SplitWith(box1).ToArray();
 			Assert.AreEqual(2, splits.Length);
-			Assert.IsNotNull(FindBox(splits, 0, 0, 0, 1, 1, 1));
-			Assert.IsNotNull(FindBox(splits, 3, 3, 3, 2, 2, 2));
+			Assert.IsNotNull(FindBox(splits, 0, 0, 0, new Vector(1, 1, 1)));
+			Assert.IsNotNull(FindBox(splits, 3, 3, 3, new Vector(2, 2, 2)));
 		}
 
 		[TestMethod]
@@ -266,26 +273,26 @@ namespace Brick_o_matic.Math.UnitTest
 			Assert.AreEqual(15, splits.Length);
 			
 			// parts of box 1
-			Assert.IsNotNull(FindBox(splits, 0, 0, 0, 1, 1, 1));
-			Assert.IsNotNull(FindBox(splits, 1, 0, 0, 1, 1, 1));
-			Assert.IsNotNull(FindBox(splits, 0, 1, 0, 1, 1, 1));
-			Assert.IsNotNull(FindBox(splits, 1, 1, 0, 1, 1, 1));
+			Assert.IsNotNull(FindBox(splits, 0, 0, 0, new Vector(1, 1, 1)));
+			Assert.IsNotNull(FindBox(splits, 1, 0, 0, new Vector(1, 1, 1)));
+			Assert.IsNotNull(FindBox(splits, 0, 1, 0, new Vector(1, 1, 1)));
+			Assert.IsNotNull(FindBox(splits, 1, 1, 0, new Vector(1, 1, 1)));
 			
-			Assert.IsNotNull(FindBox(splits, 0, 0, 1, 1, 1, 1));
-			Assert.IsNotNull(FindBox(splits, 1, 0, 1, 1, 1, 1));
-			Assert.IsNotNull(FindBox(splits, 0, 1, 1, 1, 1, 1));
-			Assert.IsNotNull(FindBox(splits, 1, 1, 1, 1, 1, 1));	// intersection with box2
+			Assert.IsNotNull(FindBox(splits, 0, 0, 1, new Vector(1, 1, 1)));
+			Assert.IsNotNull(FindBox(splits, 1, 0, 1, new Vector(1, 1, 1)));
+			Assert.IsNotNull(FindBox(splits, 0, 1, 1, new Vector(1, 1, 1)));
+			Assert.IsNotNull(FindBox(splits, 1, 1, 1, new Vector(1, 1, 1)));	// intersection with box2
 
 			// parts of box 2
-			Assert.IsNotNull(FindBox(splits, 1, 1, 1, 1, 1, 1));    // intersection with box1
-			Assert.IsNotNull(FindBox(splits, 2, 1, 1, 1, 1, 1));
-			Assert.IsNotNull(FindBox(splits, 1, 2, 1, 1, 1, 1));
-			Assert.IsNotNull(FindBox(splits, 2, 2, 1, 1, 1, 1));
+			Assert.IsNotNull(FindBox(splits, 1, 1, 1, new Vector(1, 1, 1)));    // intersection with box1
+			Assert.IsNotNull(FindBox(splits, 2, 1, 1, new Vector(1, 1, 1)));
+			Assert.IsNotNull(FindBox(splits, 1, 2, 1, new Vector(1, 1, 1)));
+			Assert.IsNotNull(FindBox(splits, 2, 2, 1, new Vector(1, 1, 1)));
 
-			Assert.IsNotNull(FindBox(splits, 1, 1, 2, 1, 1, 1));
-			Assert.IsNotNull(FindBox(splits, 2, 1, 2, 1, 1, 1));
-			Assert.IsNotNull(FindBox(splits, 1, 2, 2, 1, 1, 1));
-			Assert.IsNotNull(FindBox(splits, 2, 2, 2, 1, 1, 1));
+			Assert.IsNotNull(FindBox(splits, 1, 1, 2, new Vector(1, 1, 1)));
+			Assert.IsNotNull(FindBox(splits, 2, 1, 2, new Vector(1, 1, 1)));
+			Assert.IsNotNull(FindBox(splits, 1, 2, 2, new Vector(1, 1, 1)));
+			Assert.IsNotNull(FindBox(splits, 2, 2, 2, new Vector(1, 1, 1)));
 		}
 
 		[TestMethod]
@@ -299,11 +306,11 @@ namespace Brick_o_matic.Math.UnitTest
 
 			splits = box1.SplitWith(box2).ToArray();
 			Assert.AreEqual(1, splits.Length);
-			Assert.IsNotNull(FindBox(splits, 0, 0, 0, 2, 2, 2));
+			Assert.IsNotNull(FindBox(splits, 0, 0, 0, new Vector(2, 2, 2)));
 
 			splits = box2.SplitWith(box1).ToArray();
 			Assert.AreEqual(1, splits.Length);
-			Assert.IsNotNull(FindBox(splits, 0, 0, 0, 2, 2, 2));
+			Assert.IsNotNull(FindBox(splits, 0, 0, 0, new Vector(2, 2, 2)));
 		}
 
 		[TestMethod]
@@ -318,16 +325,16 @@ namespace Brick_o_matic.Math.UnitTest
 			splits = box1.SplitWith(box2).ToArray();
 			Assert.AreEqual(3, splits.Length);
 
-			Assert.IsNotNull(FindBox(splits, 0, 0, 0, 1, 2, 2));
-			Assert.IsNotNull(FindBox(splits, 1, 0, 0, 1, 2, 2));
-			Assert.IsNotNull(FindBox(splits, 2, 0, 0, 1, 2, 2));
+			Assert.IsNotNull(FindBox(splits, 0, 0, 0, new Vector(1, 2, 2)));
+			Assert.IsNotNull(FindBox(splits, 1, 0, 0, new Vector(1, 2, 2)));
+			Assert.IsNotNull(FindBox(splits, 2, 0, 0, new Vector(1, 2, 2)));
 
 			splits = box2.SplitWith(box1).ToArray();
 			Assert.AreEqual(3, splits.Length);
 
-			Assert.IsNotNull(FindBox(splits, 0, 0, 0, 1, 2, 2));
-			Assert.IsNotNull(FindBox(splits, 1, 0, 0, 1, 2, 2));
-			Assert.IsNotNull(FindBox(splits, 2, 0, 0, 1, 2, 2));
+			Assert.IsNotNull(FindBox(splits, 0, 0, 0, new Vector(1, 2, 2)));
+			Assert.IsNotNull(FindBox(splits, 1, 0, 0, new Vector(1, 2, 2)));
+			Assert.IsNotNull(FindBox(splits, 2, 0, 0, new Vector(1, 2, 2)));
 		}
 
 
@@ -348,7 +355,7 @@ namespace Brick_o_matic.Math.UnitTest
 				{
 					for (int z = 0; z < 3; z++)
 					{
-						Assert.IsNotNull(FindBox(splits, x, y, z, 1, 1, 1));
+						Assert.IsNotNull(FindBox(splits, x, y, z, new Vector(1, 1, 1)));
 					}
 				}
 			}
@@ -361,7 +368,7 @@ namespace Brick_o_matic.Math.UnitTest
 				{
 					for (int z = 0; z < 3; z++)
 					{
-						Assert.IsNotNull(FindBox(splits, x, y, z, 1, 1, 1));
+						Assert.IsNotNull(FindBox(splits, x, y, z, new Vector(1, 1, 1)));
 					}
 				}
 			}
@@ -382,33 +389,33 @@ namespace Brick_o_matic.Math.UnitTest
 			Assert.AreEqual(19, splits.Length);
 
 			// parts of box 1
-			Assert.IsNotNull(FindBox(splits, 0, 0, 0, 1, 1, 1));
-			Assert.IsNotNull(FindBox(splits, 0, 0, 1, 1, 1, 1));
-			Assert.IsNotNull(FindBox(splits, 0, 0, 2, 1, 1, 1));
+			Assert.IsNotNull(FindBox(splits, 0, 0, 0, new Vector(1, 1, 1)));
+			Assert.IsNotNull(FindBox(splits, 0, 0, 1, new Vector(1, 1, 1)));
+			Assert.IsNotNull(FindBox(splits, 0, 0, 2, new Vector(1, 1, 1)));
 
-			Assert.IsNotNull(FindBox(splits, 1, 0, 0, 1, 1, 1));
-			Assert.IsNotNull(FindBox(splits, 1, 0, 1, 1, 1, 1));
-			Assert.IsNotNull(FindBox(splits, 1, 0, 2, 1, 1, 1));
+			Assert.IsNotNull(FindBox(splits, 1, 0, 0, new Vector(1, 1, 1)));
+			Assert.IsNotNull(FindBox(splits, 1, 0, 1, new Vector(1, 1, 1)));
+			Assert.IsNotNull(FindBox(splits, 1, 0, 2, new Vector(1, 1, 1)));
 
-			Assert.IsNotNull(FindBox(splits, 2, 0, 0, 1, 1, 1));
-			Assert.IsNotNull(FindBox(splits, 2, 0, 1, 1, 1, 1));
-			Assert.IsNotNull(FindBox(splits, 2, 0, 2, 1, 1, 1));
+			Assert.IsNotNull(FindBox(splits, 2, 0, 0, new Vector(1, 1, 1)));
+			Assert.IsNotNull(FindBox(splits, 2, 0, 1, new Vector(1, 1, 1)));
+			Assert.IsNotNull(FindBox(splits, 2, 0, 2, new Vector(1, 1, 1)));
 
-			Assert.IsNotNull(FindBox(splits, 0, 1, 0, 1, 1, 1));
-			Assert.IsNotNull(FindBox(splits, 0, 1, 1, 1, 1, 1));
-			Assert.IsNotNull(FindBox(splits, 0, 1, 2, 1, 1, 1));
+			Assert.IsNotNull(FindBox(splits, 0, 1, 0, new Vector(1, 1, 1)));
+			Assert.IsNotNull(FindBox(splits, 0, 1, 1, new Vector(1, 1, 1)));
+			Assert.IsNotNull(FindBox(splits, 0, 1, 2, new Vector(1, 1, 1)));
 
-			Assert.IsNotNull(FindBox(splits, 1, 1, 0, 1, 1, 1));
-			Assert.IsNotNull(FindBox(splits, 1, 1, 1, 1, 1, 1)); // intersection with box2
-			Assert.IsNotNull(FindBox(splits, 1, 1, 2, 1, 1, 1));
+			Assert.IsNotNull(FindBox(splits, 1, 1, 0, new Vector(1, 1, 1)));
+			Assert.IsNotNull(FindBox(splits, 1, 1, 1, new Vector(1, 1, 1))); // intersection with box2
+			Assert.IsNotNull(FindBox(splits, 1, 1, 2, new Vector(1, 1, 1)));
 
-			Assert.IsNotNull(FindBox(splits, 2, 1, 0, 1, 1, 1));
-			Assert.IsNotNull(FindBox(splits, 2, 1, 1, 1, 1, 1));
-			Assert.IsNotNull(FindBox(splits, 2, 1, 2, 1, 1, 1));
+			Assert.IsNotNull(FindBox(splits, 2, 1, 0, new Vector(1, 1, 1)));
+			Assert.IsNotNull(FindBox(splits, 2, 1, 1, new Vector(1, 1, 1)));
+			Assert.IsNotNull(FindBox(splits, 2, 1, 2, new Vector(1, 1, 1)));
 
 			// parts of box 2
-			Assert.IsNotNull(FindBox(splits, 1, 1, 1, 1, 1, 1));	// intersection with box1
-			Assert.IsNotNull(FindBox(splits, 1, 2, 1, 1, 1, 1));
+			Assert.IsNotNull(FindBox(splits, 1, 1, 1, new Vector(1, 1, 1)));	// intersection with box1
+			Assert.IsNotNull(FindBox(splits, 1, 2, 1, new Vector(1, 1, 1)));
 		}
 
 

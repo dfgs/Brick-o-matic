@@ -11,36 +11,21 @@ namespace Brick_o_matic.Math
         int X1
         {
             get;
-            set;
         }
         int Y1
         {
             get;
-            set;
         }
         int Z1
         {
             get;
-            set;
         }
 
-        int SizeX
-        {
+        Vector Size
+		{
             get;
-            set;
-        }
-
-        int SizeY
-        {
-            get;
-            set;
-        }
-
-        int SizeZ
-        {
-            get;
-            set;
-        }
+		}
+      
 
         int X2
         {

@@ -6,99 +6,76 @@ using System.Threading.Tasks;
 
 namespace Brick_o_matic.Math
 {
-    public class Box:IBox
+    public struct Box:IBox
     {
         public int X1
 		{
             get;
-            set;
 		}
         public int Y1
         {
             get;
-            set;
         }
         public int Z1
         {
             get;
-            set;
         }
 
-        private int sizeX = 1;
-        public int SizeX
-        {
-            get => sizeX;
-            set
-			{
-                if (value <= 0) throw new ArgumentException("Size X must be greater than 0");
-                sizeX = value;
-			}
+        public Vector Size
+		{
+            get;
+            private set;
         }
-
-        private int sizeY = 1;
-        public int SizeY
-        {
-            get => sizeY;
-            set
-            {
-                if (value <= 0) throw new ArgumentException("Size Y must be greater than 0");
-                sizeY = value;
-            }
-        }
-
-        private int sizeZ = 1 ;
-        public int SizeZ
-        {
-            get => sizeZ;
-            set
-            {
-                if (value <= 0) throw new ArgumentException("Size Z must be greater than 0");
-                sizeZ = value;
-            }
-        }
-
+              
         public int X2
 		{
-            get => X1 + SizeX - 1;
+            get => X1 + Size.X - 1;
 		}
         public int Y2
         {
-            get => Y1 + SizeY - 1;
+            get => Y1 + Size.Y - 1;
         }
         public int Z2
         {
-            get => Z1 + SizeZ - 1;
+            get => Z1 + Size.Z - 1;
         }
 
-        public Box()
-		{
-
-		}
+        
         public Box(int X1, int Y1, int Z1)
         {
-            this.X1 = X1; this.Y1 = Y1; this.Z1 = Z1;
+            this.X1 = X1; this.Y1 = Y1; this.Z1 = Z1;this.Size = new Vector(1, 1, 1);
         }
         public Box(int X1, int Y1, int Z1, int Size)
         {
             if (Size <= 0) throw new ArgumentException("Size must be greater than 0");
 
             this.X1 = X1; this.Y1 = Y1; this.Z1 = Z1;
-            this.sizeX = Size; this.sizeY = Size; this.sizeZ = Size;
+            this.Size = new Vector(Size, Size, Size);
         }
 
-        public Box(int X1,int Y1,int Z1,int SizeX,int SizeY,int SizeZ)
+        public Box(int X1, int Y1, int Z1, int SizeX, int SizeY, int SizeZ)
         {
             if (SizeX <= 0) throw new ArgumentException("Size X must be greater than 0");
             if (SizeY <= 0) throw new ArgumentException("Size Y must be greater than 0");
             if (SizeZ <= 0) throw new ArgumentException("Size Z must be greater than 0");
 
-            this.X1 = X1;this.Y1 = Y1;this.Z1 = Z1;
-            this.sizeX = SizeX;this.sizeY = SizeY;this.sizeZ = SizeZ;
+            this.X1 = X1; this.Y1 = Y1; this.Z1 = Z1;
+            this.Size = new Vector(SizeX, SizeY, SizeZ);
+        }
+
+        public Box(int X1, int Y1, int Z1, Vector Size)
+        {
+            if (Size.X <= 0) throw new ArgumentException("Size X must be greater than 0");
+            if (Size.Y <= 0) throw new ArgumentException("Size Y must be greater than 0");
+            if (Size.Z <= 0) throw new ArgumentException("Size Z must be greater than 0");
+
+            this.X1 = X1; this.Y1 = Y1; this.Z1 = Z1;
+            this.Size = Size;
         }
 
         public bool IntersectWith(Box OtherBox)
 		{
-            if (OtherBox == null) throw new ArgumentNullException(nameof(OtherBox));
+            //if (OtherBox == null) throw new ArgumentNullException(nameof(OtherBox));
 
             if ((OtherBox.X1 > X2) || (OtherBox.X2 < X1)) return false;
             if ((OtherBox.Y1 > Y2) || (OtherBox.Y2 < Y1)) return false;
@@ -124,7 +101,7 @@ namespace Brick_o_matic.Math
             int x1, y1, z1;
             int x2, y2, z2;
 
-            if (OtherBox == null) throw new ArgumentNullException(nameof(OtherBox));
+            //if (OtherBox == null) throw new ArgumentNullException(nameof(OtherBox));
 
             if (!IntersectWith(OtherBox))
             {
@@ -178,7 +155,7 @@ namespace Brick_o_matic.Math
 
 		public override string ToString()
 		{
-			return $"{X1},{Y1},{Z1}/{SizeX},{SizeY},{SizeZ}";
+			return $"{X1},{Y1},{Z1}/{Size.X},{Size.Y},{Size.Z}";
 		}
 
 
