@@ -7,14 +7,10 @@ using System.Threading.Tasks;
 
 namespace Brick_o_matic.Primitives
 {
-	public class Brick : IPrimitive
+	public class Brick : Primitive
 	{
 		
-		public Vector Position
-		{
-			get;
-			set;
-		}
+		
 
 		private Vector size;
 		public Vector Size
@@ -34,26 +30,20 @@ namespace Brick_o_matic.Primitives
 		{
 			this.size = new Vector(1, 1, 1);
 		}
-		public Brick(Vector Position)
+		public Brick(Vector Position):base(Position)
 		{
-			this.Position = Position;
 			this.size = new Vector(1, 1, 1);
 		}
-		public Brick(Vector Position, Vector Size)
+		public Brick(Vector Position, Vector Size) : base(Position)
 		{
 			if (Size.X <= 0) throw new ArgumentException("Size X must be greater than 0");
 			if (Size.Y <= 0) throw new ArgumentException("Size Y must be greater than 0");
 			if (Size.Z <= 0) throw new ArgumentException("Size Z must be greater than 0");
 
-			this.Position = Position;
 			this.size = Size;
 		}
-		public Box GetBoudingBox()
+		public override Box GetBoudingBox()
 		{
-			/*if (Size.X <= 0) throw new ArgumentException("Size X must be greater than 0");
-			if (Size.Y <= 0) throw new ArgumentException("Size Y must be greater than 0");
-			if (Size.Z <= 0) throw new ArgumentException("Size Z must be greater than 0");*/
-
 			return new Box(Position.X, Position.Y, Position.Z, Size);
 		}
 

@@ -41,7 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Part.cs" />
+    <Compile Include="Primitive.cs" />
     <Compile Include="Brick.cs" />
+    <Compile Include="IPart.cs" />
     <Compile Include="IPrimitive.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
