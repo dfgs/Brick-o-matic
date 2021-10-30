@@ -46,6 +46,10 @@ namespace Brick_o_matic.Primitives
 		{
 			return new Box(Position.X, Position.Y, Position.Z, Size);
 		}
+		public override IEnumerable<Brick> GetBricks()
+		{
+			yield return this;
+		}
 
 
 	}

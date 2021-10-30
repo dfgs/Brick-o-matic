@@ -1,6 +1,7 @@
 ﻿using Brick_o_matic.Math;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Linq;
 
 namespace Brick_o_matic.Primitives.UnitTest
 {
@@ -84,10 +85,20 @@ namespace Brick_o_matic.Primitives.UnitTest
 			Assert.AreEqual(3, box.Z1);
 			Assert.AreEqual(new Vector(5, 5, 5), box.Size);
 		}
+		[TestMethod]
+		public void ShouldGetBricks()
+		{
+			Brick b;
+			Brick[] items;
 
-		
+			b = new Brick();
+			items = b.GetBricks().ToArray();
+			Assert.AreEqual(1, items.Length);
+			Assert.AreEqual(b, items[0]);
+		}
 
 
 
+
+		}
 	}
-}

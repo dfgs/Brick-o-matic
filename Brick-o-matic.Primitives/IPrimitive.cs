@@ -16,6 +16,7 @@ namespace Brick_o_matic.Primitives
 
 		Box GetBoudingBox();
 
+		IEnumerable<Brick> GetBricks();
 
 	}
 }
