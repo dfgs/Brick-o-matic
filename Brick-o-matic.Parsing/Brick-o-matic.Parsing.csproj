@@ -42,11 +42,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Grammar.cs" />
+    <Compile Include="Setters\PartPositionSetter.cs" />
+    <Compile Include="Setters\IPartSetter.cs" />
+    <Compile Include="Setters\IBrickSetter.cs" />
+    <Compile Include="Setters\BrickSizeSetter.cs" />
     <Compile Include="Setters\SetterExtensions.cs" />
     <Compile Include="Setters\SetterGroup.cs" />
     <Compile Include="Setters\ISetter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Setters\PositionSetter.cs" />
+    <Compile Include="Setters\BrickPositionSetter.cs" />
     <Compile Include="Setters\Setter.cs" />
   </ItemGroup>
   <ItemGroup>

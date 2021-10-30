@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Brick_o_matic.Parsing.Setters
 {
-	public class PositionSetter : Setter<IPrimitive,Vector>
+	public class BrickPositionSetter : Setter<Brick, Vector>, IBrickSetter
 	{
 		
-		public PositionSetter(Vector Value) : base(Value)
+		public BrickPositionSetter(Vector Value) : base(Value)
 		{
 		}
 
-		public override IPrimitive Set(IPrimitive Component)
+		public override Brick Set(Brick Component)
 		{
 			Component.Position = Value;
 			return Component;
