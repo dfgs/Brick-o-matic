@@ -12,6 +12,7 @@ namespace Brick_o_matic.Primitives
 		Vector Position
 		{
 			get;
+			set;
 		}
 
 		Box GetBoudingBox();

@@ -39,35 +39,35 @@ namespace Brick_o_matic.Viewer
 			mesh = new MeshGeometry3D();
 
 			// front face
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(-0.5, -0.5, 0.5 * Item.Size.Z));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0.5 * Item.Size.X, -0.5, 0.5 * Item.Size.Z));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0.5 * Item.Size.X, 0.5 * Item.Size.Y, 0.5 * Item.Size.Z));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(-0.5, 0.5 * Item.Size.Y, 0.5 * Item.Size.Z));
+			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0, 0,  Item.Size.Z));
+			mesh.Positions.Add(Item.Position.ToPoint3D().Translate( Item.Size.X, 0,  Item.Size.Z));
+			mesh.Positions.Add(Item.Position.ToPoint3D().Translate( Item.Size.X,  Item.Size.Y,  Item.Size.Z));
+			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0,  Item.Size.Y,  Item.Size.Z));
 			// back face
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(-0.5, -0.5, -0.5));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0.5 * Item.Size.X, -0.5, -0.5));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0.5 * Item.Size.X, 0.5 * Item.Size.Y, -0.5));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(-0.5, 0.5 * Item.Size.Y, -0.5));
+			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0, 0, 0));
+			mesh.Positions.Add(Item.Position.ToPoint3D().Translate( Item.Size.X, 0, 0));
+			mesh.Positions.Add(Item.Position.ToPoint3D().Translate( Item.Size.X,  Item.Size.Y, 0));
+			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0,  Item.Size.Y, 0));
 			// left face
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(-0.5, -0.5, 0.5 * Item.Size.Z));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(-0.5, 0.5 * Item.Size.Y, 0.5 * Item.Size.Z));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(-0.5, 0.5 * Item.Size.Y, -0.5));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(-0.5, -0.5, -0.5));
+			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0, 0,  Item.Size.Z));
+			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0,  Item.Size.Y,  Item.Size.Z));
+			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0,  Item.Size.Y, 0));
+			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0, 0, 0));
 			// right face
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0.5 * Item.Size.X, -0.5, 0.5 * Item.Size.Z));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0.5 * Item.Size.X, 0.5 * Item.Size.Y, 0.5));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0.5 * Item.Size.X, 0.5 * Item.Size.Y, -0.5));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0.5 * Item.Size.X, -0.5, -0.5));
+			mesh.Positions.Add(Item.Position.ToPoint3D().Translate( Item.Size.X, 0,  Item.Size.Z));
+			mesh.Positions.Add(Item.Position.ToPoint3D().Translate( Item.Size.X,  Item.Size.Y, Item.Size.Z));
+			mesh.Positions.Add(Item.Position.ToPoint3D().Translate( Item.Size.X,  Item.Size.Y, 0));
+			mesh.Positions.Add(Item.Position.ToPoint3D().Translate( Item.Size.X, 0, 0));
 			// top face
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(-0.5, 0.5 * Item.Size.Y, 0.5 * Item.Size.Z));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(-0.5, 0.5 * Item.Size.Y, -0.5));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0.5 * Item.Size.X, 0.5 * Item.Size.Y, -0.5));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0.5 * Item.Size.X, 0.5 * Item.Size.Y, 0.5 * Item.Size.Z));
+			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0,  Item.Size.Y,  Item.Size.Z));
+			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0,  Item.Size.Y, 0));
+			mesh.Positions.Add(Item.Position.ToPoint3D().Translate( Item.Size.X,  Item.Size.Y, 0));
+			mesh.Positions.Add(Item.Position.ToPoint3D().Translate( Item.Size.X,  Item.Size.Y,  Item.Size.Z));
 			// bottom face
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(-0.5, -0.5, 0.5 * Item.Size.Z));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(-0.5, -0.5, -0.5));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0.5 * Item.Size.X, -0.5, -0.5));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0.5 * Item.Size.X, -0.5, 0.5 * Item.Size.Z));
+			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0, 0,  Item.Size.Z));
+			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0, 0, 0));
+			mesh.Positions.Add(Item.Position.ToPoint3D().Translate( Item.Size.X, 0, 0));
+			mesh.Positions.Add(Item.Position.ToPoint3D().Translate( Item.Size.X, 0,  Item.Size.Z));
 
 			// front face
 			mesh.Normals.Add(new Vector3D(0, 0, 1));
@@ -168,12 +168,12 @@ namespace Brick_o_matic.Viewer
 			Brick b2;
 
 
-			b1 = new Brick(new Math.Vector(), new Math.Vector(2, 1, 1));
-			b2 = new Brick(new Math.Vector(0,-1,0), new Math.Vector(1, 1, 1));
+			b1 = new Brick(new Math.Vector(-1, 0, 0), new Math.Vector(1, 1, 2));
+			b2 = new Brick(new Math.Vector(0,0,0), new Math.Vector(1, 1, 1));
 
 			camera = new PerspectiveCamera();
 			camera.LookDirection = new Vector3D(0, 0, -1);
-			camera.Position= new Point3D(0, 0, 20);
+			camera.Position= new Point3D(0, 3, 20);
 
 			modelVisual = CreateModelVisual(new IPrimitive[] {b1,b2 });
 			viewport.Children.Clear();

@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6626CADA-23D2-4363-A2C8-31A582C2DDC1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Brick_o_matic.Parsing</RootNamespace>
+    <AssemblyName>Brick-o-matic.Parsing</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Grammar.cs" />
+    <Compile Include="Setters\SetterExtensions.cs" />
+    <Compile Include="Setters\SetterGroup.cs" />
+    <Compile Include="Setters\ISetter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Setters\PositionSetter.cs" />
+    <Compile Include="Setters\Setter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ParserLib\ParserLib\ParserLib.csproj">
+      <Project>{1902999e-4c85-4302-a6cd-6c1fabc80895}</Project>
+      <Name>ParserLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Brick-o-matic.Math\Brick-o-matic.Math.csproj">
+      <Project>{dc7a215c-d662-4664-9400-8d93d677de1d}</Project>
+      <Name>Brick-o-matic.Math</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Brick-o-matic.Primitives\Brick-o-matic.Primitives.csproj">
+      <Project>{43c68275-cb05-44d2-9d80-81624b5da9bc}</Project>
+      <Name>Brick-o-matic.Primitives</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
