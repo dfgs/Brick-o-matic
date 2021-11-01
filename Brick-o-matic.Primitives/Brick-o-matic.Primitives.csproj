@@ -41,6 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BoxGeometry.cs" />
+    <Compile Include="CSG.cs" />
+    <Compile Include="Difference.cs" />
+    <Compile Include="ICSG.cs" />
+    <Compile Include="Model.cs" />
     <Compile Include="Part.cs" />
     <Compile Include="Primitive.cs" />
     <Compile Include="Brick.cs" />

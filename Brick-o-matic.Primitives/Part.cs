@@ -18,7 +18,7 @@ namespace Brick_o_matic.Primitives
 		}
 
 		private List<IPrimitive> items;
-		public List<IPrimitive> Items
+		public IEnumerable<IPrimitive> Items
 		{
 			get => items;
 		}
@@ -28,37 +28,32 @@ namespace Brick_o_matic.Primitives
 		{
 			items = new List<IPrimitive>();
 		}
-		public Part(Vector Position):base(Position)
+		public Part(Position Position):base(Position)
 		{
 			items = new List<IPrimitive>();
 		}
-
-
-		public override Box GetBoudingBox()
+		public void Add(IPrimitive Child)
 		{
-			int X1=int.MaxValue, Y1 = int.MaxValue, Z1 = int.MaxValue, X2 = int.MinValue, Y2= int.MinValue, Z2= int.MinValue;
-			Box childBox;
+			if (Child == null) throw new ArgumentNullException(nameof(Child));
+			items.Add(Child);
+		}
 
-			if (Count == 0) return new Box(Position.X, Position.Y, Position.Z, 1);
+		public override Model Build()
+		{
+			List<BoxGeometry> geometryItems;
 
-			foreach (IPrimitive item in items)
+			geometryItems = new List<BoxGeometry>();
+			foreach(IPrimitive item in this.items)
 			{
-				childBox = item.GetBoudingBox();
-				if (childBox.X1 < X1) X1 = childBox.X1;
-				if (childBox.Y1 < Y1) Y1 = childBox.Y1;
-				if (childBox.Z1 < Z1) Z1 = childBox.Z1;
-				if (childBox.X2 > X2) X2 = childBox.X2;
-				if (childBox.Y2 > Y2) Y2 = childBox.Y2;
-				if (childBox.Z2 > Z2) Z2 = childBox.Z2;
+				foreach(BoxGeometry childGeometry in item.Build().Items)
+				{
+					geometryItems.Add(new BoxGeometry(childGeometry.Position + Position, childGeometry.Size, childGeometry.Color));
+				}
 			}
 
-			return new Box(X1+Position.X, Y1 + Position.Y, Z1 + Position.Z, X2 - X1 + 1, Y2 - Y1 + 1, Z2 - Z1 + 1);
-
+			return new Model(geometryItems.ToArray());
 		}
-		public override IEnumerable<Brick> GetBricks()
-		{
-			return items.SelectMany(item=>item.GetBricks());
-		}
+		
 
 	}
 }

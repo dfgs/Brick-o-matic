@@ -9,8 +9,8 @@ namespace Brick_o_matic.Primitives
 {
 	public abstract class Primitive : IPrimitive
 	{
-		
-		public Vector Position
+
+		public Position Position
 		{
 			get;
 			set;
@@ -21,12 +21,11 @@ namespace Brick_o_matic.Primitives
 		{
 
 		}
-		public Primitive(Vector Position)
+		public Primitive(Position Position)
 		{
 			this.Position = Position;
 		}
 
-		public abstract Box GetBoudingBox();
-		public abstract IEnumerable<Brick> GetBricks();
+		public abstract Model Build();
 	}
 }

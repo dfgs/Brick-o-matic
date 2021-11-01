@@ -8,26 +8,21 @@ namespace Brick_o_matic.Math
 {
     public struct Box:IBox
     {
-        public int X1
+        public Position Position
 		{
             get;
+            private set;
 		}
-        public int Y1
-        {
-            get;
-        }
-        public int Z1
-        {
-            get;
-        }
+            
+        
 
-        public Vector Size
+        public Size Size
 		{
             get;
             private set;
         }
               
-        public int X2
+        /*public int X2
 		{
             get => X1 + Size.X - 1;
 		}
@@ -38,58 +33,40 @@ namespace Brick_o_matic.Math
         public int Z2
         {
             get => Z1 + Size.Z - 1;
+        }*/
+       
+
+        public Box(Position Position)
+        {
+            this.Position=Position;this.Size = new Size(1, 1, 1);
+        }
+         
+        public Box(Position Position, Size Size)
+        {
+            this.Position = Position;
+            this.Size = Size;
         }
 
         
-        public Box(int X1, int Y1, int Z1)
-        {
-            this.X1 = X1; this.Y1 = Y1; this.Z1 = Z1;this.Size = new Vector(1, 1, 1);
-        }
-        public Box(int X1, int Y1, int Z1, int Size)
-        {
-            if (Size <= 0) throw new ArgumentException("Size must be greater than 0");
-
-            this.X1 = X1; this.Y1 = Y1; this.Z1 = Z1;
-            this.Size = new Vector(Size, Size, Size);
-        }
-
-        public Box(int X1, int Y1, int Z1, int SizeX, int SizeY, int SizeZ)
-        {
-            if (SizeX <= 0) throw new ArgumentException("Size X must be greater than 0");
-            if (SizeY <= 0) throw new ArgumentException("Size Y must be greater than 0");
-            if (SizeZ <= 0) throw new ArgumentException("Size Z must be greater than 0");
-
-            this.X1 = X1; this.Y1 = Y1; this.Z1 = Z1;
-            this.Size = new Vector(SizeX, SizeY, SizeZ);
-        }
-
-        public Box(int X1, int Y1, int Z1, Vector Size)
-        {
-            if (Size.X <= 0) throw new ArgumentException("Size X must be greater than 0");
-            if (Size.Y <= 0) throw new ArgumentException("Size Y must be greater than 0");
-            if (Size.Z <= 0) throw new ArgumentException("Size Z must be greater than 0");
-
-            this.X1 = X1; this.Y1 = Y1; this.Z1 = Z1;
-            this.Size = Size;
-        }
 
         public bool IntersectWith(Box OtherBox)
 		{
             //if (OtherBox == null) throw new ArgumentNullException(nameof(OtherBox));
-
-            if ((OtherBox.X1 > X2) || (OtherBox.X2 < X1)) return false;
-            if ((OtherBox.Y1 > Y2) || (OtherBox.Y2 < Y1)) return false;
-            if ((OtherBox.Z1 > Z2) || (OtherBox.Z2 < Z1)) return false;
+            if ((Size.IsFlat) || (OtherBox.Size.IsFlat)) return false;
+            
+            if ((OtherBox.Position.X >= Position.X + Size.X) || (OtherBox.Position.X + OtherBox.Size.X <= Position.X)) return false;
+            if ((OtherBox.Position.Y >= Position.Y + Size.Y) || (OtherBox.Position.Y + OtherBox.Size.Y <= Position.Y)) return false;
+            if ((OtherBox.Position.Z >= Position.Z + Size.Z) || (OtherBox.Position.Z + OtherBox.Size.Z <= Position.Z)) return false;
             
             return true;
         }
 
-        public bool IsInside(Vector Coordinate)
+        public bool IsInside(Position Coordinate)
         {
 
-            if ((Coordinate.X > X2) || (Coordinate.X < X1)) return false;
-            if ((Coordinate.Y > Y2) || (Coordinate.Y < Y1)) return false;
-            if ((Coordinate.Z > Z2) || (Coordinate.Z < Z1)) return false;
+            if ((Coordinate.X >= Position.X + Size.X) || (Coordinate.X < Position.X)) return false;
+            if ((Coordinate.Y >= Position.Y + Size.Y) || (Coordinate.Y < Position.Y)) return false;
+            if ((Coordinate.Z >= Position.Z + Size.Z) || (Coordinate.Z < Position.Z)) return false;
 
             return true;
         }
@@ -101,12 +78,11 @@ namespace Brick_o_matic.Math
             int x1, y1, z1;
             int x2, y2, z2;
 
-            //if (OtherBox == null) throw new ArgumentNullException(nameof(OtherBox));
-
+           			
             if (!IntersectWith(OtherBox))
             {
-                yield return this;
-                yield return OtherBox;
+                if (!Size.IsFlat) yield return this;
+                if (!OtherBox.Size.IsFlat) yield return OtherBox;
                 yield break;
             }
 
@@ -115,14 +91,14 @@ namespace Brick_o_matic.Math
             zs = new List<int>();
 
 
-            xs.Add(this.X1); xs.Add(this.X2 + 1);
-            xs.Add(OtherBox.X1); xs.Add(OtherBox.X2 + 1);
+            xs.Add(this.Position.X); xs.Add(this.Position.X+Size.X );
+            xs.Add(OtherBox.Position.X); xs.Add(OtherBox.Position.X+ OtherBox.Size.X );
 
-            ys.Add(this.Y1); ys.Add(this.Y2 + 1);
-            ys.Add(OtherBox.Y1); ys.Add(OtherBox.Y2 + 1);
+            ys.Add(this.Position.Y); ys.Add(this.Position.Y+Size.Y );
+            ys.Add(OtherBox.Position.Y); ys.Add(OtherBox.Position.Y+ OtherBox.Size.Y );
 
-            zs.Add(this.Z1); zs.Add(this.Z2 + 1);
-            zs.Add(OtherBox.Z1); zs.Add(OtherBox.Z2 + 1);
+            zs.Add(this.Position.Z); zs.Add(this.Position.Z+Size.Z );
+            zs.Add(OtherBox.Position.Z); zs.Add(OtherBox.Position.Z+ OtherBox.Size.Z );
 
             xs.Sort();ys.Sort();zs.Sort();
 
@@ -137,7 +113,7 @@ namespace Brick_o_matic.Math
 
                         if ((x1 == x2) || (y1 == y2) || (z1 == z2)) continue;
 
-                        newBox = new Box(x1, y1, z1, x2 - x1 , y2 - y1 , z2 - z1 );
+                        newBox = new Box(new Position(x1,y1,z1), new Size(x2 - x1 , y2 - y1 , z2 - z1) );
                         if (this.IntersectWith(newBox) || OtherBox.IntersectWith(newBox)) yield return newBox;
                     }
                 }
@@ -155,7 +131,7 @@ namespace Brick_o_matic.Math
 
 		public override string ToString()
 		{
-			return $"{X1},{Y1},{Z1}/{Size.X},{Size.Y},{Size.Z}";
+			return $"{Position}/{Size}";
 		}
 
 

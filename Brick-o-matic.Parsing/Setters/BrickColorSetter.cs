@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace Brick_o_matic.Parsing.Setters
 {
-	public class BrickPositionSetter : Setter<Brick, Position>, IBrickSetter
+	public class BrickColorSetter : Setter<Brick,Color>, IBrickSetter
 	{
 		
-		public BrickPositionSetter(Position Value) : base(Value)
+		public BrickColorSetter(Color Value) : base(Value)
 		{
 		}
 
 		public override Brick Set(Brick Component)
 		{
-			Component.Position = Value;
+			Component.Color = Value;
 			return Component;
 		}
 	}

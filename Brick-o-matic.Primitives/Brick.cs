@@ -11,46 +11,33 @@ namespace Brick_o_matic.Primitives
 	{
 		
 		
-
-		private Vector size;
-		public Vector Size
+		public Size Size
 		{
-			get => size;
-			set
-			{
-				if (value.X <= 0) throw new ArgumentException("Size X must be greater than 0");
-				if (value.Y <= 0) throw new ArgumentException("Size Y must be greater than 0");
-				if (value.Z <= 0) throw new ArgumentException("Size Z must be greater than 0");
-				this.size = value;
-			}
-
+			get;
+			set;
+		}
+		public Color Color
+		{
+			get;
+			set;
 		}
 
 		public Brick()
 		{
-			this.size = new Vector(1, 1, 1);
+			this.Size = new Size(1, 1, 1);this.Color = new Color(255, 0, 0);
 		}
-		public Brick(Vector Position):base(Position)
+		public Brick(Position Position):base(Position)
 		{
-			this.size = new Vector(1, 1, 1);
+			this.Size = new Size(1, 1, 1); this.Color = new Color(255, 0, 0);
 		}
-		public Brick(Vector Position, Vector Size) : base(Position)
+		public Brick(Position Position, Size Size) : base(Position)
 		{
-			if (Size.X <= 0) throw new ArgumentException("Size X must be greater than 0");
-			if (Size.Y <= 0) throw new ArgumentException("Size Y must be greater than 0");
-			if (Size.Z <= 0) throw new ArgumentException("Size Z must be greater than 0");
-
-			this.size = Size;
-		}
-		public override Box GetBoudingBox()
-		{
-			return new Box(Position.X, Position.Y, Position.Z, Size);
-		}
-		public override IEnumerable<Brick> GetBricks()
-		{
-			yield return this;
+			this.Size = Size; this.Color = new Color(255, 0, 0);
 		}
 
-
+		public override Model Build()
+		{
+			return new Model(new BoxGeometry(Position,Size,Color));
+		}
 	}
 }

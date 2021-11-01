@@ -18,5 +18,7 @@ namespace Brick_o_matic.Primitives
 		{
 			get;
 		}
+
+		void Add(IPrimitive Child);
 	}
 }

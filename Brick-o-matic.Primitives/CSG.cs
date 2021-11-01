@@ -7,15 +7,18 @@ using System.Threading.Tasks;
 
 namespace Brick_o_matic.Primitives
 {
-	public interface IPrimitive
+	public abstract class CSG : Primitive, ICSG
 	{
-		Position Position
+		public IPrimitive A
 		{
 			get;
 			set;
 		}
-
-		Model Build();
+		public IPrimitive B 
+		{
+			get;
+			set;
+		}
 
 	}
 }

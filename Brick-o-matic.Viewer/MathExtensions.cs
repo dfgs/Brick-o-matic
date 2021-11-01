@@ -10,7 +10,7 @@ namespace Brick_o_matic.Viewer
 {
     public static class MathExtensions
     {
-        public static Point3D ToPoint3D(this Vector Vector)
+        public static Point3D ToPoint3D(this Position Vector)
         {
             return new Point3D(Vector.X, Vector.Y, Vector.Z);
         }

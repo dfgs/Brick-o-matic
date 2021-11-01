@@ -11,14 +11,14 @@ namespace Brick_o_matic.Viewer
 {
 	public static class GeometryUtils
 	{
-		public static GeometryModel3D CreateGeometryModel(Brick Item)
+		public static GeometryModel3D CreateGeometryModel(BoxGeometry Item)
 		{
 			DiffuseMaterial material;
 			GeometryModel3D model;
 			MeshGeometry3D mesh;
 
 			material = new DiffuseMaterial();
-			material.Brush = new SolidColorBrush(Colors.Red);
+			material.Brush = new SolidColorBrush(Color.FromArgb(255,Item.Color.R,Item.Color.G,Item.Color.B));
 
 
 			mesh = new MeshGeometry3D();
@@ -111,14 +111,14 @@ namespace Brick_o_matic.Viewer
 
 			return model;
 		}
-		public static IEnumerable<GeometryModel3D> CreateGeometryModels(IPrimitive Item)
+		public static IEnumerable<GeometryModel3D> CreateGeometryModels(Model Model)
 		{
-			foreach (Brick item in Item.GetBricks())
+			foreach (BoxGeometry item in Model.Items)
 			{
 				yield return CreateGeometryModel(item);
 			}
 		}
-		public static ModelVisual3D CreateModelVisual(Part Part)
+		public static ModelVisual3D CreateModelVisual(Model Model)
 		{
 			ModelVisual3D modelVisual;
 			Model3DGroup group;
@@ -126,12 +126,12 @@ namespace Brick_o_matic.Viewer
 
 			light = new DirectionalLight();
 			light.Color = Colors.White;
-			light.Direction = new Vector3D(-0.5, -0.5, -1);
+			light.Direction = new Vector3D(0.5, -1, -0.30);
 
 			group = new Model3DGroup();
 			group.Children.Add(light);
 
-			foreach (GeometryModel3D model in CreateGeometryModels(Part))
+			foreach (GeometryModel3D model in CreateGeometryModels(Model))
 			{
 				group.Children.Add(model);
 			}

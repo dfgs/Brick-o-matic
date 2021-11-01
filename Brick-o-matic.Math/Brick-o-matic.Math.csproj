@@ -45,7 +45,8 @@
     <Compile Include="IBox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Color.cs" />
-    <Compile Include="Vector.cs" />
+    <Compile Include="Size.cs" />
+    <Compile Include="Position.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

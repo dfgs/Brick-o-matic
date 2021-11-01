@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace Brick_o_matic.Parsing.Setters
 {
-	public class PartPositionSetter : Setter<Part, Vector>, IPartSetter
+	public class PartPositionSetter : Setter<Part, Position>, IPartSetter
 	{
 		
-		public PartPositionSetter(Vector Value) : base(Value)
+		public PartPositionSetter(Position Value) : base(Value)
 		{
 		}
 

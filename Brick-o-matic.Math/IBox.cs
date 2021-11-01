@@ -8,26 +8,29 @@ namespace Brick_o_matic.Math
 {
 	public interface IBox
 	{
-        int X1
+        /* int X1
+         {
+             get;
+         }
+         int Y1
+         {
+             get;
+         }
+         int Z1
+         {
+             get;
+         }*/
+        Position Position
         {
             get;
         }
-        int Y1
-        {
-            get;
-        }
-        int Z1
-        {
-            get;
-        }
-
-        Vector Size
+        Size Size
 		{
             get;
 		}
       
 
-        int X2
+        /*int X2
         {
             get;
         }
@@ -38,10 +41,10 @@ namespace Brick_o_matic.Math
         int Z2
         {
             get;
-        }
+        }*/
 
         bool IntersectWith(Box Other);
-        bool IsInside(Vector Coordinate);
+        bool IsInside(Position Coordinate);
 
         IEnumerable<Box> SplitWith(Box Other);
 

@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace Brick_o_matic.Parsing.Setters
 {
-	public class BrickSizeSetter : Setter<Brick,Vector>, IBrickSetter
+	public class BrickSizeSetter : Setter<Brick, Size>, IBrickSetter
 	{
 		
-		public BrickSizeSetter(Vector Value) : base(Value)
+		public BrickSizeSetter(Size Value) : base(Value)
 		{
 		}
 

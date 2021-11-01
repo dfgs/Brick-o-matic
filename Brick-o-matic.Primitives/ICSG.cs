@@ -7,15 +7,19 @@ using System.Threading.Tasks;
 
 namespace Brick_o_matic.Primitives
 {
-	public interface IPrimitive
+	public interface ICSG:IPrimitive
 	{
-		Position Position
+		IPrimitive A
+		{
+			get;
+			set;
+		}
+		IPrimitive B
 		{
 			get;
 			set;
 		}
 
-		Model Build();
 
 	}
 }
