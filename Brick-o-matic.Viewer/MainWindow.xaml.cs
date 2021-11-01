@@ -1,19 +1,8 @@
-﻿using Brick_o_matic.Primitives;
+﻿using Brick_o_matic.Viewer.ViewModels;
+using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Media.Media3D;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Brick_o_matic.Viewer
 {
@@ -22,163 +11,98 @@ namespace Brick_o_matic.Viewer
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		private ProjectsViewModel projects;
+
 		public MainWindow()
 		{
+			projects = new ProjectsViewModel();
 			InitializeComponent();
+			DataContext = projects;
 		}
-		private GeometryModel3D CreateGeometryModel(Brick Item)
+
+		private void Try(Action Action)
 		{
-			DiffuseMaterial material;
-			GeometryModel3D model;
-			MeshGeometry3D mesh;
-
-			material = new DiffuseMaterial();
-			material.Brush = new SolidColorBrush(Colors.Red);
-
-
-			mesh = new MeshGeometry3D();
-
-			// front face
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0, 0,  Item.Size.Z));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate( Item.Size.X, 0,  Item.Size.Z));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate( Item.Size.X,  Item.Size.Y,  Item.Size.Z));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0,  Item.Size.Y,  Item.Size.Z));
-			// back face
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0, 0, 0));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate( Item.Size.X, 0, 0));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate( Item.Size.X,  Item.Size.Y, 0));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0,  Item.Size.Y, 0));
-			// left face
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0, 0,  Item.Size.Z));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0,  Item.Size.Y,  Item.Size.Z));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0,  Item.Size.Y, 0));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0, 0, 0));
-			// right face
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate( Item.Size.X, 0,  Item.Size.Z));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate( Item.Size.X,  Item.Size.Y, Item.Size.Z));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate( Item.Size.X,  Item.Size.Y, 0));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate( Item.Size.X, 0, 0));
-			// top face
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0,  Item.Size.Y,  Item.Size.Z));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0,  Item.Size.Y, 0));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate( Item.Size.X,  Item.Size.Y, 0));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate( Item.Size.X,  Item.Size.Y,  Item.Size.Z));
-			// bottom face
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0, 0,  Item.Size.Z));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate(0, 0, 0));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate( Item.Size.X, 0, 0));
-			mesh.Positions.Add(Item.Position.ToPoint3D().Translate( Item.Size.X, 0,  Item.Size.Z));
-
-			// front face
-			mesh.Normals.Add(new Vector3D(0, 0, 1));
-			mesh.Normals.Add(new Vector3D(0, 0, 1));
-			mesh.Normals.Add(new Vector3D(0, 0, 1));
-			mesh.Normals.Add(new Vector3D(0, 0, 1));
-			// back face
-			mesh.Normals.Add(new Vector3D(0, 0, -1));
-			mesh.Normals.Add(new Vector3D(0, 0, -1));
-			mesh.Normals.Add(new Vector3D(0, 0, -1));
-			mesh.Normals.Add(new Vector3D(0, 0, -1));
-			// left face
-			mesh.Normals.Add(new Vector3D(-1, 0, 0));
-			mesh.Normals.Add(new Vector3D(-1, 0, 0));
-			mesh.Normals.Add(new Vector3D(-1, 0, 0));
-			mesh.Normals.Add(new Vector3D(-1, 0, 0));
-			// right face
-			mesh.Normals.Add(new Vector3D(1, 0, 0));
-			mesh.Normals.Add(new Vector3D(1, 0, 0));
-			mesh.Normals.Add(new Vector3D(1, 0, 0));
-			mesh.Normals.Add(new Vector3D(1, 0, 0));
-			// top face
-			mesh.Normals.Add(new Vector3D(0, 1, 0));
-			mesh.Normals.Add(new Vector3D(0, 1, 0));
-			mesh.Normals.Add(new Vector3D(0, 1, 0));
-			mesh.Normals.Add(new Vector3D(0, 1, 0));
-			// bottom face
-			mesh.Normals.Add(new Vector3D(0, -1, 0));
-			mesh.Normals.Add(new Vector3D(0, -1, 0));
-			mesh.Normals.Add(new Vector3D(0, -1, 0));
-			mesh.Normals.Add(new Vector3D(0, -1, 0));
-
-
-			// front face
-			mesh.TriangleIndices.Add(0); mesh.TriangleIndices.Add(1); mesh.TriangleIndices.Add(3);
-			mesh.TriangleIndices.Add(1); mesh.TriangleIndices.Add(2); mesh.TriangleIndices.Add(3);
-			// back face
-			mesh.TriangleIndices.Add(4); mesh.TriangleIndices.Add(7); mesh.TriangleIndices.Add(5);
-			mesh.TriangleIndices.Add(5); mesh.TriangleIndices.Add(7); mesh.TriangleIndices.Add(6);
-			// left face
-			mesh.TriangleIndices.Add(8); mesh.TriangleIndices.Add(9); mesh.TriangleIndices.Add(11);
-			mesh.TriangleIndices.Add(9); mesh.TriangleIndices.Add(10); mesh.TriangleIndices.Add(11);
-			// right face
-			mesh.TriangleIndices.Add(12); mesh.TriangleIndices.Add(15); mesh.TriangleIndices.Add(13);
-			mesh.TriangleIndices.Add(13); mesh.TriangleIndices.Add(15); mesh.TriangleIndices.Add(14);
-			// top face
-			mesh.TriangleIndices.Add(16); mesh.TriangleIndices.Add(18); mesh.TriangleIndices.Add(17);
-			mesh.TriangleIndices.Add(16); mesh.TriangleIndices.Add(19); mesh.TriangleIndices.Add(18);
-			// bottom face
-			mesh.TriangleIndices.Add(20); mesh.TriangleIndices.Add(21); mesh.TriangleIndices.Add(23);
-			mesh.TriangleIndices.Add(21); mesh.TriangleIndices.Add(22); mesh.TriangleIndices.Add(23);
-
-			model = new GeometryModel3D();
-			model.Material = material;
-			model.Geometry = mesh;
-
-			return model;
-		}
-		private IEnumerable<GeometryModel3D> CreateGeometryModels(IPrimitive Item)
-		{
-			foreach(Brick item in Item.GetBricks())
+			try
 			{
-				yield return CreateGeometryModel(item);
+				Action();
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show(ex.Message,"Error");
 			}
 		}
-		private ModelVisual3D CreateModelVisual(IEnumerable<IPrimitive> Items)
+
+
+		private void NewCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
 		{
-			ModelVisual3D modelVisual;
-			Model3DGroup group;
-			DirectionalLight light;
+			e.CanExecute = true; e.Handled = true;
+		}
 
-			light = new DirectionalLight();
-			light.Color = Colors.White;
-			light.Direction = new Vector3D(-0.5, -0.5, -1);
+		private void NewCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			Try(() => projects.AddNew());
+		}
+		private void OpenCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = true; e.Handled = true;
+		}
 
-			group = new Model3DGroup();
-			group.Children.Add(light);
+		private void OpenCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			OpenFileDialog dialog;
 
-			foreach (IPrimitive item in Items)
+			dialog = new OpenFileDialog();
+			dialog.Filter = "Brick files|*.brk|All files|*.*";
+			dialog.Title = "Open project";
+			dialog.DefaultExt = "brk";
+			if (dialog.ShowDialog(this)??false)
 			{
-				foreach(GeometryModel3D model in CreateGeometryModels(item))
-				{
-					group.Children.Add(model);
-				}
+				Try(() => projects.Open(dialog.FileName));
 			}
-
-
-			modelVisual = new ModelVisual3D();
-			modelVisual.Content = group;
-
-			return modelVisual;
+			
 		}
-		private void Window_Loaded(object sender, RoutedEventArgs e)
+		private void SaveAsCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
 		{
-			ModelVisual3D modelVisual;
-			PerspectiveCamera camera;
-			Brick b1;
-			Brick b2;
-
-
-			b1 = new Brick(new Math.Vector(-1, 0, 0), new Math.Vector(1, 1, 2));
-			b2 = new Brick(new Math.Vector(0,0,0), new Math.Vector(1, 1, 1));
-
-			camera = new PerspectiveCamera();
-			camera.LookDirection = new Vector3D(0, 0, -1);
-			camera.Position= new Point3D(0, 3, 20);
-
-			modelVisual = CreateModelVisual(new IPrimitive[] {b1,b2 });
-			viewport.Children.Clear();
-			viewport.Camera = camera;
-			viewport.Children.Add(modelVisual);
+			e.CanExecute = (projects.SelectedItem!=null); e.Handled = true;
 		}
+
+		private void SaveAsCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			SaveFileDialog dialog;
+
+			dialog = new SaveFileDialog();
+			dialog.Filter = "Brick files|*.brk|All files|*.*";
+			dialog.Title = "Save project as";
+			dialog.DefaultExt = "brk";
+			if (dialog.ShowDialog(this) ?? false)
+			{
+				Try(() => projects.SelectedItem.SaveAs(dialog.FileName));
+			}
+		}
+		private void SaveCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = ((projects.SelectedItem != null) && (projects.SelectedItem.FileName != null)); e.Handled = true;
+		}
+
+		private void SaveCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			Try(() => projects.SelectedItem.Save());
+		}
+
+		private void BuildCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = (projects.SelectedItem != null) ; e.Handled = true;
+		}
+
+		private void BuildCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			Try(() => projects.SelectedItem.Build());
+		}
+
+		
+		
+
+
+		
 	}
 }
