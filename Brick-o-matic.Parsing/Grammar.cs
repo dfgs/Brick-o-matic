@@ -71,6 +71,21 @@ namespace Brick_o_matic.Parsing
         public static IParser<IPartSetter> PartSetter = PartPositionSetter;
         public static IParser<IEnumerable<IPartSetter>> PartSetters = PartSetter.ZeroOrMoreTimes();
 
+        // CSG setters
+        public static IParser<CSGASetter> CSGASetter =
+            from _ in Parse.String("A:")
+            from value in Brick
+            select new CSGASetter(value);
+
+        public static IParser<CSGBSetter> CSGBSetter =
+            from _ in Parse.String("B:")
+            from value in Brick
+            select new CSGBSetter(value);
+
+        public static IParser<ICSGSetter> CSGSetter = CSGASetter.Or<ICSGSetter>(CSGBSetter);
+        public static IParser<IEnumerable<ICSGSetter>> CSGSetters = CSGSetter.ZeroOrMoreTimes();
+
+
         // Primitives
         public static IParser<Brick> Brick =
             from _ in Parse.String("Brick")
@@ -86,7 +101,15 @@ namespace Brick_o_matic.Parsing
              from ___ in Parse.Char(')')
              select new Part().Set(setters);
 
-        public static IParser<IPrimitive> Primitive = Brick.Or<IPrimitive>(Part);
+        public static IParser<ICSG> Difference =
+            from _ in Parse.String("Difference")
+            from __ in Parse.Char('(')
+            from setters in CSGSetters
+            from ___ in Parse.Char(')')
+            select new Difference().Set(setters);
+
+
+        public static IParser<IPrimitive> Primitive = Brick.Or<IPrimitive>(Part).Or<IPrimitive>(Difference);
         public static IParser<IEnumerable<IPrimitive>> Primitives = Primitive.OneOrMoreTimes();
 
     }

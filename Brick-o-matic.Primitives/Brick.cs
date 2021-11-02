@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Brick_o_matic.Primitives
 {
-	public class Brick : Primitive
+	public class Brick : Primitive, IBox
 	{
 		
 		

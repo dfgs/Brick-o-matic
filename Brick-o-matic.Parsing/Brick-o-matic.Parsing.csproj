@@ -44,6 +44,9 @@
     <Compile Include="Grammar.cs" />
     <Compile Include="PrimitiveReader.cs" />
     <Compile Include="Setters\BrickColorSetter.cs" />
+    <Compile Include="Setters\CSGBSetter.cs" />
+    <Compile Include="Setters\CSGASetter.cs" />
+    <Compile Include="Setters\ICSGSetter.cs" />
     <Compile Include="Setters\PartPositionSetter.cs" />
     <Compile Include="Setters\IPartSetter.cs" />
     <Compile Include="Setters\IBrickSetter.cs" />

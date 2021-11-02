@@ -88,7 +88,27 @@ namespace Brick_o_matic.Parsing.UnitTest
 
 		}
 
+		// CSG Setters
+		[TestMethod]
+		public void ShouldParseCSGASetter()
+		{
+			CSGASetter setter;
 
+			setter = Grammar.CSGASetter.Parse("A:Brick()", ' ');
+			Assert.IsNotNull(setter);
+			Assert.IsTrue( setter.Value is Brick);
+
+		}
+		[TestMethod]
+		public void ShouldParseCSGBSetter()
+		{
+			CSGBSetter setter;
+
+			setter = Grammar.CSGBSetter.Parse("B:Brick()", ' ');
+			Assert.IsNotNull(setter);
+			Assert.IsTrue(setter.Value is Brick);
+
+		}
 
 
 		// Primitives
@@ -133,17 +153,23 @@ namespace Brick_o_matic.Parsing.UnitTest
 			Assert.IsNotNull(p);
 			Assert.AreEqual(new Position(1, 2, 3), p.Position);
 
-			/*b = Grammar.Brick.Parse("Brick(Size:(1,2,3))", ' ');
-			Assert.IsNotNull(b);
-			Assert.AreEqual(new Vector(1, 2, 3), b.Size);
-
-			b = Grammar.Brick.Parse("Brick(Size:(1,2,3) Position:(3,2,1))", ' ');
-			Assert.IsNotNull(b);
-			Assert.AreEqual(new Vector(1, 2, 3), b.Size);
-			Assert.AreEqual(new Vector(3, 2, 1), b.Position);*/
 		}
 
+		[TestMethod]
+		public void ShouldParseDifference()
+		{
+			ICSG p;
 
+			p = Grammar.Difference.Parse("Difference()", ' ');
+			Assert.IsNotNull(p);
+
+			p = Grammar.Difference.Parse("Difference(A:Brick() B:Brick())", ' ');
+			Assert.IsNotNull(p);
+			Assert.IsNotNull(p.A);
+			Assert.IsNotNull(p.B);
+			Assert.IsTrue(p.A is Brick);
+			Assert.IsTrue(p.B is Brick);
+		}
 		[TestMethod]
 		public void ShouldParsePrimitives()
 		{

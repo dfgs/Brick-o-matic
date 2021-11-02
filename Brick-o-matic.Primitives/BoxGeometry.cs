@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Brick_o_matic.Primitives
 {
-    public struct BoxGeometry
+    public struct BoxGeometry:IBox
     {
        public Position Position
 		{

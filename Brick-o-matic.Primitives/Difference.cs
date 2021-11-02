@@ -16,14 +16,30 @@ namespace Brick_o_matic.Primitives
 		public override Model Build()
 		{
 			Model modelA, modelB;
+			List<BoxGeometry> items;
 
 			if ((A == null) || (B == null)) return new Model();
 
 			modelA = A.Build();
 			modelB = B.Build();
 
-			return new Model();
+			items = new List<BoxGeometry>();
+			foreach(BoxGeometry boxGeometry in modelA.Items)
+			{
+				if (!boxGeometry.IntersectWith(modelB.BoundingBox))
+				{
+					items.Add(boxGeometry);
+					continue;
+				}
+				foreach(Box item in boxGeometry.SplitWith(modelB.BoundingBox))
+				{
+					if (item.IntersectWith(modelB.BoundingBox)) continue;
+					items.Add(new BoxGeometry(item.Position,item.Size,boxGeometry.Color));
+				}
 
+			}
+
+			return new Model(items.ToArray());
 		}
 
 

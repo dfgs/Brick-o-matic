@@ -49,6 +49,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IBoxExtensionUnitTest.cs" />
     <Compile Include="ColorUnitTest.cs" />
     <Compile Include="SizeUnitTest.cs" />
     <Compile Include="PositionUnitTest.cs" />

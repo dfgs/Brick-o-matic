@@ -8,18 +8,7 @@ namespace Brick_o_matic.Math
 {
 	public interface IBox
 	{
-        /* int X1
-         {
-             get;
-         }
-         int Y1
-         {
-             get;
-         }
-         int Z1
-         {
-             get;
-         }*/
+       
         Position Position
         {
             get;
@@ -30,23 +19,8 @@ namespace Brick_o_matic.Math
 		}
       
 
-        /*int X2
-        {
-            get;
-        }
-        int Y2
-        {
-            get;
-        }
-        int Z2
-        {
-            get;
-        }*/
 
-        bool IntersectWith(Box Other);
-        bool IsInside(Position Coordinate);
-
-        IEnumerable<Box> SplitWith(Box Other);
+     
 
     }
 }
