@@ -55,7 +55,7 @@ namespace Part_o_matic.Primitives.UnitTest
 
 			part = new Part(new Position(1,2,3));
 			Assert.IsNotNull(part);
-			box = part.GetBoundingBox();
+			box = part.GetBoundingBox(new Scene());
 			Assert.AreEqual(1, box.Position.X);
 			Assert.AreEqual(2, box.Position.Y);
 			Assert.AreEqual(3, box.Position.Z);
@@ -73,7 +73,7 @@ namespace Part_o_matic.Primitives.UnitTest
 			Assert.IsNotNull(part);
 			b = new Brick(new Position(-1, -2, -3), new Size(1, 1, 1));
 			part.Add(b);
-			box = part.GetBoundingBox();
+			box = part.GetBoundingBox(new Scene());
 			Assert.AreEqual(-1, box.Position.X);
 			Assert.AreEqual(-2, box.Position.Y);
 			Assert.AreEqual(-3, box.Position.Z);
@@ -83,7 +83,7 @@ namespace Part_o_matic.Primitives.UnitTest
 			Assert.IsNotNull(part);
 			b = new Brick(new Position(-1, -2, -3), new Size(1, 1, 1));
 			part.Add(b);
-			box = part.GetBoundingBox();
+			box = part.GetBoundingBox(new Scene());
 			Assert.AreEqual(0, box.Position.X);
 			Assert.AreEqual(0, box.Position.Y);
 			Assert.AreEqual(0, box.Position.Z);
@@ -95,7 +95,7 @@ namespace Part_o_matic.Primitives.UnitTest
 			part.Add(b);
 			b = new Brick(new Position(1, 2, 3), new Size(1, 1, 1));
 			part.Add(b);
-			box = part.GetBoundingBox();
+			box = part.GetBoundingBox(new Scene());
 			Assert.AreEqual(-1, box.Position.X);
 			Assert.AreEqual(-2, box.Position.Y);
 			Assert.AreEqual(-3, box.Position.Z);
@@ -107,7 +107,7 @@ namespace Part_o_matic.Primitives.UnitTest
 			part.Add(b);
 			b = new Brick(new Position(1, 2, 3), new Size(2, 2, 2));
 			part.Add(b);
-			box = part.GetBoundingBox();
+			box = part.GetBoundingBox(new Scene());
 			Assert.AreEqual(-1, box.Position.X);
 			Assert.AreEqual(-2, box.Position.Y);
 			Assert.AreEqual(-3, box.Position.Z);
@@ -135,7 +135,7 @@ namespace Part_o_matic.Primitives.UnitTest
 			part.Add(b1);
 			part.Add(b2);
 
-			box = part.GetBoundingBox();
+			box = part.GetBoundingBox(new Scene());
 			Assert.AreEqual(-1, box.Position.X);
 			Assert.AreEqual(-1, box.Position.Y);
 			Assert.AreEqual(-1, box.Position.Z);

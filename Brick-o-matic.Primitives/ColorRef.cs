@@ -30,6 +30,8 @@ namespace Brick_o_matic.Primitives
 			ISceneObject resource;
 			Color color;
 
+			if (Scene == null) throw new ArgumentNullException(nameof(Scene));
+
 			resource = Scene.GetResource(Name);
 			if (!(resource is  Color)) throw new InvalidOperationException($"Reference to color {Name} was not found");
 			color = (Color)resource;

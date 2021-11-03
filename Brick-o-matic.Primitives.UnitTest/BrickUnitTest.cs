@@ -71,7 +71,7 @@ namespace Brick_o_matic.Primitives.UnitTest
 			Box box;
 
 			b = new Brick(new Position(1, 2, 3), new Size(5, 5, 5));
-			box = b.GetBoundingBox();
+			box = b.GetBoundingBox(new Scene());
 			Assert.AreEqual(new Position(1, 2, 3), box.Position);
 			Assert.AreEqual(new Size(5, 5, 5), box.Size);
 

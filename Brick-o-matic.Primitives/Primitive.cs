@@ -25,7 +25,7 @@ namespace Brick_o_matic.Primitives
 		{
 			this.Position = Position;
 		}
-		public abstract Box GetBoundingBox();
+		public abstract Box GetBoundingBox(IScene Scene);
 
 		public abstract IEnumerable<Brick> Build(IScene Scene);
 	}

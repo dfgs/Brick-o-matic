@@ -34,14 +34,20 @@ namespace Brick_o_matic.Primitives
 		{
 			this.Size = Size; this.Color = new Color(255, 0, 0);
 		}
-
-		public override Box GetBoundingBox()
+		public Brick(Position Position, Size Size,IColor Color) : base(Position)
 		{
+			this.Size = Size; this.Color = Color;
+		}
+
+		public override Box GetBoundingBox(IScene Scene)
+		{
+			if (Scene == null) throw new ArgumentNullException(nameof(Scene));
 			return new Box(Position, Size);
 		}
 
 		public override IEnumerable<Brick> Build(IScene Scene)
 		{
+			if (Scene == null) throw new ArgumentNullException(nameof(Scene));
 			yield return this;
 		}
 	}

@@ -64,7 +64,7 @@ namespace Brick_o_matic.Primitives
 
 			foreach (IPrimitive item in this.items)
 			{
-				childBox = item.GetBoundingBox();
+				childBox = item.GetBoundingBox(this);
 				minX = System.Math.Min(minX, childBox.Position.X);
 				minY = System.Math.Min(minY, childBox.Position.Y);
 				minZ = System.Math.Min(minZ, childBox.Position.Z);

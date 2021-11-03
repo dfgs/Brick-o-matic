@@ -37,17 +37,19 @@ namespace Brick_o_matic.Primitives
 			items.Add(Child);
 		}
 
-		public override Box GetBoundingBox()
+		public override Box GetBoundingBox(IScene Scene)
 		{
 			int minX=int.MaxValue, minY = int.MaxValue, minZ = int.MaxValue;
 			int maxX = int.MinValue, maxY = int.MinValue, maxZ = int.MinValue;
 			Box childBox;
 
+			if (Scene == null) throw new ArgumentNullException(nameof(Scene));
+
 			if (Count == 0) return new Box(Position, new Size());
 			
 			foreach (IPrimitive item in this.items)
 			{
-				childBox = item.GetBoundingBox();
+				childBox = item.GetBoundingBox(Scene);
 				minX = System.Math.Min(minX, childBox.Position.X);
 				minY = System.Math.Min(minY, childBox.Position.Y);
 				minZ = System.Math.Min(minZ, childBox.Position.Z);
@@ -63,12 +65,13 @@ namespace Brick_o_matic.Primitives
 
 		public override IEnumerable<Brick> Build(IScene Scene)
 		{
-			
-			foreach(IPrimitive item in this.items)
+
+			if (Scene == null) throw new ArgumentNullException(nameof(Scene));
+			foreach (IPrimitive item in this.items)
 			{
 				foreach(Brick brick in item.Build(Scene))
 				{
-					yield return new Brick(this.Position + brick.Position, brick.Size);
+					yield return new Brick(this.Position + brick.Position, brick.Size,brick.Color);
 				}
 			}
 
