@@ -39,6 +39,60 @@ namespace Brick_o_matic.Primitives.UnitTest
 			}
 		}
 
+		[TestMethod]
+		public void ShouldNotIntersectIfOtherBoxIsFlat()
+		{
+			BoxGeometry box1, box2;
+
+			box1 = new BoxGeometry(new Position(0, 0, 0), new Size(1, 1, 1),new Color());
+			box2 = new BoxGeometry(new Position(0, 0, 0), new Size(0, 1, 1), new Color());
+			Assert.IsFalse(box1.IntersectWith(box2));
+			Assert.IsFalse(box2.IntersectWith(box1));
+		}
+
+		[TestMethod]
+		public void ShouldNotIntersect()
+		{
+			BoxGeometry box1, box2;
+
+			box1 = new BoxGeometry(new Position(0, 0, 0), new Size(1, 1, 1), new Color());
+			box2 = new BoxGeometry(new Position(1, 0, 0), new Size(1, 1, 1), new Color());
+			Assert.IsFalse(box1.IntersectWith(box2));
+			Assert.IsFalse(box2.IntersectWith(box1));
+		}
+		[TestMethod]
+		public void ShouldIntersect()
+		{
+			BoxGeometry box1, box2;
+
+			box1 = new BoxGeometry(new Position(0, 0, 0), new Size(5, 1, 1), new Color());
+			box2 = new BoxGeometry(new Position(4, 0, 0), new Size(5, 1, 1), new Color());
+			Assert.IsTrue(box1.IntersectWith(box2));
+			Assert.IsTrue(box2.IntersectWith(box1));
+
+			box1 = new BoxGeometry(new Position(0, 0, 0), new Size(1, 5, 1), new Color());
+			box2 = new BoxGeometry(new Position(0, 4, 0), new Size(1, 5, 1), new Color());
+			Assert.IsTrue(box1.IntersectWith(box2));
+			Assert.IsTrue(box2.IntersectWith(box1));
+
+			box1 = new BoxGeometry(new Position(0, 0, 0), new Size(1, 1, 5), new Color());
+			box2 = new BoxGeometry(new Position(0, 0, 4), new Size(1, 1, 5), new Color());
+			Assert.IsTrue(box1.IntersectWith(box2));
+			Assert.IsTrue(box2.IntersectWith(box1));
+
+			box1 = new BoxGeometry(new Position(0, 0, 0), new Size(5, 5, 5), new Color());
+			box2 = new BoxGeometry(new Position(4, 4, 4), new Size(5, 5, 5), new Color());
+			Assert.IsTrue(box1.IntersectWith(box2));
+			Assert.IsTrue(box2.IntersectWith(box1));
+
+
+			box1 = new BoxGeometry(new Position(0, 0, 0), new Size(5, 5, 5), new Color());
+			box2 = new BoxGeometry(new Position(2, 2, 2), new Size(1, 1, 1), new Color());
+			Assert.IsTrue(box1.IntersectWith(box2));
+			Assert.IsTrue(box2.IntersectWith(box1));
+
+		}
+
 		#region split with plane X
 
 		[TestMethod]
@@ -449,7 +503,7 @@ namespace Brick_o_matic.Primitives.UnitTest
 
 		
 		[TestMethod]
-		public void ShouldSplitWhenBoxGeometriesIntersect_AlignedBarShape()
+		public void ShouldSplitWhenBoxGeometriesIntersect_AlignedBarShapeX()
 		{
 			BoxGeometry box1, box2;
 			BoxGeometry[] splits;
@@ -473,9 +527,58 @@ namespace Brick_o_matic.Primitives.UnitTest
 			// parts of box 2
 			Assert.IsTrue(FindBoxGeometry(splits, new Position(2, 0, 0), new Size(1, 1, 1), red, blue, blue, blue, blue, blue));
 		}
+		[TestMethod]
+		public void ShouldSplitWhenBoxGeometriesIntersect_AlignedBarShapeY()
+		{
+			BoxGeometry box1, box2;
+			BoxGeometry[] splits;
+			Color blue, red;
 
+			blue = new Color(0, 0, 255);
+			red = new Color(255, 0, 0);
+			box1 = new BoxGeometry(new Position(0, 0, 0), new Size(1, 2, 1), red);
+			box2 = new BoxGeometry(new Position(0, 1, 0), new Size(1, 2, 1), blue);
 
-		
+			splits = box1.SplitWith(box2).ToArray();
+			Assert.AreEqual(4, splits.Length);
+
+			// parts of box 1
+			Assert.IsTrue(FindBoxGeometry(splits, new Position(0, 0, 0), new Size(1, 1, 1), red, red, red, blue, red, red));
+
+			// intersections 
+			Assert.IsTrue(FindBoxGeometry(splits, new Position(0, 1, 0), new Size(1, 1, 1), red, red, red, red, red, red));
+			Assert.IsTrue(FindBoxGeometry(splits, new Position(0, 1, 0), new Size(1, 1, 1), blue, blue, blue, blue, blue, blue));
+
+			// parts of box 2
+			Assert.IsTrue(FindBoxGeometry(splits, new Position(0, 2, 0), new Size(1, 1, 1), blue, blue, red, blue, blue, blue));
+		}
+
+		[TestMethod]
+		public void ShouldSplitWhenBoxGeometriesIntersect_AlignedBarShapeZ()
+		{
+			BoxGeometry box1, box2;
+			BoxGeometry[] splits;
+			Color blue, red;
+
+			blue = new Color(0, 0, 255);
+			red = new Color(255, 0, 0);
+			box1 = new BoxGeometry(new Position(0, 0, 0), new Size(1, 1, 2), red);
+			box2 = new BoxGeometry(new Position(0, 0, 1), new Size(1, 1, 2), blue);
+
+			splits = box1.SplitWith(box2).ToArray();
+			Assert.AreEqual(4, splits.Length);
+
+			// parts of box 1
+			Assert.IsTrue(FindBoxGeometry(splits, new Position(0, 0, 0), new Size(1, 1, 1), red, red, red, red, red, blue));
+
+			// intersections 
+			Assert.IsTrue(FindBoxGeometry(splits, new Position(0, 0, 1), new Size(1, 1, 1), red, red, red, red, red, red));
+			Assert.IsTrue(FindBoxGeometry(splits, new Position(0, 0, 1), new Size(1, 1, 1), blue, blue, blue, blue, blue, blue));
+
+			// parts of box 2
+			Assert.IsTrue(FindBoxGeometry(splits, new Position(0, 0, 2), new Size(1, 1, 1), blue, blue, blue, blue, red, blue));
+		}
+
 		[TestMethod]
 		public void ShouldSplitWhenBoxGeometriesIntersect_StairShape()
 		{
@@ -485,21 +588,21 @@ namespace Brick_o_matic.Primitives.UnitTest
 
 			blue = new Color(0, 0, 255);
 			red = new Color(255, 0, 0);
-			box1 = new BoxGeometry(new Position(0, 0, 0), new Size(2, 2, 2), red);
-			box2 = new BoxGeometry(new Position(1, 1, 1), new Size(2, 2, 2), blue);
+			box1 = new BoxGeometry(new Position(0, 0, 0), new Size(2, 2, 1), red);
+			box2 = new BoxGeometry(new Position(1, 1, 0), new Size(2, 2, 1), blue);
 
 			splits = box1.SplitWith(box2).ToArray();
-			Assert.AreEqual(12, splits.Length);
+			Assert.AreEqual(6, splits.Length);
 
 			// parts of box 1
-			Assert.IsTrue(FindBoxGeometry(splits, new Position(0, 0, 0), new Size(1, 1, 1), red, blue, red, red, red, red));
+			Assert.IsTrue(FindBoxGeometry(splits, new Position(0, 0, 0), new Size(1, 2, 1), red, blue, red, red, red, red));
 
 			// intersections 
-			Assert.IsTrue(FindBoxGeometry(splits, new Position(1, 0, 0), new Size(1, 1, 1), red, red, red, red, red, red));
-			Assert.IsTrue(FindBoxGeometry(splits, new Position(1, 0, 0), new Size(1, 1, 1), blue, blue, blue, blue, blue, blue));
+			Assert.IsTrue(FindBoxGeometry(splits, new Position(1, 1, 0), new Size(1, 1, 1), red, red, red, red, red, red));
+			Assert.IsTrue(FindBoxGeometry(splits, new Position(1, 1, 0), new Size(1, 1, 1), blue, blue, blue, blue, blue, blue));
 
 			// parts of box 2
-			Assert.IsTrue(FindBoxGeometry(splits, new Position(2, 0, 0), new Size(1, 1, 1), red, blue, blue, blue, blue, blue));
+			Assert.IsTrue(FindBoxGeometry(splits, new Position(2, 1, 0), new Size(1, 2, 1), red, blue, blue, blue, blue, blue));
 
 		}
 		/*

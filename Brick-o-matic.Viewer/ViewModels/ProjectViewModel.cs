@@ -144,7 +144,7 @@ namespace Brick_o_matic.Viewer.ViewModels
 
 			
 			center=new Vector3D(model.BoundingBox.Position.X + model.BoundingBox.Size.X * 0.5f, model.BoundingBox.Position.Y + model.BoundingBox.Size.Y * 0.5f, model.BoundingBox.Position.Z + model.BoundingBox.Size.Z * 0.5f);
-			zoom = System.Math.Max(System.Math.Max(model.BoundingBox.Size.X, model.BoundingBox.Size.Y), model.BoundingBox.Size.Z)*10;
+			zoom = System.Math.Max(System.Math.Max(model.BoundingBox.Size.X, model.BoundingBox.Size.Y), model.BoundingBox.Size.Z)*5;
 			direction = new Vector3D(zoom, -zoom, -zoom);
 			
 			this.ModelVisual = GeometryUtils.CreateModelVisual(model);

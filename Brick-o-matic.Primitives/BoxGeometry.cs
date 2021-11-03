@@ -82,6 +82,19 @@ namespace Brick_o_matic.Primitives
         }
 
 
+        public bool IntersectWith(BoxGeometry Other)
+        {
+            if ((this.IsFlat) || (Other.IsFlat)) return false;
+            if (
+                (this.NegativeX.Position >= Other.PositiveX.Position) ||
+                (this.PositiveX.Position <= Other.NegativeX.Position) ||
+                (this.NegativeY.Position >= Other.PositiveY.Position) ||
+                (this.PositiveY.Position <= Other.NegativeY.Position) ||
+                (this.NegativeZ.Position >= Other.PositiveZ.Position) ||
+                (this.PositiveZ.Position <= Other.NegativeZ.Position)) return false;
+            return true;
+        }
+
 
         public bool SplitWithPlane(Plane Plane, out BoxGeometry PartA,out BoxGeometry PartB)
         {
@@ -154,8 +167,6 @@ namespace Brick_o_matic.Primitives
 
             return true;
          }
-
-
  
 		public IEnumerable<BoxGeometry> SplitWith(BoxGeometry Other)
         {
@@ -173,15 +184,16 @@ namespace Brick_o_matic.Primitives
             t = 0;
             while (t<thisCandidates.Count)
 			{
-                foreach(Plane plane in Other.Planes)
-				{
+                foreach (Plane plane in Other.Planes)
+                {
                     if (thisCandidates[t].SplitWithPlane(plane, out partA, out partB))
-					{
+                    {
                         thisCandidates.RemoveAt(t);
                         thisCandidates.Add(partA);
                         thisCandidates.Add(partB);
-					}
-				}
+                        if (!thisCandidates[t].IntersectWith(Other)) break;
+                    }
+                }
                 t++;
 			}
 
@@ -197,6 +209,7 @@ namespace Brick_o_matic.Primitives
                         otherCandidates.RemoveAt(t);
                         otherCandidates.Add(partA);
                         otherCandidates.Add(partB);
+                        if (!otherCandidates[t].IntersectWith(this)) break;
                     }
                 }
                 t++;

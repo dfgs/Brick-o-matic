@@ -32,9 +32,11 @@ namespace Brick_o_matic.Primitives
 				candidates = results;results = new List<BoxGeometry>();
 				foreach (BoxGeometry candidate in candidates )
 				{
+					if (!candidate.IntersectWith(boxGeometryB)) continue;
 					foreach (BoxGeometry split in candidate.SplitWith(boxGeometryB))
 					{
-						//if (item.IntersectWith(modelB.BoundingBox)) continue;
+						if (split.IntersectWith(boxGeometryB)) 
+							continue;
 						results.Add(split);
 					}
 				}

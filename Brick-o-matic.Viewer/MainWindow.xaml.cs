@@ -55,6 +55,7 @@ namespace Brick_o_matic.Viewer
 			dialog.Filter = "Brick files|*.brk|All files|*.*";
 			dialog.Title = "Open project";
 			dialog.DefaultExt = "brk";
+			
 			if (dialog.ShowDialog(this)??false)
 			{
 				Try(() => projects.Open(dialog.FileName));
@@ -74,6 +75,7 @@ namespace Brick_o_matic.Viewer
 			dialog.Filter = "Brick files|*.brk|All files|*.*";
 			dialog.Title = "Save project as";
 			dialog.DefaultExt = "brk";
+			dialog.FileName = projects.SelectedItem.FileName;
 			if (dialog.ShowDialog(this) ?? false)
 			{
 				Try(() => projects.SelectedItem.SaveAs(dialog.FileName));
