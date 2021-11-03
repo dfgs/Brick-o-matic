@@ -11,32 +11,32 @@ namespace Brick_o_matic.Viewer
 {
 	public static class GeometryUtils
 	{
-		public static IEnumerable<GeometryModel3D> CreateGeometryModels(BoxGeometry Item)
+		public static IEnumerable<GeometryModel3D> CreateGeometryModels(Brick Brick)
 		{
 			DiffuseMaterial positiveX,negativeX, positiveY, negativeY, positiveZ, negativeZ;
 			GeometryModel3D model;
 			MeshGeometry3D mesh;
 			
 			positiveX = new DiffuseMaterial();
-			positiveX.Brush = new SolidColorBrush(Color.FromArgb(255, Item.PositiveX.Color.R, Item.PositiveX.Color.G, Item.PositiveX.Color.B));
+			positiveX.Brush = new SolidColorBrush(Color.FromArgb(255, Brick.Color.R, Brick.Color.G, Brick.Color.B));// new SolidColorBrush(Color.FromArgb(255, Brick.PositiveX.Color.R, Brick.PositiveX.Color.G, Brick.PositiveX.Color.B));
 			negativeX = new DiffuseMaterial();
-			negativeX.Brush = new SolidColorBrush(Color.FromArgb(255, Item.NegativeX.Color.R, Item.NegativeX.Color.G, Item.NegativeX.Color.B));
+			negativeX.Brush = new SolidColorBrush(Color.FromArgb(255, Brick.Color.R, Brick.Color.G, Brick.Color.B));//new SolidColorBrush(Color.FromArgb(255, Brick.NegativeX.Color.R, Brick.NegativeX.Color.G, Brick.NegativeX.Color.B));
 			positiveY = new DiffuseMaterial();
-			positiveY.Brush = new SolidColorBrush(Color.FromArgb(255, Item.PositiveY.Color.R, Item.PositiveY.Color.G, Item.PositiveY.Color.B));
+			positiveY.Brush = new SolidColorBrush(Color.FromArgb(255, Brick.Color.R, Brick.Color.G, Brick.Color.B));//new SolidColorBrush(Color.FromArgb(255, Brick.PositiveY.Color.R, Brick.PositiveY.Color.G, Brick.PositiveY.Color.B));
 			negativeY = new DiffuseMaterial();
-			negativeY.Brush = new SolidColorBrush(Color.FromArgb(255, Item.NegativeY.Color.R, Item.NegativeY.Color.G, Item.NegativeY.Color.B));
+			negativeY.Brush = new SolidColorBrush(Color.FromArgb(255, Brick.Color.R, Brick.Color.G, Brick.Color.B));//new SolidColorBrush(Color.FromArgb(255, Brick.NegativeY.Color.R, Brick.NegativeY.Color.G, Brick.NegativeY.Color.B));
 			positiveZ = new DiffuseMaterial();
-			positiveZ.Brush = new SolidColorBrush(Color.FromArgb(255, Item.PositiveZ.Color.R, Item.PositiveZ.Color.G, Item.PositiveZ.Color.B));
+			positiveZ.Brush = new SolidColorBrush(Color.FromArgb(255, Brick.Color.R, Brick.Color.G, Brick.Color.B));//new SolidColorBrush(Color.FromArgb(255, Brick.PositiveZ.Color.R, Brick.PositiveZ.Color.G, Brick.PositiveZ.Color.B));
 			negativeZ = new DiffuseMaterial();
-			negativeZ.Brush = new SolidColorBrush(Color.FromArgb(255, Item.NegativeZ.Color.R, Item.NegativeZ.Color.G, Item.NegativeZ.Color.B));
+			negativeZ.Brush = new SolidColorBrush(Color.FromArgb(255, Brick.Color.R, Brick.Color.G, Brick.Color.B));// new SolidColorBrush(Color.FromArgb(255, Brick.NegativeZ.Color.R, Brick.NegativeZ.Color.G, Brick.NegativeZ.Color.B));
 
 
 			mesh = new MeshGeometry3D();
 			// front face
-			mesh.Positions.Add(new Point3D(Item.NegativeX.Position,Item.NegativeY.Position,Item.PositiveZ.Position));
-			mesh.Positions.Add(new Point3D(Item.PositiveX.Position, Item.NegativeY.Position, Item.PositiveZ.Position));
-			mesh.Positions.Add(new Point3D(Item.PositiveX.Position, Item.PositiveY.Position, Item.PositiveZ.Position));
-			mesh.Positions.Add(new Point3D(Item.NegativeX.Position, Item.PositiveY.Position, Item.PositiveZ.Position));
+			mesh.Positions.Add(new Point3D(Brick.Position.X,Brick.Position.Y,Brick.Position.Z+Brick.Size.Z));
+			mesh.Positions.Add(new Point3D(Brick.Position.X+Brick.Size.X, Brick.Position.Y, Brick.Position.Z+Brick.Size.Z));
+			mesh.Positions.Add(new Point3D(Brick.Position.X+Brick.Size.X, Brick.Position.Y+Brick.Size.Y, Brick.Position.Z+Brick.Size.Z));
+			mesh.Positions.Add(new Point3D(Brick.Position.X, Brick.Position.Y+Brick.Size.Y, Brick.Position.Z+Brick.Size.Z));
 			// front face
 			mesh.Normals.Add(new Vector3D(0, 0, 1));
 			mesh.Normals.Add(new Vector3D(0, 0, 1));
@@ -54,10 +54,10 @@ namespace Brick_o_matic.Viewer
 
 			mesh = new MeshGeometry3D();
 			// back face
-			mesh.Positions.Add(new Point3D(Item.NegativeX.Position, Item.NegativeY.Position, Item.NegativeZ.Position));
-			mesh.Positions.Add(new Point3D(Item.PositiveX.Position, Item.NegativeY.Position, Item.NegativeZ.Position));
-			mesh.Positions.Add(new Point3D(Item.PositiveX.Position, Item.PositiveY.Position, Item.NegativeZ.Position));
-			mesh.Positions.Add(new Point3D(Item.NegativeX.Position, Item.PositiveY.Position, Item.NegativeZ.Position));
+			mesh.Positions.Add(new Point3D(Brick.Position.X, Brick.Position.Y, Brick.Position.Z));
+			mesh.Positions.Add(new Point3D(Brick.Position.X+Brick.Size.X, Brick.Position.Y, Brick.Position.Z));
+			mesh.Positions.Add(new Point3D(Brick.Position.X+Brick.Size.X, Brick.Position.Y+Brick.Size.Y, Brick.Position.Z));
+			mesh.Positions.Add(new Point3D(Brick.Position.X, Brick.Position.Y+Brick.Size.Y, Brick.Position.Z));
 			// back face
 			mesh.Normals.Add(new Vector3D(0, 0, -1));
 			mesh.Normals.Add(new Vector3D(0, 0, -1));
@@ -75,10 +75,10 @@ namespace Brick_o_matic.Viewer
 
 			mesh = new MeshGeometry3D();
 			// left face
-			mesh.Positions.Add(new Point3D(Item.NegativeX.Position, Item.NegativeY.Position, Item.NegativeZ.Position));
-			mesh.Positions.Add(new Point3D(Item.NegativeX.Position, Item.NegativeY.Position, Item.PositiveZ.Position));
-			mesh.Positions.Add(new Point3D(Item.NegativeX.Position, Item.PositiveY.Position, Item.PositiveZ.Position));
-			mesh.Positions.Add(new Point3D(Item.NegativeX.Position, Item.PositiveY.Position, Item.NegativeZ.Position));
+			mesh.Positions.Add(new Point3D(Brick.Position.X, Brick.Position.Y, Brick.Position.Z));
+			mesh.Positions.Add(new Point3D(Brick.Position.X, Brick.Position.Y, Brick.Position.Z+Brick.Size.Z));
+			mesh.Positions.Add(new Point3D(Brick.Position.X, Brick.Position.Y+Brick.Size.Y, Brick.Position.Z+Brick.Size.Z));
+			mesh.Positions.Add(new Point3D(Brick.Position.X, Brick.Position.Y+Brick.Size.Y, Brick.Position.Z));
 			// left face
 			mesh.Normals.Add(new Vector3D(-1, 0, 0));
 			mesh.Normals.Add(new Vector3D(-1, 0, 0));
@@ -95,10 +95,10 @@ namespace Brick_o_matic.Viewer
 
 			mesh = new MeshGeometry3D();
 			// right face
-			mesh.Positions.Add(new Point3D(Item.PositiveX.Position, Item.NegativeY.Position, Item.NegativeZ.Position));
-			mesh.Positions.Add(new Point3D(Item.PositiveX.Position, Item.NegativeY.Position, Item.PositiveZ.Position));
-			mesh.Positions.Add(new Point3D(Item.PositiveX.Position, Item.PositiveY.Position, Item.PositiveZ.Position));
-			mesh.Positions.Add(new Point3D(Item.PositiveX.Position, Item.PositiveY.Position, Item.NegativeZ.Position));
+			mesh.Positions.Add(new Point3D(Brick.Position.X+Brick.Size.X, Brick.Position.Y, Brick.Position.Z));
+			mesh.Positions.Add(new Point3D(Brick.Position.X+Brick.Size.X, Brick.Position.Y, Brick.Position.Z+Brick.Size.Z));
+			mesh.Positions.Add(new Point3D(Brick.Position.X+Brick.Size.X, Brick.Position.Y+Brick.Size.Y, Brick.Position.Z+Brick.Size.Z));
+			mesh.Positions.Add(new Point3D(Brick.Position.X+Brick.Size.X, Brick.Position.Y+Brick.Size.Y, Brick.Position.Z));
 			// right face
 			mesh.Normals.Add(new Vector3D(1, 0, 0));
 			mesh.Normals.Add(new Vector3D(1, 0, 0));
@@ -116,10 +116,10 @@ namespace Brick_o_matic.Viewer
 
 			mesh = new MeshGeometry3D();
 			// top face
-			mesh.Positions.Add(new Point3D(Item.NegativeX.Position, Item.PositiveY.Position, Item.NegativeZ.Position));
-			mesh.Positions.Add(new Point3D(Item.PositiveX.Position, Item.PositiveY.Position, Item.NegativeZ.Position));
-			mesh.Positions.Add(new Point3D(Item.PositiveX.Position, Item.PositiveY.Position, Item.PositiveZ.Position));
-			mesh.Positions.Add(new Point3D(Item.NegativeX.Position, Item.PositiveY.Position, Item.PositiveZ.Position));
+			mesh.Positions.Add(new Point3D(Brick.Position.X, Brick.Position.Y+Brick.Size.Y, Brick.Position.Z));
+			mesh.Positions.Add(new Point3D(Brick.Position.X+Brick.Size.X, Brick.Position.Y+Brick.Size.Y, Brick.Position.Z));
+			mesh.Positions.Add(new Point3D(Brick.Position.X+Brick.Size.X, Brick.Position.Y+Brick.Size.Y, Brick.Position.Z+Brick.Size.Z));
+			mesh.Positions.Add(new Point3D(Brick.Position.X, Brick.Position.Y+Brick.Size.Y, Brick.Position.Z+Brick.Size.Z));
 			// top face
 			mesh.Normals.Add(new Vector3D(0, 1, 0));
 			mesh.Normals.Add(new Vector3D(0, 1, 0));
@@ -135,10 +135,10 @@ namespace Brick_o_matic.Viewer
 
 			mesh = new MeshGeometry3D();
 			// bottom face
-			mesh.Positions.Add(new Point3D(Item.NegativeX.Position, Item.NegativeY.Position, Item.NegativeZ.Position));
-			mesh.Positions.Add(new Point3D(Item.PositiveX.Position, Item.NegativeY.Position, Item.NegativeZ.Position));
-			mesh.Positions.Add(new Point3D(Item.PositiveX.Position, Item.NegativeY.Position, Item.PositiveZ.Position));
-			mesh.Positions.Add(new Point3D(Item.NegativeX.Position, Item.NegativeY.Position, Item.PositiveZ.Position));
+			mesh.Positions.Add(new Point3D(Brick.Position.X, Brick.Position.Y, Brick.Position.Z));
+			mesh.Positions.Add(new Point3D(Brick.Position.X+Brick.Size.X, Brick.Position.Y, Brick.Position.Z));
+			mesh.Positions.Add(new Point3D(Brick.Position.X+Brick.Size.X, Brick.Position.Y, Brick.Position.Z+Brick.Size.Z));
+			mesh.Positions.Add(new Point3D(Brick.Position.X, Brick.Position.Y, Brick.Position.Z+Brick.Size.Z));
 			// bottom face
 			mesh.Normals.Add(new Vector3D(0, -1, 0));
 			mesh.Normals.Add(new Vector3D(0, -1, 0));
@@ -154,18 +154,9 @@ namespace Brick_o_matic.Viewer
 
 		}
 
-		public static IEnumerable<GeometryModel3D> CreateGeometryModels(Model Model)
-		{
-			foreach (BoxGeometry item in Model.Items)
-			{
-				foreach (GeometryModel3D item2 in CreateGeometryModels(item))
-				{
-					yield return item2;
-				}
-			}
-		}
+		
 
-		public static ModelVisual3D CreateModelVisual(Model Model)
+		public static ModelVisual3D CreateModelVisual(IPrimitive Primitive)
 		{
 			ModelVisual3D modelVisual;
 			Model3DGroup group;
@@ -178,9 +169,12 @@ namespace Brick_o_matic.Viewer
 			group = new Model3DGroup();
 			group.Children.Add(light);
 
-			foreach (GeometryModel3D model in CreateGeometryModels(Model))
+			foreach (Brick brick in Primitive.Build())
 			{
-				group.Children.Add(model);
+				foreach (GeometryModel3D model in CreateGeometryModels(brick))
+				{
+					group.Children.Add(model);
+				}
 			}
 
 

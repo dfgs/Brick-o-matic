@@ -28,76 +28,52 @@ namespace Brick_o_matic.Primitives.UnitTest
 			Assert.AreEqual(new Position(1,2,3), b.Position);
 			Assert.AreEqual(new Size(5, 5, 5), b.Size);
 		}
-		/*[TestMethod]
-		public void ShouldNotInstanciate()
-		{
-			Assert.ThrowsException<ArgumentException>(() => new Brick(new Vector(), new Vector()));
-			Assert.ThrowsException<ArgumentException>(() => new Brick(new Vector(), new Vector(0, 1, 1)));
-			Assert.ThrowsException<ArgumentException>(() => new Brick(new Vector(), new Vector(1, 0, 1)));
-			Assert.ThrowsException<ArgumentException>(() => new Brick(new Vector(), new Vector(1, 1, 0)));
-			Assert.ThrowsException<ArgumentException>(() => new Brick(new Vector(), new Vector(-1, 1, 1)));
-			Assert.ThrowsException<ArgumentException>(() => new Brick(new Vector(), new Vector(1, -1, 1)));
-			Assert.ThrowsException<ArgumentException>(() => new Brick(new Vector(), new Vector(1, 1, -1)));
-		}
 
-		[TestMethod]
-		public void ShouldNotSetInvalidSize()
-		{
-			Brick b;
-
-			b = new Brick();
-			Assert.ThrowsException<ArgumentException>(() => b.Size = new Vector());
-			Assert.ThrowsException<ArgumentException>(() => b.Size = new Vector(0, 1, 1));
-			Assert.ThrowsException<ArgumentException>(() => b.Size = new Vector(1, 0, 1));
-			Assert.ThrowsException<ArgumentException>(() => b.Size = new Vector(1, 1, 0));
-			Assert.ThrowsException<ArgumentException>(() => b.Size = new Vector(-1, 1, 1));
-			Assert.ThrowsException<ArgumentException>(() => b.Size = new Vector(1, -1, 1));
-			Assert.ThrowsException<ArgumentException>(() => b.Size = new Vector(1, 1, -1));
-		}//*/
 
 		[TestMethod]
 		public void ShouldBuildModel()
 		{
 			Brick b;
-			Model model;
+			Brick[] bricks;
 
 			b = new Brick();
-			Assert.IsNotNull(b);
-			model = b.Build();
-			Assert.AreEqual(0, model.BoundingBox.Position.X);
-			Assert.AreEqual(0, model.BoundingBox.Position.Y);
-			Assert.AreEqual(0, model.BoundingBox.Position.Z);
-			Assert.AreEqual(new Size(1, 1, 1), model.BoundingBox.Size);
+			bricks = b.Build().ToArray();
+			Assert.AreEqual(1, bricks.Length);
+			Assert.AreEqual(0, bricks[0].Position.X);
+			Assert.AreEqual(0, bricks[0].Position.Y);
+			Assert.AreEqual(0, bricks[0].Position.Z);
+			Assert.AreEqual(new Size(1, 1, 1), bricks[0].Size);
 
 			b = new Brick(new Position(1, 2, 3));
-			Assert.IsNotNull(b);
-			model = b.Build();
-			Assert.AreEqual(1, model.BoundingBox.Position.X);
-			Assert.AreEqual(2, model.BoundingBox.Position.Y);
-			Assert.AreEqual(3, model.BoundingBox.Position.Z);
-			Assert.AreEqual(new Size(1, 1, 1), model.BoundingBox.Size);
+			bricks = b.Build().ToArray();
+			Assert.AreEqual(1, bricks.Length);
+			Assert.AreEqual(1, bricks[0].Position.X);
+			Assert.AreEqual(2, bricks[0].Position.Y);
+			Assert.AreEqual(3, bricks[0].Position.Z);
+			Assert.AreEqual(new Size(1, 1, 1), bricks[0].Size);
 
 			b = new Brick(new Position(1, 2, 3), new Size(5, 5, 5));
-			Assert.IsNotNull(b);
-			model = b.Build();
-			Assert.AreEqual(1, model.BoundingBox.Position.X);
-			Assert.AreEqual(2, model.BoundingBox.Position.Y);
-			Assert.AreEqual(3, model.BoundingBox.Position.Z);
-			Assert.AreEqual(new Size(5, 5, 5), model.BoundingBox.Size);
+			bricks = b.Build().ToArray();
+			Assert.AreEqual(1, bricks.Length);
+			Assert.AreEqual(1, bricks[0].Position.X);
+			Assert.AreEqual(2, bricks[0].Position.Y);
+			Assert.AreEqual(3, bricks[0].Position.Z);
+			Assert.AreEqual(new Size(5, 5, 5), bricks[0].Size);
 		}
+
 		[TestMethod]
-		public void ShouldGetBrickGeometry()
+		public void ShouldReturnBoudingBox()
 		{
 			Brick b;
-			Model model;
+			Box box;
 
-			b = new Brick();
-			model = b.Build();
-			Assert.AreEqual(1, model.Items.Length);
-		}
-
-
-
+			b = new Brick(new Position(1, 2, 3), new Size(5, 5, 5));
+			box = b.GetBoundingBox();
+			Assert.AreEqual(new Position(1, 2, 3), box.Position);
+			Assert.AreEqual(new Size(5, 5, 5), box.Size);
 
 		}
+
+
 	}
+}

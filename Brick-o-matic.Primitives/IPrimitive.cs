@@ -15,7 +15,8 @@ namespace Brick_o_matic.Primitives
 			set;
 		}
 
-		Model Build();
+		Box GetBoundingBox();
+		IEnumerable<Brick> Build();
 
 	}
 }

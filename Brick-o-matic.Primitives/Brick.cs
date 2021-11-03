@@ -35,9 +35,14 @@ namespace Brick_o_matic.Primitives
 			this.Size = Size; this.Color = new Color(255, 0, 0);
 		}
 
-		public override Model Build()
+		public override Box GetBoundingBox()
 		{
-			return new Model(new BoxGeometry(Position,Size,Color));
+			return new Box(Position, Size);
+		}
+
+		public override IEnumerable<Brick> Build()
+		{
+			yield return this;
 		}
 	}
 }

@@ -38,33 +38,41 @@ namespace Brick_o_matic.Primitives
 			items.Add(Child);
 		}
 
-		public override Model Build()
+		public override Box GetBoundingBox()
 		{
-			List<BoxGeometry> geometryItems;
-			Plane negativeX;
-			Plane positiveX;
-			Plane negativeY;
-			Plane positiveY;
-			Plane negativeZ;
-			Plane positiveZ;
+			int minX=int.MaxValue, minY = int.MaxValue, minZ = int.MaxValue;
+			int maxX = int.MinValue, maxY = int.MinValue, maxZ = int.MinValue;
+			Box childBox;
 
-			geometryItems = new List<BoxGeometry>();
+			if (Count == 0) return new Box(Position, new Size());
+			
+			foreach (IPrimitive item in this.items)
+			{
+				childBox = item.GetBoundingBox();
+				minX = System.Math.Min(minX, childBox.Position.X);
+				minY = System.Math.Min(minY, childBox.Position.Y);
+				minZ = System.Math.Min(minZ, childBox.Position.Z);
+
+				maxX = System.Math.Max(maxX, childBox.Position.X + childBox.Size.X);
+				maxY = System.Math.Max(maxY, childBox.Position.Y + childBox.Size.Y);
+				maxZ = System.Math.Max(maxZ, childBox.Position.Z + childBox.Size.Z);
+			}
+
+			return new Box(Position + new Position(minX, minY, minZ), new Size(maxX-minX,maxY-minY,maxZ-minZ));
+
+		}
+
+		public override IEnumerable<Brick> Build()
+		{
+			
 			foreach(IPrimitive item in this.items)
 			{
-				foreach(BoxGeometry childGeometry in item.Build().Items)
+				foreach(Brick brick in item.Build())
 				{
-					negativeX = new Plane(childGeometry.NegativeX.Position + Position.X, childGeometry.NegativeX.Direction, childGeometry.NegativeX.Color);
-					positiveX = new Plane(childGeometry.PositiveX.Position + Position.X, childGeometry.PositiveX.Direction, childGeometry.PositiveX.Color);
-					negativeY = new Plane(childGeometry.NegativeY.Position + Position.Y, childGeometry.NegativeY.Direction, childGeometry.NegativeY.Color);
-					positiveY = new Plane(childGeometry.PositiveY.Position + Position.Y, childGeometry.PositiveY.Direction, childGeometry.PositiveY.Color);
-					negativeZ = new Plane(childGeometry.NegativeZ.Position + Position.Z, childGeometry.NegativeZ.Direction, childGeometry.NegativeZ.Color);
-					positiveZ = new Plane(childGeometry.PositiveZ.Position + Position.Z, childGeometry.PositiveZ.Direction, childGeometry.PositiveZ.Color);
-
-					geometryItems.Add(new BoxGeometry(negativeX,positiveX,negativeY,positiveY,negativeZ,positiveZ)) ;
+					yield return new Brick(this.Position + brick.Position, brick.Size);
 				}
 			}
 
-			return new Model(geometryItems.ToArray());
 		}
 		
 

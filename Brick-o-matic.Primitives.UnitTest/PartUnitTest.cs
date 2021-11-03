@@ -48,46 +48,46 @@ namespace Part_o_matic.Primitives.UnitTest
 
 		}
 		[TestMethod]
-		public void ShouldReturnBoundingBoxWhenPartIsEmpty()
+		public void ShouldReturnFlatBoundingBoxWhenHasNoItems()
 		{
 			Part part;
-			Model model;
+			Box box;
 
-			part = new Part();
+			part = new Part(new Position(1,2,3));
 			Assert.IsNotNull(part);
-			model = part.Build();
-			Assert.AreEqual(0, model.BoundingBox.Position.X);
-			Assert.AreEqual(0, model.BoundingBox.Position.Y);
-			Assert.AreEqual(0, model.BoundingBox.Position.Z);
-			Assert.AreEqual(new Size(0, 0, 0), model.BoundingBox.Size);
+			box = part.GetBoundingBox();
+			Assert.AreEqual(1, box.Position.X);
+			Assert.AreEqual(2, box.Position.Y);
+			Assert.AreEqual(3, box.Position.Z);
+			Assert.AreEqual(new Size(0, 0, 0), box.Size);
 		}
 
 		[TestMethod]
-		public void ShouldReturnModel()
+		public void ShouldReturnBoudingBox()
 		{
 			Part part;
-			Model model;
+			Box box;
 			Brick b;
 
 			part = new Part(new Position(0, 0, 0));
 			Assert.IsNotNull(part);
 			b = new Brick(new Position(-1, -2, -3), new Size(1, 1, 1));
 			part.Add(b);
-			model = part.Build();
-			Assert.AreEqual(-1, model.BoundingBox.Position.X);
-			Assert.AreEqual(-2, model.BoundingBox.Position.Y);
-			Assert.AreEqual(-3, model.BoundingBox.Position.Z);
-			Assert.AreEqual(new Size(1, 1, 1), model.BoundingBox.Size);
+			box = part.GetBoundingBox();
+			Assert.AreEqual(-1, box.Position.X);
+			Assert.AreEqual(-2, box.Position.Y);
+			Assert.AreEqual(-3, box.Position.Z);
+			Assert.AreEqual(new Size(1, 1, 1), box.Size);
 
 			part = new Part(new Position(1, 2, 3));
 			Assert.IsNotNull(part);
 			b = new Brick(new Position(-1, -2, -3), new Size(1, 1, 1));
 			part.Add(b);
-			model = part.Build();
-			Assert.AreEqual(0, model.BoundingBox.Position.X);
-			Assert.AreEqual(0, model.BoundingBox.Position.Y);
-			Assert.AreEqual(0, model.BoundingBox.Position.Z);
-			Assert.AreEqual(new Size(1, 1, 1), model.BoundingBox.Size);
+			box = part.GetBoundingBox();
+			Assert.AreEqual(0, box.Position.X);
+			Assert.AreEqual(0, box.Position.Y);
+			Assert.AreEqual(0, box.Position.Z);
+			Assert.AreEqual(new Size(1, 1, 1), box.Size);
 
 			part = new Part(new Position(0, 0, 0));
 			Assert.IsNotNull(part);
@@ -95,11 +95,11 @@ namespace Part_o_matic.Primitives.UnitTest
 			part.Add(b);
 			b = new Brick(new Position(1, 2, 3), new Size(1, 1, 1));
 			part.Add(b);
-			model = part.Build();
-			Assert.AreEqual(-1, model.BoundingBox.Position.X);
-			Assert.AreEqual(-2, model.BoundingBox.Position.Y);
-			Assert.AreEqual(-3, model.BoundingBox.Position.Z);
-			Assert.AreEqual(new Size(3, 5, 7), model.BoundingBox.Size);
+			box = part.GetBoundingBox();
+			Assert.AreEqual(-1, box.Position.X);
+			Assert.AreEqual(-2, box.Position.Y);
+			Assert.AreEqual(-3, box.Position.Z);
+			Assert.AreEqual(new Size(3, 5, 7), box.Size);
 
 			part = new Part(new Position(0, 0, 0));
 			Assert.IsNotNull(part);
@@ -107,20 +107,20 @@ namespace Part_o_matic.Primitives.UnitTest
 			part.Add(b);
 			b = new Brick(new Position(1, 2, 3), new Size(2, 2, 2));
 			part.Add(b);
-			model = part.Build();
-			Assert.AreEqual(-1, model.BoundingBox.Position.X);
-			Assert.AreEqual(-2, model.BoundingBox.Position.Y);
-			Assert.AreEqual(-3, model.BoundingBox.Position.Z);
-			Assert.AreEqual(new Size(4, 6, 8), model.BoundingBox.Size);
+			box = part.GetBoundingBox();
+			Assert.AreEqual(-1, box.Position.X);
+			Assert.AreEqual(-2, box.Position.Y);
+			Assert.AreEqual(-3, box.Position.Z);
+			Assert.AreEqual(new Size(4, 6, 8), box.Size);
 
 		}
 		[TestMethod]
-		public void ShouldReturnNestedModel()
+		public void ShouldReturnNestedBoudingBox()
 		{
 			Part part;
 			Part p1, p2;
 			Brick b1, b2;
-			Model model;
+			Box box;
 
 			part = new Part();
 
@@ -135,47 +135,47 @@ namespace Part_o_matic.Primitives.UnitTest
 			part.Add(b1);
 			part.Add(b2);
 
-			model = part.Build();
-			Assert.AreEqual(-1, model.BoundingBox.Position.X);
-			Assert.AreEqual(-1, model.BoundingBox.Position.Y);
-			Assert.AreEqual(-1, model.BoundingBox.Position.Z);
-			Assert.AreEqual(new Size(3, 3, 3), model.BoundingBox.Size);
+			box = part.GetBoundingBox();
+			Assert.AreEqual(-1, box.Position.X);
+			Assert.AreEqual(-1, box.Position.Y);
+			Assert.AreEqual(-1, box.Position.Z);
+			Assert.AreEqual(new Size(3, 3, 3), box.Size);
 		}
 
 
 		[TestMethod]
-		public void ShouldGetEmptyGeometry()
+		public void ShouldGetEmptyBricks()
 		{
 			Part part;
-			Model model;
+			Brick[] bricks;
 
 			part = new Part();
-			model = part.Build();
-			Assert.AreEqual(0, model.Items.Length);
+			bricks = part.Build().ToArray();
+			Assert.AreEqual(0, bricks.Length);
 		}
 
 		[TestMethod]
-		public void ShouldGetGeometryItem()
+		public void ShouldGetBricks()
 		{
 			Part part;
 			Brick b;
-			Model model;
+			Brick[] bricks;
 
 			part = new Part();
 			b = new Brick();
 			part.Add(b);
 
-			model = part.Build();
-			Assert.AreEqual(1, model.Items.Length);
+			bricks = part.Build().ToArray();
+			Assert.AreEqual(1, bricks.Length);
 		}
 
 		[TestMethod]
-		public void ShouldGetNestedGeometryItems()
+		public void ShouldGetNestedBricks()
 		{
 			Part part;
 			Part p1,p2;
 			Brick b1,b2;
-			Model model;
+			Brick[] bricks;
 
 			part = new Part();
 
@@ -190,8 +190,8 @@ namespace Part_o_matic.Primitives.UnitTest
 			part.Add(b1);
 			part.Add(b2);
 
-			model = part.Build();
-			Assert.AreEqual(2, model.Items.Length);
+			bricks = part.Build().ToArray();
+			Assert.AreEqual(2, bricks.Length);
 		}
 	}
 }

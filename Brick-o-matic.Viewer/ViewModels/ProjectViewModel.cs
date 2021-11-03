@@ -116,9 +116,9 @@ namespace Brick_o_matic.Viewer.ViewModels
 		{
 			PerspectiveCamera camera;
 			Part part;
-			Model model;
 			Vector3D center,direction;
 			int zoom;
+			Box boundingBox;
 
 			if (Text==null)
 			{
@@ -140,14 +140,13 @@ namespace Brick_o_matic.Viewer.ViewModels
 				return;
 			}
 
-			model = part.Build();
 
-			
-			center=new Vector3D(model.BoundingBox.Position.X + model.BoundingBox.Size.X * 0.5f, model.BoundingBox.Position.Y + model.BoundingBox.Size.Y * 0.5f, model.BoundingBox.Position.Z + model.BoundingBox.Size.Z * 0.5f);
-			zoom = System.Math.Max(System.Math.Max(model.BoundingBox.Size.X, model.BoundingBox.Size.Y), model.BoundingBox.Size.Z)*5;
+			boundingBox = part.GetBoundingBox();
+			center=new Vector3D(part.Position.X + boundingBox.Size.X * 0.5f, boundingBox.Position.Y + boundingBox.Size.Y * 0.5f, boundingBox.Position.Z + boundingBox.Size.Z * 0.5f);
+			zoom = System.Math.Max(System.Math.Max(boundingBox.Size.X, boundingBox.Size.Y), boundingBox.Size.Z)*5;
 			direction = new Vector3D(zoom, -zoom, -zoom);
 			
-			this.ModelVisual = GeometryUtils.CreateModelVisual(model);
+			this.ModelVisual = GeometryUtils.CreateModelVisual(part);
 
 			camera = new PerspectiveCamera();
 			camera.LookDirection = direction;

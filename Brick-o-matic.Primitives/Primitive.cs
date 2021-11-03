@@ -25,7 +25,8 @@ namespace Brick_o_matic.Primitives
 		{
 			this.Position = Position;
 		}
+		public abstract Box GetBoundingBox();
 
-		public abstract Model Build();
+		public abstract IEnumerable<Brick> Build();
 	}
 }
