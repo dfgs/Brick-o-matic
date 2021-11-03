@@ -13,7 +13,7 @@ namespace Brick_o_matic.Parsing
     public static class Grammar
     {
         public static IParser<string> Name = Parse.AnyInRange('A', 'z').Then(
-            Parse.AnyOf('-','_').Or(Parse.AnyInRange('0','9')).Or(Parse.AnyInRange('A', 'z')).OneOrMoreTimes());
+            Parse.AnyOf('-','_').Or(Parse.AnyInRange('0','9')).Or(Parse.AnyInRange('A', 'z')).OneOrMoreTimes().ReaderIncludes(' ','\t','\r','\n'));
 
         public static IParser<Position> Position =
             from _ in Parse.Char('(')
@@ -84,7 +84,19 @@ namespace Brick_o_matic.Parsing
         public static IParser<IPartSetter> PartSetter = PartPositionSetter.Or< IPartSetter>(PartItemsSetter);
         public static IParser<IEnumerable<IPartSetter>> PartSetters = PartSetter.ZeroOrMoreTimes();
 
- 
+        // PrimitiveRef setters
+        public static IParser<PrimitiveRefPositionSetter> PrimitiveRefPositionSetter =
+            from _ in Parse.String("Position:")
+            from value in Position
+            select new PrimitiveRefPositionSetter(value);
+        public static IParser<PrimitiveRefNameSetter> PrimitiveRefNameSetter =
+            from _ in Parse.String("Name:")
+            from value in Name
+            select new PrimitiveRefNameSetter(value);
+
+        public static IParser<IPrimitiveRefSetter> PrimitiveRefSetter = PrimitiveRefPositionSetter.Or<IPrimitiveRefSetter>(PrimitiveRefNameSetter);
+        public static IParser<IEnumerable<IPrimitiveRefSetter>> PrimitiveRefSetters = PrimitiveRefSetter.ZeroOrMoreTimes();
+
 
         // Primitives
         public static IParser<Brick> Brick =
@@ -100,11 +112,18 @@ namespace Brick_o_matic.Parsing
              from setters in PartSetters
              from ___ in Parse.Char(')')
              select new Part().Set(setters);
+        
+        public static IParser<PrimitiveRef> PrimitiveRef =
+             from _ in Parse.String("Primitive")
+             from __ in Parse.Char('(')
+             from setters in PrimitiveRefSetters
+             from ___ in Parse.Char(')')
+             select new PrimitiveRef().Set(setters);
 
-      
 
 
-        public static IParser<IPrimitive> Primitive = Brick.Or<IPrimitive>(Part);
+
+        public static IParser<IPrimitive> Primitive = Brick.Or<IPrimitive>(Part).Or<IPrimitive>(PrimitiveRef);
         public static IParser<IEnumerable<IPrimitive>> Primitives = Primitive.OneOrMoreTimes();
 
         public static IParser<ISceneObject> SceneObject = StaticColor.Or<ISceneObject>(Primitive);

@@ -158,6 +158,30 @@ namespace Brick_o_matic.Parsing.UnitTest
 
 		}
 
+
+		// PrimitiveRef Setters
+		[TestMethod]
+		public void ShouldParsePrimitiveRefPositionSetter()
+		{
+			PrimitiveRefPositionSetter setter;
+
+			setter = Grammar.PrimitiveRefPositionSetter.Parse("Position:(1, 2,3)", ' ');
+			Assert.IsNotNull(setter);
+			Assert.AreEqual(new Position(1, 2, 3), setter.Value);
+		}
+
+		[TestMethod]
+		public void ShouldParsePrimitiveRefNameSetter()
+		{
+			PrimitiveRefNameSetter setter;
+
+			setter = Grammar.PrimitiveRefNameSetter.Parse("Name: Homer123", ' ');
+			Assert.IsNotNull(setter);
+			Assert.AreEqual("Homer123", setter.Value);
+		}
+
+		
+
 		// Scene Setters
 		[TestMethod]
 		public void ShouldParseSceneResourceSetter()
@@ -214,6 +238,11 @@ namespace Brick_o_matic.Parsing.UnitTest
 			Assert.IsNotNull(b);
 			Assert.AreEqual(new Size(1, 2, 3), b.Size);
 			Assert.AreEqual(new Position(3, 2, 1), b.Position);
+
+			b = Grammar.Brick.Parse("Brick( Color:Red Size:(1,2,3) Position:(3,2,1)  )", ' ');
+			Assert.IsNotNull(b);
+			Assert.AreEqual(new Size(1, 2, 3), b.Size);
+			Assert.AreEqual(new Position(3, 2, 1), b.Position);
 		}
 		[TestMethod]
 		public void ShouldParsePart()
@@ -233,6 +262,34 @@ namespace Brick_o_matic.Parsing.UnitTest
 			Assert.AreEqual(new Position(1, 2, 3), p.Position);
 			Assert.AreEqual(3, p.Count);
 		}
+		[TestMethod]
+		public void ShouldParsePrimitiveRef()
+		{
+			PrimitiveRef b;
+
+			b = Grammar.PrimitiveRef.Parse("Primitive()", ' ');
+			Assert.IsNotNull(b);
+			Assert.AreEqual(new Position(), b.Position);
+
+			b = Grammar.PrimitiveRef.Parse("Primitive(Position:(1,2,3))", ' ');
+			Assert.IsNotNull(b);
+			Assert.AreEqual(new Position(1, 2, 3), b.Position);
+
+			b = Grammar.PrimitiveRef.Parse("Primitive(Name:Homer)", ' ');
+			Assert.IsNotNull(b);
+			Assert.AreEqual("Homer", b.Name);
+
+			b = Grammar.PrimitiveRef.Parse("Primitive(Position:(1,2,3) Name:Homer)", ' ');
+			Assert.IsNotNull(b);
+			Assert.AreEqual(new Position(1, 2, 3), b.Position);
+			Assert.AreEqual("Homer", b.Name);
+
+			b = Grammar.PrimitiveRef.Parse("Primitive(Name:Homer Position:(1,2,3))", ' ');
+			Assert.IsNotNull(b);
+			Assert.AreEqual(new Position(1, 2, 3), b.Position);
+			Assert.AreEqual("Homer", b.Name);
+
+		}
 
 		[TestMethod]
 		public void ShouldParsePrimitive()
@@ -246,6 +303,10 @@ namespace Brick_o_matic.Parsing.UnitTest
 			item = Grammar.Primitive.Parse("Brick(Position:(1,2,3))", ' ');
 			Assert.IsNotNull(item);
 			Assert.IsInstanceOfType(item, typeof(Brick));
+
+			item = Grammar.Primitive.Parse("Primitive( Name:Homer Position:(1,2,3) )", ' ');
+			Assert.IsNotNull(item);
+			Assert.IsInstanceOfType(item, typeof(PrimitiveRef));
 		}
 
 		[TestMethod]
@@ -258,11 +319,12 @@ namespace Brick_o_matic.Parsing.UnitTest
 			Assert.AreEqual(1, items.Length);
 			Assert.IsInstanceOfType(items[0], typeof(Part));
 
-			items = Grammar.Primitives.Parse("Part() Brick(Position:(1,2,3))", ' ').ToArray();
+			items = Grammar.Primitives.Parse("Part() Brick(Position:(1,2,3)) Primitive(Name:homer)", ' ').ToArray();
 			Assert.IsNotNull(items);
-			Assert.AreEqual(2, items.Length);
+			Assert.AreEqual(3, items.Length);
 			Assert.IsInstanceOfType(items[0], typeof(Part));
 			Assert.IsInstanceOfType(items[1], typeof(Brick));
+			Assert.IsInstanceOfType(items[2], typeof(PrimitiveRef));
 		}
 
 
@@ -273,7 +335,7 @@ namespace Brick_o_matic.Parsing.UnitTest
 
 			scene = Grammar.Scene.Parse("Scene()", ' ');
 			Assert.IsNotNull(scene);
-			scene = Grammar.Scene.Parse("Scene( Resources: b1 = Brick() Red = (255,0,0) Items: Brick() Brick() Part()  )", ' ');
+			scene = Grammar.Scene.Parse("Scene( Resources: b1 = Brick() Red = (255,0,0) Items: Brick() Primitive() Part()  )", ' ');
 			Assert.IsNotNull(scene);
 			Assert.AreEqual(2, scene.ResourcesCount);
 			Assert.AreEqual(3, scene.ItemsCount);
