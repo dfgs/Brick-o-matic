@@ -16,7 +16,7 @@ namespace Brick_o_matic.Primitives
 			get;
 			set;
 		}
-		public Color Color
+		public IColor Color
 		{
 			get;
 			set;
@@ -40,7 +40,7 @@ namespace Brick_o_matic.Primitives
 			return new Box(Position, Size);
 		}
 
-		public override IEnumerable<Brick> Build()
+		public override IEnumerable<Brick> Build(IScene Scene)
 		{
 			yield return this;
 		}

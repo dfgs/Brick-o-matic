@@ -1,4 +1,5 @@
 ﻿using Brick_o_matic.Math;
+using Brick_o_matic.Primitives;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,5 +19,14 @@ namespace Brick_o_matic.Viewer
         {
             return new Point3D(Point.X+X, Point.Y+Y, Point.Z+Z);
         }
+
+        public static System.Windows.Media.Color ToMediaColor(this IColor Color)
+		{
+            byte R, G, B;
+
+            Color.GetComponents(out R, out G, out B);
+            return System.Windows.Media.Color.FromArgb(255,R, G, B);
+		}
+
     }
 }

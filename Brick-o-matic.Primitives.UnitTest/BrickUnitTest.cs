@@ -35,9 +35,12 @@ namespace Brick_o_matic.Primitives.UnitTest
 		{
 			Brick b;
 			Brick[] bricks;
+			Scene scene;
+
+			scene = new Scene();
 
 			b = new Brick();
-			bricks = b.Build().ToArray();
+			bricks = b.Build(scene).ToArray();
 			Assert.AreEqual(1, bricks.Length);
 			Assert.AreEqual(0, bricks[0].Position.X);
 			Assert.AreEqual(0, bricks[0].Position.Y);
@@ -45,7 +48,7 @@ namespace Brick_o_matic.Primitives.UnitTest
 			Assert.AreEqual(new Size(1, 1, 1), bricks[0].Size);
 
 			b = new Brick(new Position(1, 2, 3));
-			bricks = b.Build().ToArray();
+			bricks = b.Build(scene).ToArray();
 			Assert.AreEqual(1, bricks.Length);
 			Assert.AreEqual(1, bricks[0].Position.X);
 			Assert.AreEqual(2, bricks[0].Position.Y);
@@ -53,7 +56,7 @@ namespace Brick_o_matic.Primitives.UnitTest
 			Assert.AreEqual(new Size(1, 1, 1), bricks[0].Size);
 
 			b = new Brick(new Position(1, 2, 3), new Size(5, 5, 5));
-			bricks = b.Build().ToArray();
+			bricks = b.Build(scene).ToArray();
 			Assert.AreEqual(1, bricks.Length);
 			Assert.AreEqual(1, bricks[0].Position.X);
 			Assert.AreEqual(2, bricks[0].Position.Y);

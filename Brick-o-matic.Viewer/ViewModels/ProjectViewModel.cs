@@ -119,6 +119,7 @@ namespace Brick_o_matic.Viewer.ViewModels
 			Vector3D center,direction;
 			int zoom;
 			Box boundingBox;
+			Scene scene;
 
 			if (Text==null)
 			{
@@ -126,6 +127,8 @@ namespace Brick_o_matic.Viewer.ViewModels
 				return;
 			}
 
+
+			scene = new Scene();
 			try
 			{
 				part = new Part();
@@ -146,7 +149,7 @@ namespace Brick_o_matic.Viewer.ViewModels
 			zoom = System.Math.Max(System.Math.Max(boundingBox.Size.X, boundingBox.Size.Y), boundingBox.Size.Z)*5;
 			direction = new Vector3D(zoom, -zoom, -zoom);
 			
-			this.ModelVisual = GeometryUtils.CreateModelVisual(part);
+			this.ModelVisual = GeometryUtils.CreateModelVisual(scene,part);
 
 			camera = new PerspectiveCamera();
 			camera.LookDirection = direction;

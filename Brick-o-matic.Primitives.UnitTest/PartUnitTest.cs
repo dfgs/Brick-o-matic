@@ -148,9 +148,13 @@ namespace Part_o_matic.Primitives.UnitTest
 		{
 			Part part;
 			Brick[] bricks;
+			Scene scene;
+
+			scene = new Scene();
+
 
 			part = new Part();
-			bricks = part.Build().ToArray();
+			bricks = part.Build(scene).ToArray();
 			Assert.AreEqual(0, bricks.Length);
 		}
 
@@ -160,12 +164,16 @@ namespace Part_o_matic.Primitives.UnitTest
 			Part part;
 			Brick b;
 			Brick[] bricks;
+			Scene scene;
+
+			scene = new Scene();
+
 
 			part = new Part();
 			b = new Brick();
 			part.Add(b);
 
-			bricks = part.Build().ToArray();
+			bricks = part.Build(scene).ToArray();
 			Assert.AreEqual(1, bricks.Length);
 		}
 
@@ -176,6 +184,10 @@ namespace Part_o_matic.Primitives.UnitTest
 			Part p1,p2;
 			Brick b1,b2;
 			Brick[] bricks;
+			Scene scene;
+
+			scene = new Scene();
+
 
 			part = new Part();
 
@@ -190,7 +202,7 @@ namespace Part_o_matic.Primitives.UnitTest
 			part.Add(b1);
 			part.Add(b2);
 
-			bricks = part.Build().ToArray();
+			bricks = part.Build(scene).ToArray();
 			Assert.AreEqual(2, bricks.Length);
 		}
 	}

@@ -33,7 +33,7 @@ namespace Brick_o_matic.Parsing
             from ____ in Parse.Char(')')
             select new Size(x, y, z);
 
-        public static IParser<Color> Color =
+        public static IParser<IColor> StaticColor =
             from _ in Parse.Char('(')
             from r in Parse.Byte()
             from __ in Parse.Char(',')
@@ -41,8 +41,10 @@ namespace Brick_o_matic.Parsing
             from ___ in Parse.Char(',')
             from b in Parse.Byte()
             from ____ in Parse.Char(')')
-            select new Color(r, g, b);
+            select new Color(r, g, b) as IColor;    // added casting because struct is not compatible with variance
 
+        public static IParser<IColor> Color = StaticColor;
+        
         // Brick setters
         public static IParser<BrickPositionSetter> BrickPositionSetter =
             from _ in Parse.String("Position:")
@@ -93,6 +95,34 @@ namespace Brick_o_matic.Parsing
 
         public static IParser<IPrimitive> Primitive = Brick.Or<IPrimitive>(Part);
         public static IParser<IEnumerable<IPrimitive>> Primitives = Primitive.OneOrMoreTimes();
+
+        public static IParser<ISceneObject> SceneObject = Color.Or<ISceneObject>(Primitive);
+
+        public static IParser<Resource> Resource =
+            from name in Parse.AnyInRange('A', 'z').OneOrMoreTimes()
+            from __ in Parse.Char('=')
+            from obj in SceneObject
+            select new Resource(name, obj);
+
+
+        // Scene setters
+        public static IParser<SceneResourceSetter> SceneResourceSetter =
+            from _ in Parse.String("Resource:")
+            from value in Resource
+            select new SceneResourceSetter(value);
+
+        public static IParser<ISceneSetter> SceneSetter = SceneResourceSetter;
+        public static IParser<IEnumerable<ISceneSetter>> SceneSetters = SceneResourceSetter.ZeroOrMoreTimes();
+
+
+
+        // Scene
+        public static IParser<Scene> Scene =
+            from _ in Parse.String("Scene")
+            from __ in Parse.Char('(')
+            from setters in SceneSetters
+            from ___ in Parse.Char(')')
+            select new Scene().Set(setters);
 
     }
 }

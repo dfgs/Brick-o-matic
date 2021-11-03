@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Brick_o_matic.Math
+namespace Brick_o_matic.Primitives
 {
-	public struct Color:IEquatable<Color>
+	public struct Color:IEquatable<Color>,IColor
 	{
 		public byte R
 		{
@@ -33,6 +33,12 @@ namespace Brick_o_matic.Math
 		{
 			return $"({R},{G},{B})";
 		}
+
+		public void GetComponents(out byte R, out byte G, out byte B)
+		{
+			R = this.R;G = this.G;B = this.B;
+		}
+
 		public override bool Equals(object obj)
 		{
 			if (obj is Color otherColor) return ((otherColor.R == R) && (otherColor.G == G) && (otherColor.B == B));

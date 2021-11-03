@@ -62,12 +62,12 @@ namespace Brick_o_matic.Primitives
 
 		}
 
-		public override IEnumerable<Brick> Build()
+		public override IEnumerable<Brick> Build(IScene Scene)
 		{
 			
 			foreach(IPrimitive item in this.items)
 			{
-				foreach(Brick brick in item.Build())
+				foreach(Brick brick in item.Build(Scene))
 				{
 					yield return new Brick(this.Position + brick.Position, brick.Size);
 				}

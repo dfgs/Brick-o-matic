@@ -27,6 +27,6 @@ namespace Brick_o_matic.Primitives
 		}
 		public abstract Box GetBoundingBox();
 
-		public abstract IEnumerable<Brick> Build();
+		public abstract IEnumerable<Brick> Build(IScene Scene);
 	}
 }

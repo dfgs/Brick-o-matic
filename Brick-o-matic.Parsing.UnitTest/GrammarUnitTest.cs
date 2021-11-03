@@ -40,6 +40,41 @@ namespace Brick_o_matic.Parsing.UnitTest
 			Assert.ThrowsException<UnexpectedCharException>(() => Grammar.Color.Parse("(-1,2,3)", ' '));
 		}
 
+		// resource
+		[TestMethod]
+		public void ShouldParseSceneObject()
+		{
+			ISceneObject item;
+
+			item = Grammar.SceneObject.Parse("Part()", ' ');
+			Assert.IsNotNull(item);
+			Assert.IsInstanceOfType(item, typeof(Part));
+
+			item = Grammar.SceneObject.Parse("Brick(Position:(1,2,3))", ' ');
+			Assert.IsNotNull(item);
+			Assert.IsInstanceOfType(item, typeof(Brick));
+			
+			item = Grammar.SceneObject.Parse("(1,2,3)", ' ');
+			Assert.IsNotNull(item);
+			Assert.IsInstanceOfType(item, typeof(Color));
+		}
+
+		[TestMethod]
+		public void ShouldParseResource()
+		{
+			Resource resource;
+
+			resource = Grammar.Resource.Parse("ResourceName=Brick()", ' ');
+			Assert.IsNotNull(resource);
+			Assert.AreEqual("ResourceName", resource.Name);
+			Assert.IsInstanceOfType(resource.Object, typeof(Brick));
+			
+			resource = Grammar.Resource.Parse("Color=(255,255,0)", ' ');
+			Assert.IsNotNull(resource);
+			Assert.AreEqual("Color", resource.Name);
+			Assert.IsInstanceOfType(resource.Object, typeof(Color));
+		}
+
 		// Brick Setters
 		[TestMethod]
 		public void ShouldParseBrickPositionSetter()
@@ -88,7 +123,17 @@ namespace Brick_o_matic.Parsing.UnitTest
 
 		}
 
-	
+		// Scene Setters
+		[TestMethod]
+		public void ShouldParseSceneResourceSetter()
+		{
+			SceneResourceSetter setter;
+
+			setter = Grammar.SceneResourceSetter.Parse("Resource:ResourceName=Brick()", ' ');
+			Assert.IsNotNull(setter);
+			Assert.AreEqual("ResourceName", setter.Value.Name);
+		}
+
 
 
 		// Primitives
@@ -135,7 +180,20 @@ namespace Brick_o_matic.Parsing.UnitTest
 
 		}
 
-		
+		[TestMethod]
+		public void ShouldParsePrimitive()
+		{
+			IPrimitive item;
+
+			item = Grammar.Primitive.Parse("Part()", ' ');
+			Assert.IsNotNull(item);
+			Assert.IsInstanceOfType(item, typeof(Part));
+
+			item = Grammar.Primitive.Parse("Brick(Position:(1,2,3))", ' ');
+			Assert.IsNotNull(item);
+			Assert.IsInstanceOfType(item, typeof(Brick));
+		}
+
 		[TestMethod]
 		public void ShouldParsePrimitives()
 		{
@@ -154,5 +212,20 @@ namespace Brick_o_matic.Parsing.UnitTest
 		}
 
 
+		[TestMethod]
+		public void ShouldParseScene()
+		{
+			Scene scene;
+
+			scene = Grammar.Scene.Parse("Scene()", ' ');
+			Assert.IsNotNull(scene);
+			scene = Grammar.Scene.Parse("Scene(Resource: Brick = Brick() Resource: Red = (255,0,0))", ' ');
+
+
+		
+			//Assert.AreEqual(new Position(), b.Position);
+		}
+
+	
 	}
 }

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Brick_o_matic.Math.UnitTest
+namespace Brick_o_matic.Primitives.UnitTest
 {
 	[TestClass]
 	public class ColorUnitTest
