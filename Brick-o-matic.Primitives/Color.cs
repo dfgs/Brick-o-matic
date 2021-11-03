@@ -34,7 +34,7 @@ namespace Brick_o_matic.Primitives
 			return $"({R},{G},{B})";
 		}
 
-		public void GetComponents(out byte R, out byte G, out byte B)
+		public void GetComponents(IScene Scene,out byte R, out byte G, out byte B)
 		{
 			R = this.R;G = this.G;B = this.B;
 		}

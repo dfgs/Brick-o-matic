@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Brick_o_matic.Parsing
 {
-	public static class PrimitiveReader
+	public static class SceneReader
 	{
-		public static IEnumerable<IPrimitive> Read(string Text,params char[] IgnoredChards)
+		public static Scene Read(string Text,params char[] IgnoredChards)
 		{
 			ParserLib.StringReader reader;
 
 			reader = new ParserLib.StringReader(Text, IgnoredChards);
-			return Grammar.Primitives.Parse(reader);
+			return Grammar.Scene.Parse(reader);
 		}
 	}
 }

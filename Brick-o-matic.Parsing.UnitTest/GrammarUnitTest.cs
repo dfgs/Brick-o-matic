@@ -12,6 +12,18 @@ namespace Brick_o_matic.Parsing.UnitTest
 	public class GrammarUnitTest
 	{
 		[TestMethod]
+		public void ShouldParseName()
+		{
+			Assert.AreEqual("Homer", Grammar.Name.Parse("Homer", ' '));
+			Assert.AreEqual("hOMEr", Grammar.Name.Parse("hOMEr", ' '));
+			Assert.AreEqual("Homer1", Grammar.Name.Parse("Homer1", ' '));
+			Assert.AreEqual("Homer-1", Grammar.Name.Parse("Homer-1", ' '));
+			Assert.AreEqual("Homer_1", Grammar.Name.Parse("Homer_1", ' '));
+			Assert.AreEqual("Homer_1A", Grammar.Name.Parse("Homer_1A", ' '));
+		}
+
+
+		[TestMethod]
 		public void ShouldParsePosition()
 		{
 			Assert.AreEqual(new Position(1, 2, 3), Grammar.Position.Parse("(1,2,3)", ' '));
@@ -27,17 +39,27 @@ namespace Brick_o_matic.Parsing.UnitTest
 		}
 
 		[TestMethod]
+		public void ShouldParseColorRef()
+		{
+			ColorRef color;
+
+			color = Grammar.ColorRef.Parse("Red");
+			Assert.IsNotNull(color);
+			Assert.AreEqual("Red", color.Name);
+		}
+
+		[TestMethod]
 		public void ShouldParseColor()
 		{
-			Assert.AreEqual(new Color(1, 2, 3), Grammar.Color.Parse("(1,2,3)", ' '));
-			Assert.AreEqual(new Color(255, 255, 255), Grammar.Color.Parse(" (255, 255, 255)", ' '));
+			Assert.AreEqual(new Color(1, 2, 3), Grammar.StaticColor.Parse("(1,2,3)", ' '));
+			Assert.AreEqual(new Color(255, 255, 255), Grammar.StaticColor.Parse(" (255, 255, 255)", ' '));
 		}
 
 		[TestMethod]
 		public void ShouldNotParseInvalidColor()
 		{
-			Assert.ThrowsException<UnexpectedCharException>(() => Grammar.Color.Parse("(256,2,3)", ' '));
-			Assert.ThrowsException<UnexpectedCharException>(() => Grammar.Color.Parse("(-1,2,3)", ' '));
+			Assert.ThrowsException<UnexpectedCharException>(() => Grammar.StaticColor.Parse("(256,2,3)", ' '));
+			Assert.ThrowsException<UnexpectedCharException>(() => Grammar.StaticColor.Parse("(-1,2,3)", ' '));
 		}
 
 		// resource
@@ -108,6 +130,9 @@ namespace Brick_o_matic.Parsing.UnitTest
 			setter = Grammar.BrickColorSetter.Parse("Color:(128,127,126)", ' ');
 			Assert.IsNotNull(setter);
 			Assert.AreEqual(new Color(128, 127, 126), setter.Value);
+
+			setter = Grammar.BrickColorSetter.Parse("Color:Red", ' ');
+			Assert.IsNotNull(setter);
 		}
 
 
@@ -122,18 +147,38 @@ namespace Brick_o_matic.Parsing.UnitTest
 			Assert.AreEqual(new Position(1, 2, 3), setter.Value);
 
 		}
+		[TestMethod]
+		public void ShouldParsePartItemsSetter()
+		{
+			PartItemsSetter setter;
+
+			setter = Grammar.PartItemsSetter.Parse("Items: Brick() Part()", ' ');
+			Assert.IsNotNull(setter);
+			Assert.AreEqual(2,setter.Value.Count());
+
+		}
 
 		// Scene Setters
 		[TestMethod]
 		public void ShouldParseSceneResourceSetter()
 		{
-			SceneResourceSetter setter;
+			SceneResourcesSetter setter;
 
-			setter = Grammar.SceneResourceSetter.Parse("Resource:ResourceName=Brick()", ' ');
+			setter = Grammar.SceneResourcesSetter.Parse("Resources:ResourceName=Brick() ResourceName2=Part()", ' ');
 			Assert.IsNotNull(setter);
-			Assert.AreEqual("ResourceName", setter.Value.Name);
+			Assert.AreEqual(2, setter.Value.Count());
+			Assert.AreEqual("ResourceName", setter.Value.First().Name);
 		}
+		[TestMethod]
+		public void ShouldParseSceneItemsSetter()
+		{
+			SceneItemsSetter setter;
 
+			setter = Grammar.SceneItemsSetter.Parse("Items: Brick() Part()", ' ');
+			Assert.IsNotNull(setter);
+			Assert.AreEqual(2, setter.Value.Count());
+
+		}
 
 
 		// Primitives
@@ -164,6 +209,11 @@ namespace Brick_o_matic.Parsing.UnitTest
 			Assert.AreEqual(new Size(1, 2, 3), b.Size);
 			Assert.AreEqual(new Position(3, 2, 1), b.Position);
 			Assert.AreEqual(new Color(128, 127, 126), b.Color);
+
+			b = Grammar.Brick.Parse("Brick(Size:(1,2,3) Position:(3,2,1) Color:Red )", ' ');
+			Assert.IsNotNull(b);
+			Assert.AreEqual(new Size(1, 2, 3), b.Size);
+			Assert.AreEqual(new Position(3, 2, 1), b.Position);
 		}
 		[TestMethod]
 		public void ShouldParsePart()
@@ -178,6 +228,10 @@ namespace Brick_o_matic.Parsing.UnitTest
 			Assert.IsNotNull(p);
 			Assert.AreEqual(new Position(1, 2, 3), p.Position);
 
+			p = Grammar.Part.Parse("Part(Position:(1,2,3) Items: Brick() Brick() Part())", ' ');
+			Assert.IsNotNull(p);
+			Assert.AreEqual(new Position(1, 2, 3), p.Position);
+			Assert.AreEqual(3, p.Count);
 		}
 
 		[TestMethod]
@@ -219,13 +273,15 @@ namespace Brick_o_matic.Parsing.UnitTest
 
 			scene = Grammar.Scene.Parse("Scene()", ' ');
 			Assert.IsNotNull(scene);
-			scene = Grammar.Scene.Parse("Scene(Resource: Brick = Brick() Resource: Red = (255,0,0))", ' ');
+			scene = Grammar.Scene.Parse("Scene( Resources: b1 = Brick() Red = (255,0,0) Items: Brick() Brick() Part()  )", ' ');
+			Assert.IsNotNull(scene);
+			Assert.AreEqual(2, scene.ResourcesCount);
+			Assert.AreEqual(3, scene.ItemsCount);
 
 
-		
 			//Assert.AreEqual(new Position(), b.Position);
 		}
 
-	
+
 	}
 }

@@ -11,24 +11,24 @@ namespace Brick_o_matic.Viewer
 {
 	public static class GeometryUtils
 	{
-		public static IEnumerable<GeometryModel3D> CreateGeometryModels(Brick Brick)
+		public static IEnumerable<GeometryModel3D> CreateGeometryModels(IScene Scene,Brick Brick)
 		{
 			DiffuseMaterial positiveX,negativeX, positiveY, negativeY, positiveZ, negativeZ;
 			GeometryModel3D model;
 			MeshGeometry3D mesh;
 			
 			positiveX = new DiffuseMaterial();
-			positiveX.Brush = new SolidColorBrush(Brick.Color.ToMediaColor());// new SolidColorBrush(Color.FromArgb(255, Brick.PositiveX.Color.R, Brick.PositiveX.Color.G, Brick.PositiveX.Color.B));
+			positiveX.Brush = new SolidColorBrush(Brick.Color.ToMediaColor(Scene));// new SolidColorBrush(Color.FromArgb(255, Brick.PositiveX.Color.R, Brick.PositiveX.Color.G, Brick.PositiveX.Color.B));
 			negativeX = new DiffuseMaterial();
-			negativeX.Brush = new SolidColorBrush(Brick.Color.ToMediaColor());//new SolidColorBrush(Color.FromArgb(255, Brick.NegativeX.Color.R, Brick.NegativeX.Color.G, Brick.NegativeX.Color.B));
+			negativeX.Brush = new SolidColorBrush(Brick.Color.ToMediaColor(Scene));//new SolidColorBrush(Color.FromArgb(255, Brick.NegativeX.Color.R, Brick.NegativeX.Color.G, Brick.NegativeX.Color.B));
 			positiveY = new DiffuseMaterial();
-			positiveY.Brush = new SolidColorBrush(Brick.Color.ToMediaColor());//new SolidColorBrush(Color.FromArgb(255, Brick.PositiveY.Color.R, Brick.PositiveY.Color.G, Brick.PositiveY.Color.B));
+			positiveY.Brush = new SolidColorBrush(Brick.Color.ToMediaColor(Scene));//new SolidColorBrush(Color.FromArgb(255, Brick.PositiveY.Color.R, Brick.PositiveY.Color.G, Brick.PositiveY.Color.B));
 			negativeY = new DiffuseMaterial();
-			negativeY.Brush = new SolidColorBrush(Brick.Color.ToMediaColor());//new SolidColorBrush(Color.FromArgb(255, Brick.NegativeY.Color.R, Brick.NegativeY.Color.G, Brick.NegativeY.Color.B));
+			negativeY.Brush = new SolidColorBrush(Brick.Color.ToMediaColor(Scene));//new SolidColorBrush(Color.FromArgb(255, Brick.NegativeY.Color.R, Brick.NegativeY.Color.G, Brick.NegativeY.Color.B));
 			positiveZ = new DiffuseMaterial();
-			positiveZ.Brush = new SolidColorBrush(Brick.Color.ToMediaColor());//new SolidColorBrush(Color.FromArgb(255, Brick.PositiveZ.Color.R, Brick.PositiveZ.Color.G, Brick.PositiveZ.Color.B));
+			positiveZ.Brush = new SolidColorBrush(Brick.Color.ToMediaColor(Scene));//new SolidColorBrush(Color.FromArgb(255, Brick.PositiveZ.Color.R, Brick.PositiveZ.Color.G, Brick.PositiveZ.Color.B));
 			negativeZ = new DiffuseMaterial();
-			negativeZ.Brush = new SolidColorBrush(Brick.Color.ToMediaColor());// new SolidColorBrush(Color.FromArgb(255, Brick.NegativeZ.Color.R, Brick.NegativeZ.Color.G, Brick.NegativeZ.Color.B));
+			negativeZ.Brush = new SolidColorBrush(Brick.Color.ToMediaColor(Scene));// new SolidColorBrush(Color.FromArgb(255, Brick.NegativeZ.Color.R, Brick.NegativeZ.Color.G, Brick.NegativeZ.Color.B));
 
 
 			mesh = new MeshGeometry3D();
@@ -156,7 +156,7 @@ namespace Brick_o_matic.Viewer
 
 		
 
-		public static ModelVisual3D CreateModelVisual(IScene Scene,IPrimitive Primitive)
+		public static ModelVisual3D CreateModelVisual(IScene Scene)
 		{
 			ModelVisual3D modelVisual;
 			Model3DGroup group;
@@ -169,9 +169,9 @@ namespace Brick_o_matic.Viewer
 			group = new Model3DGroup();
 			group.Children.Add(light);
 
-			foreach (Brick brick in Primitive.Build(Scene))
+			foreach (Brick brick in Scene.Build())
 			{
-				foreach (GeometryModel3D model in CreateGeometryModels(brick))
+				foreach (GeometryModel3D model in CreateGeometryModels(Scene,brick))
 				{
 					group.Children.Add(model);
 				}

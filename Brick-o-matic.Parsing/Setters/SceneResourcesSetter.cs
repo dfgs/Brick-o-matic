@@ -10,16 +10,19 @@ using System.Threading.Tasks;
 
 namespace Brick_o_matic.Parsing.Setters
 {
-	public class SceneResourceSetter : Setter<Scene, Resource>, ISceneSetter
+	public class SceneResourcesSetter : Setter<Scene, IEnumerable<Resource>>, ISceneSetter
 	{
 		
-		public SceneResourceSetter(Resource Value) : base(Value)
+		public SceneResourcesSetter(IEnumerable<Resource> Value) : base(Value)
 		{
 		}
 
 		public override Scene Set(Scene Component)
 		{
-			Component.AddResource(Value.Name,Value.Object);
+			foreach (Resource resource in Value)
+			{
+				Component.AddResource(resource.Name, resource.Object);
+			}
 			return Component;
 		}
 	}

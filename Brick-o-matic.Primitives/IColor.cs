@@ -8,6 +8,6 @@ namespace Brick_o_matic.Primitives
 {
 	public interface IColor:ISceneObject
 	{
-		void GetComponents(out byte R, out byte G, out byte B);
+		void GetComponents(IScene Scene,out byte R, out byte G, out byte B);
 	}
 }

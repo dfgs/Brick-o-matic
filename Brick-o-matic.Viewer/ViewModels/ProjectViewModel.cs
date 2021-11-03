@@ -115,7 +115,7 @@ namespace Brick_o_matic.Viewer.ViewModels
 		public void Build()
 		{
 			PerspectiveCamera camera;
-			Part part;
+			
 			Vector3D center,direction;
 			int zoom;
 			Box boundingBox;
@@ -131,11 +131,7 @@ namespace Brick_o_matic.Viewer.ViewModels
 			scene = new Scene();
 			try
 			{
-				part = new Part();
-				foreach (IPrimitive primitive in PrimitiveReader.Read(Text, ' ', '\t', '\r', '\n'))
-				{
-					part.Add(primitive);
-				}
+				scene=SceneReader.Read(Text, ' ', '\t', '\r', '\n');
 			}
 			catch(Exception ex)
 			{
@@ -144,12 +140,12 @@ namespace Brick_o_matic.Viewer.ViewModels
 			}
 
 
-			boundingBox = part.GetBoundingBox();
-			center=new Vector3D(part.Position.X + boundingBox.Size.X * 0.5f, boundingBox.Position.Y + boundingBox.Size.Y * 0.5f, boundingBox.Position.Z + boundingBox.Size.Z * 0.5f);
+			boundingBox = scene.GetBoundingBox();
+			center=new Vector3D(boundingBox.Position.X + boundingBox.Size.X * 0.5f, boundingBox.Position.Y + boundingBox.Size.Y * 0.5f, boundingBox.Position.Z + boundingBox.Size.Z * 0.5f);
 			zoom = System.Math.Max(System.Math.Max(boundingBox.Size.X, boundingBox.Size.Y), boundingBox.Size.Z)*5;
 			direction = new Vector3D(zoom, -zoom, -zoom);
 			
-			this.ModelVisual = GeometryUtils.CreateModelVisual(scene,part);
+			this.ModelVisual = GeometryUtils.CreateModelVisual(scene);
 
 			camera = new PerspectiveCamera();
 			camera.LookDirection = direction;

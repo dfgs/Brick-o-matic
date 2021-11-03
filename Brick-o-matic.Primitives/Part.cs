@@ -10,7 +10,6 @@ namespace Brick_o_matic.Primitives
 	public class Part : Primitive,IPart
 	{
 
-		IEnumerable<IPrimitive> IPart.Items => items;
 
 		public int Count
 		{

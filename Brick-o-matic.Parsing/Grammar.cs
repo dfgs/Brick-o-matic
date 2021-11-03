@@ -12,6 +12,8 @@ namespace Brick_o_matic.Parsing
 {
     public static class Grammar
     {
+        public static IParser<string> Name = Parse.AnyInRange('A', 'z').Then(
+            Parse.AnyOf('-','_').Or(Parse.AnyInRange('0','9')).Or(Parse.AnyInRange('A', 'z')).OneOrMoreTimes());
 
         public static IParser<Position> Position =
             from _ in Parse.Char('(')
@@ -43,7 +45,12 @@ namespace Brick_o_matic.Parsing
             from ____ in Parse.Char(')')
             select new Color(r, g, b) as IColor;    // added casting because struct is not compatible with variance
 
-        public static IParser<IColor> Color = StaticColor;
+        public static IParser<ColorRef> ColorRef =
+            from name in Name
+            select new ColorRef(name);
+
+
+        public static IParser<IColor> Color = StaticColor.Or(ColorRef);
         
         // Brick setters
         public static IParser<BrickPositionSetter> BrickPositionSetter =
@@ -69,8 +76,12 @@ namespace Brick_o_matic.Parsing
             from _ in Parse.String("Position:")
             from value in Position
             select new PartPositionSetter(value);
+        public static IParser<PartItemsSetter> PartItemsSetter =
+             from _ in Parse.String("Items:")
+             from value in Primitives
+             select new PartItemsSetter(value);
 
-        public static IParser<IPartSetter> PartSetter = PartPositionSetter;
+        public static IParser<IPartSetter> PartSetter = PartPositionSetter.Or< IPartSetter>(PartItemsSetter);
         public static IParser<IEnumerable<IPartSetter>> PartSetters = PartSetter.ZeroOrMoreTimes();
 
  
@@ -96,23 +107,28 @@ namespace Brick_o_matic.Parsing
         public static IParser<IPrimitive> Primitive = Brick.Or<IPrimitive>(Part);
         public static IParser<IEnumerable<IPrimitive>> Primitives = Primitive.OneOrMoreTimes();
 
-        public static IParser<ISceneObject> SceneObject = Color.Or<ISceneObject>(Primitive);
+        public static IParser<ISceneObject> SceneObject = StaticColor.Or<ISceneObject>(Primitive);
 
         public static IParser<Resource> Resource =
-            from name in Parse.AnyInRange('A', 'z').OneOrMoreTimes()
+            from name in Name
             from __ in Parse.Char('=')
             from obj in SceneObject
             select new Resource(name, obj);
-
+        public static IParser<IEnumerable<Resource>> Resources = Resource.OneOrMoreTimes();
 
         // Scene setters
-        public static IParser<SceneResourceSetter> SceneResourceSetter =
-            from _ in Parse.String("Resource:")
-            from value in Resource
-            select new SceneResourceSetter(value);
+        public static IParser<SceneResourcesSetter> SceneResourcesSetter =
+            from _ in Parse.String("Resources:")
+            from value in Resources
+            select new SceneResourcesSetter(value);
 
-        public static IParser<ISceneSetter> SceneSetter = SceneResourceSetter;
-        public static IParser<IEnumerable<ISceneSetter>> SceneSetters = SceneResourceSetter.ZeroOrMoreTimes();
+        public static IParser<SceneItemsSetter> SceneItemsSetter =
+            from _ in Parse.String("Items:")
+            from value in Primitives
+            select new SceneItemsSetter(value);
+
+        public static IParser<ISceneSetter> SceneSetter = SceneResourcesSetter.Or<ISceneSetter>(SceneItemsSetter);
+        public static IParser<IEnumerable<ISceneSetter>> SceneSetters = SceneSetter.ZeroOrMoreTimes();
 
 
 
