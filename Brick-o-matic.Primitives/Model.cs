@@ -34,14 +34,14 @@ namespace Brick_o_matic.Primitives
 			{
 				foreach (BoxGeometry item in Item)
 				{
-					X1 = System.Math.Min(X1, item.Position.X);
-					Y1 = System.Math.Min(Y1, item.Position.Y);
-					Z1 = System.Math.Min(Z1, item.Position.Z);
-					X2 = System.Math.Max(X2, item.Position.X + item.Size.X - 1);
-					Y2 = System.Math.Max(Y2, item.Position.Y + item.Size.X - 1);
-					Z2 = System.Math.Max(Z2, item.Position.Z + item.Size.X - 1);
+					X1 = System.Math.Min(X1, item.NegativeX.Position);
+					Y1 = System.Math.Min(Y1, item.NegativeY.Position);
+					Z1 = System.Math.Min(Z1, item.NegativeZ.Position);
+					X2 = System.Math.Max(X2, item.PositiveX.Position);
+					Y2 = System.Math.Max(Y2, item.PositiveY.Position);
+					Z2 = System.Math.Max(Z2, item.PositiveZ.Position);
 				}
-				boundingBox = new Box(new Position(X1, Y1, Z1),new Size( X2 - X1 + 1, Y2 - Y1 + 1, Z2 - Z1 + 1));
+				boundingBox = new Box(new Position(X1, Y1, Z1),new Size( X2 - X1 , Y2 - Y1 , Z2 - Z1 ));
 			}
 		}
 

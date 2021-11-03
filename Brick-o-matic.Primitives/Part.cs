@@ -41,13 +41,26 @@ namespace Brick_o_matic.Primitives
 		public override Model Build()
 		{
 			List<BoxGeometry> geometryItems;
+			Plane negativeX;
+			Plane positiveX;
+			Plane negativeY;
+			Plane positiveY;
+			Plane negativeZ;
+			Plane positiveZ;
 
 			geometryItems = new List<BoxGeometry>();
 			foreach(IPrimitive item in this.items)
 			{
 				foreach(BoxGeometry childGeometry in item.Build().Items)
 				{
-					geometryItems.Add(new BoxGeometry(childGeometry.Position + Position, childGeometry.Size, childGeometry.Color));
+					negativeX = new Plane(childGeometry.NegativeX.Position + Position.X, childGeometry.NegativeX.Direction, childGeometry.NegativeX.Color);
+					positiveX = new Plane(childGeometry.PositiveX.Position + Position.X, childGeometry.PositiveX.Direction, childGeometry.PositiveX.Color);
+					negativeY = new Plane(childGeometry.NegativeY.Position + Position.Y, childGeometry.NegativeY.Direction, childGeometry.NegativeY.Color);
+					positiveY = new Plane(childGeometry.PositiveY.Position + Position.Y, childGeometry.PositiveY.Direction, childGeometry.PositiveY.Color);
+					negativeZ = new Plane(childGeometry.NegativeZ.Position + Position.Z, childGeometry.NegativeZ.Direction, childGeometry.NegativeZ.Color);
+					positiveZ = new Plane(childGeometry.PositiveZ.Position + Position.Z, childGeometry.PositiveZ.Direction, childGeometry.PositiveZ.Color);
+
+					geometryItems.Add(new BoxGeometry(negativeX,positiveX,negativeY,positiveY,negativeZ,positiveZ)) ;
 				}
 			}
 

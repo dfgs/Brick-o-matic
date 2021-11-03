@@ -44,6 +44,7 @@
     <Compile Include="BoxGeometry.cs" />
     <Compile Include="CSG.cs" />
     <Compile Include="Difference.cs" />
+    <Compile Include="Plane.cs" />
     <Compile Include="ICSG.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="Part.cs" />
