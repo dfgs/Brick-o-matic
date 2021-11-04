@@ -1,6 +1,10 @@
 ﻿using Brick_o_matic.Math;
 using Brick_o_matic.Parsing;
 using Brick_o_matic.Primitives;
+using ICSharpCode.AvalonEdit.Document;
+using ICSharpCode.AvalonEdit.Highlighting;
+using ICSharpCode.AvalonEdit.Highlighting.Xshd;
+using ICSharpCode.AvalonEdit.Utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Media3D;
+using System.Xml;
 
 namespace Brick_o_matic.Viewer.ViewModels
 {
@@ -33,12 +38,40 @@ namespace Brick_o_matic.Viewer.ViewModels
 
 
 
-		public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(ProjectViewModel), new PropertyMetadata(null));
-		public string Text
+
+
+
+		public static readonly DependencyProperty DocumentProperty = DependencyProperty.Register("Document", typeof(TextDocument), typeof(ProjectViewModel), new PropertyMetadata(null));
+		public TextDocument Document
 		{
-			get { return (string)GetValue(TextProperty); }
-			set { SetValue(TextProperty, value); }
+			get { return (TextDocument)GetValue(DocumentProperty); }
+			set { SetValue(DocumentProperty, value); }
 		}
+
+
+
+		public static readonly DependencyProperty HighlightingDefinitionProperty = DependencyProperty.Register("HighlightingDefinition", typeof(IHighlightingDefinition), typeof(ProjectViewModel), new PropertyMetadata(null));
+		public IHighlightingDefinition HighlightingDefinition
+		{
+			get { return (IHighlightingDefinition)GetValue(HighlightingDefinitionProperty); }
+			set { SetValue(HighlightingDefinitionProperty, value); }
+		}
+
+
+
+
+
+		public static readonly DependencyProperty IsModifiedProperty = DependencyProperty.Register("IsModified", typeof(bool), typeof(ProjectViewModel), new PropertyMetadata(false));
+		public bool IsModified
+		{
+			get { return (bool)GetValue(IsModifiedProperty); }
+			set { SetValue(IsModifiedProperty, value); }
+		}
+
+
+
+
+
 
 		public static readonly DependencyProperty ErrorMessageProperty = DependencyProperty.Register("ErrorMessage", typeof(string), typeof(ProjectViewModel), new PropertyMetadata(null));
 		public string ErrorMessage
@@ -73,8 +106,35 @@ namespace Brick_o_matic.Viewer.ViewModels
 			set { SetValue(ModelVisualProperty, value); }
 		}
 
-		
 
+
+
+
+		public static readonly DependencyProperty ZoomProperty = DependencyProperty.Register("Zoom", typeof(int), typeof(ProjectViewModel), new FrameworkPropertyMetadata(5,AnglePropertyChanged));
+		public int Zoom
+		{
+			get { return (int)GetValue(ZoomProperty); }
+			set { SetValue(ZoomProperty, value); }
+		}
+
+
+
+
+		public static readonly DependencyProperty AngleProperty = DependencyProperty.Register("Angle", typeof(int), typeof(ProjectViewModel), new FrameworkPropertyMetadata(AnglePropertyChanged));
+		public int Angle
+		{
+			get { return (int)GetValue(AngleProperty); }
+			set { SetValue(AngleProperty, value); }
+		}
+		public static readonly DependencyProperty ElevationProperty = DependencyProperty.Register("Elevation", typeof(int), typeof(ProjectViewModel), new FrameworkPropertyMetadata(90,AnglePropertyChanged));
+		public int Elevation
+		{
+			get { return (int)GetValue(ElevationProperty); }
+			set { SetValue(ElevationProperty, value); }
+		}
+
+
+		private Scene scene;
 
 
 
@@ -82,10 +142,22 @@ namespace Brick_o_matic.Viewer.ViewModels
 
 		public ProjectViewModel()
 		{
+			Document = new TextDocument();
+
+			var hlManager = HighlightingManager.Instance;
 			
+			using (Stream s = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("Brick_o_matic.Viewer.Highlighting.xshd"))
+			{
+				using (XmlTextReader reader = new XmlTextReader(s))
+				{
+					HighlightingDefinition = HighlightingLoader.Load(reader, HighlightingManager.Instance);
+				}
+			}
+
+			UpdateCamera();
 		}
 
-	
+
 		public void SetError(string Message)
 		{
 			ErrorMessage = Message;
@@ -95,14 +167,16 @@ namespace Brick_o_matic.Viewer.ViewModels
 		public void Save()
 		{
 			if (FileName == null) throw new Exception("FileName not specified");
-			File.WriteAllText(FileName, Text);
+			File.WriteAllText(FileName,Document.Text);
+			IsModified = false;
 		}
 
 		public void SaveAs(string FileName)
 		{
 			this.FileName = FileName;
 			this.Name = Path.GetFileNameWithoutExtension(FileName);
-			File.WriteAllText(FileName, Text);
+			File.WriteAllText(FileName, Document.Text);
+			IsModified = false;
 		}
 
 		public void LoadFromFile(string FileName)
@@ -110,47 +184,72 @@ namespace Brick_o_matic.Viewer.ViewModels
 
 			this.FileName = FileName;
 			this.Name = Path.GetFileNameWithoutExtension(FileName);
-			Text = File.OpenText(FileName).ReadToEnd();
+
+			Document = new TextDocument(File.ReadAllText(FileName));
+			IsModified = false;
+			Build();
+
+		}
+
+		private static void AnglePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+			ProjectViewModel vm;
+			vm = d as ProjectViewModel;
+			if (vm != null) vm.UpdateCamera();
+		}
+
+		private void UpdateCamera()
+		{
+			Vector3D center, direction;
+			Point3D position;
+			PerspectiveCamera camera;
+			int cameraLength;
+			Box boundingBox;
+
+			if (scene == null) boundingBox = new Box();
+			else boundingBox = scene.GetBoundingBox();
+
+			center = new Vector3D(boundingBox.Position.X + boundingBox.Size.X * 0.5f, boundingBox.Position.Y + boundingBox.Size.Y * 0.5f, boundingBox.Position.Z + boundingBox.Size.Z * 0.5f);
+			cameraLength = System.Math.Max(System.Math.Max(boundingBox.Size.X, boundingBox.Size.Y), boundingBox.Size.Z) * Zoom;
+
+			position = new Point3D(
+				System.Math.Sin(Angle * System.Math.PI / 180.0f) * cameraLength,
+				System.Math.Sin(Elevation * System.Math.PI / 180.0f) * cameraLength, 
+				System.Math.Cos(Angle * System.Math.PI / 180.0f)*cameraLength);
+			
+			direction = center - new Vector3D( position.X,position.Y,position.Z);
+
+			camera = new PerspectiveCamera();
+			camera.LookDirection = direction;
+			camera.Position = position;
+			this.Camera = camera;
 		}
 		public void Build()
 		{
-			PerspectiveCamera camera;
-			
-			Vector3D center,direction;
-			int zoom;
-			Box boundingBox;
-			Scene scene;
 
-			if (Text==null)
+			if ((Document==null) || string.IsNullOrWhiteSpace(Document.Text))
 			{
 				ModelVisual = null;
 				return;
 			}
 
-
 			scene = new Scene();
 			try
 			{
-				scene=SceneReader.Read(Text, ' ', '\t', '\r', '\n');
+				scene=SceneReader.Read(Document.Text, ' ', '\t', '\r', '\n');
 			}
-			catch(Exception ex)
+			catch(ParserLib.UnexpectedCharException unexpected)
+			{
+				SetError(unexpected.Message);
+				return;
+			}
+			catch (Exception ex)
 			{
 				SetError(ex.Message);
 				return;
 			}
-
-
-			boundingBox = scene.GetBoundingBox();
-			center=new Vector3D(boundingBox.Position.X + boundingBox.Size.X * 0.5f, boundingBox.Position.Y + boundingBox.Size.Y * 0.5f, boundingBox.Position.Z + boundingBox.Size.Z * 0.5f);
-			zoom = System.Math.Max(System.Math.Max(boundingBox.Size.X, boundingBox.Size.Y), boundingBox.Size.Z)*5;
-			direction = new Vector3D(zoom, -zoom, -zoom);
-			
+			UpdateCamera();
 			this.ModelVisual = GeometryUtils.CreateModelVisual(scene);
-
-			camera = new PerspectiveCamera();
-			camera.LookDirection = direction;
-			camera.Position = new Point3D(center.X - direction.X, center.Y - direction.Y, center.Z - direction.Z);
-			this.Camera = camera;
 
 			SetError(null);
 		}

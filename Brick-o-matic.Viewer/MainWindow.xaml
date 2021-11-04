@@ -9,6 +9,8 @@
         Title="Brick-o-matic viewer" Height="640" Width="800">
 	<Window.Resources>
 		<RoutedUICommand x:Key="Build"/>
+		<RoutedUICommand x:Key="ZoomIn"/>
+		<RoutedUICommand x:Key="ZoomOut"/>
 		<Style TargetType="{x:Type Image}">
 			<Style.Triggers>
 				<Trigger Property="IsEnabled" Value="False">
@@ -30,11 +32,17 @@
 		<CommandBinding Command="Save" CanExecute="SaveCommandBinding_CanExecute" Executed="SaveCommandBinding_Executed"/>
 		<CommandBinding Command="SaveAs" CanExecute="SaveAsCommandBinding_CanExecute" Executed="SaveAsCommandBinding_Executed"/>
 		<CommandBinding Command="{StaticResource Build}" CanExecute="BuildCommandBinding_CanExecute" Executed="BuildCommandBinding_Executed"/>
+		<CommandBinding Command="{StaticResource ZoomIn}" CanExecute="ZoomInCommandBinding_CanExecute" Executed="ZoomInCommandBinding_Executed"/>
+		<CommandBinding Command="{StaticResource ZoomOut}" CanExecute="ZoomOutCommandBinding_CanExecute" Executed="ZoomOutCommandBinding_Executed"/>
 	</Window.CommandBindings>
 	
     <DockPanel>
 		<StatusBar DockPanel.Dock="Bottom">
-			<TextBlock/>
+			<TextBlock Text="Modified:"/>
+			<TextBlock Text="{Binding SelectedItem.IsModified}"/>
+			<Separator/>
+			<TextBlock Text="Position:"/>
+			<TextBlock Text="{Binding ElementName=avEditor,Path=CaretPosition}"/>
 		</StatusBar>
 
 		<ToolBarTray DockPanel.Dock="Top">
@@ -53,6 +61,35 @@
 				</Button>
 				<Button Command="{StaticResource Build}" ToolTip="Build">
 					<Image Stretch="None" Source="Images/cog.png" />
+				</Button>
+			</ToolBar>
+			
+			<ToolBar>
+				<Button Command="Cut" ToolTip="Cut">
+					<Image Stretch="None" Source="Images/cut.png" />
+				</Button>
+				<Button Command="Copy" ToolTip="Copy">
+					<Image Stretch="None" Source="Images/page_white_copy.png" />
+				</Button>
+				<Button Command="Paste" ToolTip="Paste">
+					<Image Stretch="None" Source="Images/paste_plain.png" />
+				</Button>
+			</ToolBar>
+			<ToolBar>
+				<Button Command="Undo" ToolTip="Undo">
+					<Image Stretch="None" Source="Images/arrow_undo.png" />
+				</Button>
+				<Button Command="Redo" ToolTip="Redo">
+					<Image Stretch="None" Source="Images/arrow_redo.png" />
+				</Button>
+			</ToolBar>
+			<ToolBar>
+				<Button Command="{StaticResource ZoomOut}" ToolTip="Zoom out">
+					<Image Stretch="None" Source="Images/magifier_zoom_out.png" />
+				</Button>
+				<TextBox Width="50" Text="{Binding SelectedItem.Zoom,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+				<Button Command="{StaticResource ZoomIn}" ToolTip="Zoom in">
+					<Image Stretch="None" Source="Images/magnifier_zoom_in.png" />
 				</Button>
 			</ToolBar>
 		</ToolBarTray>

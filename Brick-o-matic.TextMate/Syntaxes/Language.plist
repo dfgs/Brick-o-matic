@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>fileTypes</key>
+	<array>
+		<string>brk</string>
+	</array>
+	<key>patterns</key>
+	<array>
+		<dict>
+			<key>match</key>
+			<string>//.*</string>
+			<key>name</key>
+			<string>comment.line</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>/\*</string>
+			<key>end</key>
+			<string>\*/</string>
+			<key>name</key>
+			<string>comment.block</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>Scene|Brick|Part|Primitive</string>
+			<key>name</key>
+			<string>entity.name.type</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\(\d+,\d+,\d+\)</string>
+			<key>name</key>
+			<string>constant.other</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>keyword.control</string>
+			<key>match</key>
+			<string>(Resources|Items):</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>variable.language</string>
+			<key>match</key>
+			<string>Position:</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>[A-z](.|_|\d|[A-z])*</string>
+			<key>name</key>
+			<string>variable.other</string>
+		</dict>
+	</array>
+	<key>uuid</key>
+	<string>FA4F22B4-180D-417B-B67E-EEEF3F5A9BA4</string>
+	<key>keyEquivalent</key>
+	<string>^~B</string>
+	<key>name</key>
+	<string>Brick-o-matic.TextMate</string>
+	<key>scopeName</key>
+	<string>source.brk</string>
+</dict>
+</plist>

@@ -65,7 +65,7 @@ namespace Brick_o_matic.Primitives
 
 		public override IEnumerable<Brick> Build(IScene Scene)
 		{
-
+	
 			if (Scene == null) throw new ArgumentNullException(nameof(Scene));
 			foreach (IPrimitive item in this.items)
 			{

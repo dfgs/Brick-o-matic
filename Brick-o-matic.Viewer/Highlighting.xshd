@@ -1,0 +1,30 @@
+﻿<SyntaxDefinition name="brk"
+        xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+	<Color name="Comment" foreground="Green" />
+	<Color name="Variable" foreground="DarkRed" />
+
+	<!-- This is the main ruleset. -->
+	<RuleSet>
+		<Span color="Comment" begin="//" />
+		<Span color="Comment" multiline="true" begin="/\*" end="\*/" />
+
+		
+		<Keywords fontWeight="bold" foreground="Blue">
+			<Word>Scene</Word>
+			<Word>Brick</Word>
+			<Word>Part</Word>
+			<Word>Primitive</Word>
+		</Keywords>
+
+		<Rule foreground="DarkGray" fontStyle="italic">\([0-9]+,[0-9]+,[0-9]+\)</Rule>
+		<Rule fontWeight="bold">\=|\(|\)</Rule>
+		<Rule fontWeight="bold" foreground="CornFlowerBlue">Items:|Resources:</Rule>
+
+		<Rule foreground="SteelBlue">[A-z](-|_|[0-9]|[A-z])+:</Rule>
+
+		<Rule foreground="Maroon">[A-z](-|_|[0-9]|[A-z])+</Rule>
+
+		
+		
+	</RuleSet>
+</SyntaxDefinition>

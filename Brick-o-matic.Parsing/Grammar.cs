@@ -15,6 +15,9 @@ namespace Brick_o_matic.Parsing
         public static IParser<string> Name = Parse.AnyInRange('A', 'z').Then(
             Parse.AnyOf('-','_').Or(Parse.AnyInRange('0','9')).Or(Parse.AnyInRange('A', 'z')).OneOrMoreTimes().ReaderIncludes(' ','\t','\r','\n'));
 
+        public static IParser<string> Comment = Parse.String("//").Then(Parse.Except('\r').ZeroOrMoreTimes().ReaderIncludes('\r'));
+
+
         public static IParser<Position> Position =
             from _ in Parse.Char('(')
             from x in Parse.Int()
@@ -149,8 +152,7 @@ namespace Brick_o_matic.Parsing
         public static IParser<ISceneSetter> SceneSetter = SceneResourcesSetter.Or<ISceneSetter>(SceneItemsSetter);
         public static IParser<IEnumerable<ISceneSetter>> SceneSetters = SceneSetter.ZeroOrMoreTimes();
 
-
-
+        
         // Scene
         public static IParser<Scene> Scene =
             from _ in Parse.String("Scene")

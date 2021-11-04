@@ -1,0 +1,42 @@
+Scene(
+	
+	Resources:
+		Blue=(0,255,255)
+		Red=(255,0,0)
+		Green=(0,255,0)
+		
+		Leg = Part(
+			Items:
+				Brick(
+					Position:(0,0,0)
+					Size:(2,1,1)
+					Color:Blue
+				)
+				Brick(
+					Position:(1,1,0)
+					Size:(1,3,1)
+					Color:Red
+				)
+		)
+
+		// comment
+		/*
+		comment
+		*/
+	
+	Items:
+		Primitive(
+			Position:(0,0,0)
+			Name:Leg
+		)
+		Primitive(
+			Position:(0,0,2)
+			Name:Leg
+		) 
+		Brick(
+			Position:(1,4,0)
+			Size:(1,4,3)
+			Color:Green
+		)
+
+)

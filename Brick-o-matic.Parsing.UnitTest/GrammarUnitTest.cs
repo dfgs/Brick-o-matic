@@ -12,6 +12,13 @@ namespace Brick_o_matic.Parsing.UnitTest
 	public class GrammarUnitTest
 	{
 		[TestMethod]
+		public void ShouldParseComment()
+		{
+			Assert.AreEqual("//Homer", Grammar.Comment.Parse("//Homer\rSecondLine", ' ','\r','\n'));
+		}
+		
+
+		[TestMethod]
 		public void ShouldParseName()
 		{
 			Assert.AreEqual("Homer", Grammar.Name.Parse("Homer", ' '));

@@ -83,7 +83,7 @@ namespace Brick_o_matic.Viewer
 		}
 		private void SaveCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
 		{
-			e.CanExecute = ((projects.SelectedItem != null) && (projects.SelectedItem.FileName != null)); e.Handled = true;
+			e.CanExecute = ((projects.SelectedItem != null) && (projects.SelectedItem.FileName != null) && (projects.SelectedItem.IsModified )); e.Handled = true;
 		}
 
 		private void SaveCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -101,10 +101,27 @@ namespace Brick_o_matic.Viewer
 			Try(() => projects.SelectedItem.Build());
 		}
 
-		
-		
+		private void ZoomOutCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = (projects.SelectedItem != null); e.Handled = true;
+		}
+
+		private void ZoomOutCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			Try(() => projects.SelectedItem.Zoom+=1);
+		}
+
+		private void ZoomInCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = (projects.SelectedItem != null) && (projects.SelectedItem.Zoom>1); e.Handled = true;
+		}
+
+		private void ZoomInCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			Try(() => projects.SelectedItem.Zoom -= 1);
+		}
 
 
-		
+
 	}
 }

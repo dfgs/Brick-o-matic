@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParserLib", "..\ParserLib\P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brick-o-matic.Parsing.UnitTest", "Brick-o-matic.Parsing.UnitTest\Brick-o-matic.Parsing.UnitTest.csproj", "{97D1B66A-225D-4591-9D29-9A072CC654F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brick-o-matic.TextMate", "Brick-o-matic.TextMate\Brick-o-matic.TextMate.csproj", "{6D30BCBE-6CB6-4A28-AA13-1DCEC83742DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{97D1B66A-225D-4591-9D29-9A072CC654F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97D1B66A-225D-4591-9D29-9A072CC654F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97D1B66A-225D-4591-9D29-9A072CC654F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D30BCBE-6CB6-4A28-AA13-1DCEC83742DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D30BCBE-6CB6-4A28-AA13-1DCEC83742DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D30BCBE-6CB6-4A28-AA13-1DCEC83742DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D30BCBE-6CB6-4A28-AA13-1DCEC83742DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
