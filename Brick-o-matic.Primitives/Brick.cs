@@ -47,8 +47,15 @@ namespace Brick_o_matic.Primitives
 
 		public override IEnumerable<Brick> Build(IScene Scene)
 		{
+			Color color;
+			byte R, G, B;
+
 			if (Scene == null) throw new ArgumentNullException(nameof(Scene));
-			yield return this;
+			
+			// We must replace colorref by color, in order to prevent resource not found in import
+			this.Color.GetComponents(Scene, out R, out G, out B);
+			color = new Color(R, G, B);
+			yield return new Brick(Position, Size, color); ;
 		}
 	}
 }

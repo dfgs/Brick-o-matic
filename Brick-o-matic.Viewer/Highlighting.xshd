@@ -14,9 +14,10 @@
 			<Word>Brick</Word>
 			<Word>Part</Word>
 			<Word>Primitive</Word>
+			<Word>Import</Word>
 		</Keywords>
 
-		<Rule foreground="DarkGray" fontStyle="italic">\([0-9]+,[0-9]+,[0-9]+\)</Rule>
+		<Rule foreground="DarkGray" fontStyle="italic">\(\s*-?[0-9]+\s*,\s*-?[0-9]+\s*,\s*-?[0-9]+\s*\)</Rule>
 		<Rule fontWeight="bold">\=|\(|\)</Rule>
 		<Rule fontWeight="bold" foreground="CornFlowerBlue">Items:|Resources:</Rule>
 

@@ -187,7 +187,17 @@ namespace Brick_o_matic.Parsing.UnitTest
 			Assert.AreEqual("Homer123", setter.Value);
 		}
 
-		
+		// Import Setters
+		[TestMethod]
+		public void ShouldParseImportPositionSetter()
+		{
+			ImportPositionSetter setter;
+
+			setter = Grammar.ImportPositionSetter.Parse("Position:(1, 2,3)", ' ');
+			Assert.IsNotNull(setter);
+			Assert.AreEqual(new Position(1, 2, 3), setter.Value);
+		}
+
 
 		// Scene Setters
 		[TestMethod]
@@ -299,6 +309,21 @@ namespace Brick_o_matic.Parsing.UnitTest
 		}
 
 		[TestMethod]
+		public void ShouldParseImport()
+		{
+			Import b;
+
+			b = Grammar.Import.Parse("Import()", ' ');
+			Assert.IsNotNull(b);
+			Assert.AreEqual(new Position(), b.Position);
+
+			b = Grammar.Import.Parse("Import(Position:(1,2,3))", ' ');
+			Assert.IsNotNull(b);
+			Assert.AreEqual(new Position(1, 2, 3), b.Position);
+
+		}
+
+		[TestMethod]
 		public void ShouldParsePrimitive()
 		{
 			IPrimitive item;
@@ -314,6 +339,10 @@ namespace Brick_o_matic.Parsing.UnitTest
 			item = Grammar.Primitive.Parse("Primitive( Name:Homer Position:(1,2,3) )", ' ');
 			Assert.IsNotNull(item);
 			Assert.IsInstanceOfType(item, typeof(PrimitiveRef));
+
+			item = Grammar.Primitive.Parse("Import( Position:(1,2,3) )", ' ');
+			Assert.IsNotNull(item);
+			Assert.IsInstanceOfType(item, typeof(Import));
 		}
 
 		[TestMethod]
@@ -326,12 +355,13 @@ namespace Brick_o_matic.Parsing.UnitTest
 			Assert.AreEqual(1, items.Length);
 			Assert.IsInstanceOfType(items[0], typeof(Part));
 
-			items = Grammar.Primitives.Parse("Part() Brick(Position:(1,2,3)) Primitive(Name:homer)", ' ').ToArray();
+			items = Grammar.Primitives.Parse("Part() Brick(Position:(1,2,3)) Primitive(Name:homer) Import(Position:(1,2,3))", ' ').ToArray();
 			Assert.IsNotNull(items);
-			Assert.AreEqual(3, items.Length);
+			Assert.AreEqual(4, items.Length);
 			Assert.IsInstanceOfType(items[0], typeof(Part));
 			Assert.IsInstanceOfType(items[1], typeof(Brick));
 			Assert.IsInstanceOfType(items[2], typeof(PrimitiveRef));
+			Assert.IsInstanceOfType(items[3], typeof(Import));
 		}
 
 
@@ -342,10 +372,10 @@ namespace Brick_o_matic.Parsing.UnitTest
 
 			scene = Grammar.Scene.Parse("Scene()", ' ');
 			Assert.IsNotNull(scene);
-			scene = Grammar.Scene.Parse("Scene( Resources: b1 = Brick() Red = (255,0,0) Items: Brick() Primitive() Part()  )", ' ');
+			scene = Grammar.Scene.Parse("Scene( Resources: b1 = Brick() Red = (255,0,0) Items: Brick() Primitive() Part() Import() )", ' ');
 			Assert.IsNotNull(scene);
 			Assert.AreEqual(2, scene.ResourcesCount);
-			Assert.AreEqual(3, scene.ItemsCount);
+			Assert.AreEqual(4, scene.ItemsCount);
 
 
 			//Assert.AreEqual(new Position(), b.Position);

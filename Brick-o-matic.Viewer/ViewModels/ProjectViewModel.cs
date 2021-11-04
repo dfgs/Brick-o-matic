@@ -187,8 +187,13 @@ namespace Brick_o_matic.Viewer.ViewModels
 
 			Document = new TextDocument(File.ReadAllText(FileName));
 			IsModified = false;
-			Build();
 
+			try
+			{
+				Build();
+			}
+			catch
+			{ }
 		}
 
 		private static void AnglePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -236,7 +241,7 @@ namespace Brick_o_matic.Viewer.ViewModels
 			scene = new Scene();
 			try
 			{
-				scene=SceneReader.Read(Document.Text, ' ', '\t', '\r', '\n');
+				scene=SceneReader.Read(Document.Text);
 			}
 			catch(ParserLib.UnexpectedCharException unexpected)
 			{

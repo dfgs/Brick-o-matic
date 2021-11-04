@@ -49,6 +49,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ImportUnitTest.cs" />
     <Compile Include="PrimitiveRefUnitTest.cs" />
     <Compile Include="SceneUnitTest.cs" />
     <Compile Include="ColorUnitTest.cs" />
