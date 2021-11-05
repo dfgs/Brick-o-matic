@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="ColorRef.cs" />
     <Compile Include="Color.cs" />
+    <Compile Include="FlipZ.cs" />
+    <Compile Include="FlipY.cs" />
     <Compile Include="IColor.cs" />
     <Compile Include="IImport.cs" />
     <Compile Include="IRotate.cs" />
@@ -51,6 +53,7 @@
     <Compile Include="IScene.cs" />
     <Compile Include="ISceneObject.cs" />
     <Compile Include="Import.cs" />
+    <Compile Include="FlipX.cs" />
     <Compile Include="RotateZ.cs" />
     <Compile Include="RotateY.cs" />
     <Compile Include="RotateX.cs" />
