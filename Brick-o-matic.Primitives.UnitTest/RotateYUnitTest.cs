@@ -7,18 +7,18 @@ using System.Linq;
 namespace Brick_o_matic.Primitives.UnitTest
 {
 	[TestClass]
-	public class RotateXUnitTest
+	public class RotateYUnitTest
 	{
 		[TestMethod]
 		public void ShouldInstanciate()
 		{
-			RotateX transform;
+			RotateY transform;
 
-			transform = new RotateX();
+			transform = new RotateY();
 			Assert.IsNotNull(transform);
 			Assert.AreEqual(new Position(), transform.Position);
 
-			transform = new RotateX(new Position(1, 2, 3));
+			transform = new RotateY(new Position(1, 2, 3));
 			Assert.IsNotNull(transform);
 			Assert.AreEqual(new Position(1, 2, 3), transform.Position);
 		}
@@ -26,10 +26,10 @@ namespace Brick_o_matic.Primitives.UnitTest
 		[TestMethod]
 		public void ShouldReturnFlatBoundingBoxWhenHasNoPrimitive()
 		{
-			RotateX transform;
+			RotateY transform;
 			Box box;
 
-			transform = new RotateX(new Position(1,2,3));
+			transform = new RotateY(new Position(1,2,3));
 			Assert.IsNotNull(transform);
 			box = transform.GetBoundingBox(new Scene());
 			Assert.AreEqual(1, box.Position.X);
@@ -41,38 +41,38 @@ namespace Brick_o_matic.Primitives.UnitTest
 		[TestMethod]
 		public void ShouldReturnBoudingBox()
 		{
-			RotateX transform;
+			RotateY transform;
 			Box box;
 			Brick b;
 
-			b = new Brick(new Position(5, 0, 1), new Size(5, 2, 4), new Color());
+			b = new Brick(new Position(1, 5, 0), new Size(4, 5, 2), new Color());
 
-			transform = new RotateX(new Position(0, 0, 0));
+			transform = new RotateY(new Position(0, 0, 0));
 			transform.Count = 1;transform.Item = b;
 			box = transform.GetBoundingBox(new Scene());
-			Assert.AreEqual(new Position(5, -5, 0), box.Position);
-			Assert.AreEqual(new Size(5, 4, 2), box.Size);
+			Assert.AreEqual(new Position(0, 5, -5), box.Position);
+			Assert.AreEqual(new Size(2, 5, 4), box.Size);
 			
 
-			transform = new RotateX(new Position(2, 2, 2));
+			transform = new RotateY(new Position(2, 2, 2));
 			transform.Count = -1; transform.Item = b;
 			box = transform.GetBoundingBox(new Scene());
-			Assert.AreEqual(new Position(5 +2 , 1 +2 , -2 +2), box.Position);
-			Assert.AreEqual(new Size(5, 4, 2), box.Size);
+			Assert.AreEqual(new Position(-2 +2 , 5 +2 , 1 +2), box.Position);
+			Assert.AreEqual(new Size(2, 5, 4), box.Size);
 		}
 
 
 		[TestMethod]
 		public void ShouldGetEmptyBricks()
 		{
-			RotateX part;
+			RotateY part;
 			Brick[] bricks;
 			Scene scene;
 
 			scene = new Scene();
 
 
-			part = new RotateX();
+			part = new RotateY();
 			bricks = part.Build(scene).ToArray();
 			Assert.AreEqual(0, bricks.Length);
 		}
@@ -80,26 +80,26 @@ namespace Brick_o_matic.Primitives.UnitTest
 		[TestMethod]
 		public void ShouldGetBricks()
 		{
-			RotateX transform;
+			RotateY transform;
 			Brick b;
 			Brick[] bricks;
 
-			b = new Brick(new Position(5, 0, 1), new Size(5, 2, 4), new Color());
+			b = new Brick(new Position(1, 5, 0), new Size(4, 5, 2), new Color());
 
-			transform = new RotateX(new Position(0, 0, 0));
+			transform = new RotateY(new Position(0, 0, 0));
 			transform.Count = 1; transform.Item = b;
 			bricks = transform.Build(new Scene()).ToArray();
 			Assert.AreEqual(1, bricks.Length);
-			Assert.AreEqual(new Position(5, -5, 0), bricks[0].Position);
-			Assert.AreEqual(new Size(5, 4, 2), bricks[0].Size);
+			Assert.AreEqual(new Position(0, 5, -5), bricks[0].Position);
+			Assert.AreEqual(new Size(2, 5, 4), bricks[0].Size);
 
 
-			transform = new RotateX(new Position(2, 2, 2));
+			transform = new RotateY(new Position(2, 2, 2));
 			transform.Count = -1; transform.Item = b;
 			bricks = transform.Build(new Scene()).ToArray();
 			Assert.AreEqual(1, bricks.Length);
-			Assert.AreEqual(new Position(5 + 2, 1 + 2, -2 + 2), bricks[0].Position);
-			Assert.AreEqual(new Size(5, 4, 2), bricks[0].Size);
+			Assert.AreEqual(new Position(-2 + 2, 5 + 2, 1 + 2), bricks[0].Position);
+			Assert.AreEqual(new Size(2, 5, 4), bricks[0].Size);
 		}
 
 	}

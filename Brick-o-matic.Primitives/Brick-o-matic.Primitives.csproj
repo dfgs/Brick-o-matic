@@ -51,6 +51,8 @@
     <Compile Include="IScene.cs" />
     <Compile Include="ISceneObject.cs" />
     <Compile Include="Import.cs" />
+    <Compile Include="RotateZ.cs" />
+    <Compile Include="RotateY.cs" />
     <Compile Include="RotateX.cs" />
     <Compile Include="PrimitiveRef.cs" />
     <Compile Include="Part.cs" />

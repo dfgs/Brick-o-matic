@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace Brick_o_matic.Parsing.Setters
 {
-	public class IRotatePrimitiveSetter : Setter<IRotate, IPrimitive>, IRotateSetter
+	public class IRotateItemSetter : Setter<IRotate, IPrimitive>, IRotateSetter
 	{
 		
-		public IRotatePrimitiveSetter(IPrimitive Value) : base(Value)
+		public IRotateItemSetter(IPrimitive Value) : base(Value)
 		{
 		}
 
 		public override IRotate Set(IRotate Component)
 		{
-			Component.Primitive = Value;
+			Component.Item = Value;
 			return Component;
 		}
 	}

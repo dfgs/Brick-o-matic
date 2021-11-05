@@ -9,7 +9,7 @@ namespace Brick_o_matic.Primitives
 {
 	public interface ITransform:IPrimitive
 	{
-		IPrimitive Primitive
+		IPrimitive Item
 		{
 			get;
 			set;

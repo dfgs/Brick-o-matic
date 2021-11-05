@@ -50,6 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ImportUnitTest.cs" />
+    <Compile Include="RotateZUnitTest.cs" />
+    <Compile Include="RotateYUnitTest.cs" />
     <Compile Include="RotateXUnitTest.cs" />
     <Compile Include="PrimitiveRefUnitTest.cs" />
     <Compile Include="SceneUnitTest.cs" />

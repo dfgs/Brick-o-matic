@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Brick_o_matic.Primitives
 {
-	public class RotateX : Primitive,IRotate
+	public class RotateY : Primitive,IRotate
 	{
 
 
@@ -24,10 +24,10 @@ namespace Brick_o_matic.Primitives
 		}
 
 
-		public RotateX()
+		public RotateY()
 		{
 		}
-		public RotateX(Position Position):base(Position)
+		public RotateY(Position Position):base(Position)
 		{
 		}
 		
@@ -38,7 +38,7 @@ namespace Brick_o_matic.Primitives
 			if (Scene == null) throw new ArgumentNullException(nameof(Scene));
 			if (Item == null) return new Box(Position, new Size());
 
-			childBox = Item.GetBoundingBox(Scene).RotateX(Count);
+			childBox = Item.GetBoundingBox(Scene).RotateY(Count);
 
 
 			return new Box(Position + childBox.Position,childBox.Size);
@@ -54,7 +54,7 @@ namespace Brick_o_matic.Primitives
 
 			foreach(Brick brick in Item.Build(Scene))
 			{
-				childBox = brick.GetBoundingBox(Scene).RotateX(Count);
+				childBox = brick.GetBoundingBox(Scene).RotateY(Count);
 				yield return new Brick(Position + childBox.Position, childBox.Size, brick.Color);
 			}
 

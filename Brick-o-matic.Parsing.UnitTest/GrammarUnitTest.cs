@@ -220,11 +220,11 @@ namespace Brick_o_matic.Parsing.UnitTest
 		}
 
 		[TestMethod]
-		public void ShouldParseIRotatePrimitiveSetter()
+		public void ShouldParseIRotateItemSetter()
 		{
-			IRotatePrimitiveSetter setter;
+			IRotateItemSetter setter;
 
-			setter = Grammar.IRotatePrimitiveSetter.Parse("Primitive:Brick()", ' ');
+			setter = Grammar.IRotateItemSetter.Parse("Item:Brick()", ' ');
 			Assert.IsNotNull(setter);
 			Assert.IsInstanceOfType(setter.Value,typeof(Brick));
 
@@ -377,14 +377,69 @@ namespace Brick_o_matic.Parsing.UnitTest
 			Assert.AreEqual(-15, b.Count);
 			Assert.AreEqual(new Position(3, 2, 1), b.Position);
 
-			b = Grammar.RotateX.Parse("RotateX(Count:-15 Position:(3,2,1) Primitive:Brick() )", ' ');
+			b = Grammar.RotateX.Parse("RotateX(Count:-15 Position:(3,2,1) Item:Brick() )", ' ');
 			Assert.IsNotNull(b);
 			Assert.AreEqual(-15, b.Count);
 			Assert.AreEqual(new Position(3, 2, 1), b.Position);
-			Assert.IsInstanceOfType(b.Primitive,typeof(Brick));
+			Assert.IsInstanceOfType(b.Item,typeof(Brick));
+		}
+		[TestMethod]
+		public void ShouldParseRotateY()
+		{
+			RotateY b;
+
+			b = Grammar.RotateY.Parse("RotateY()", ' ');
+			Assert.IsNotNull(b);
+			Assert.AreEqual(new Position(), b.Position);
+
+			b = Grammar.RotateY.Parse("RotateY(Position:(1,2,3))", ' ');
+			Assert.IsNotNull(b);
+			Assert.AreEqual(new Position(1, 2, 3), b.Position);
+
+			b = Grammar.RotateY.Parse("RotateY(Count:-15)", ' ');
+			Assert.IsNotNull(b);
+			Assert.AreEqual(-15, b.Count);
+
+			b = Grammar.RotateY.Parse("RotateY(Count:-15 Position:(3,2,1))", ' ');
+			Assert.IsNotNull(b);
+			Assert.AreEqual(-15, b.Count);
+			Assert.AreEqual(new Position(3, 2, 1), b.Position);
+
+			b = Grammar.RotateY.Parse("RotateY(Count:-15 Position:(3,2,1) Item:Brick() )", ' ');
+			Assert.IsNotNull(b);
+			Assert.AreEqual(-15, b.Count);
+			Assert.AreEqual(new Position(3, 2, 1), b.Position);
+			Assert.IsInstanceOfType(b.Item, typeof(Brick));
 		}
 
+		[TestMethod]
+		public void ShouldParseRotateZ()
+		{
+			RotateZ b;
 
+			b = Grammar.RotateZ.Parse("RotateZ()", ' ');
+			Assert.IsNotNull(b);
+			Assert.AreEqual(new Position(), b.Position);
+
+			b = Grammar.RotateZ.Parse("RotateZ(Position:(1,2,3))", ' ');
+			Assert.IsNotNull(b);
+			Assert.AreEqual(new Position(1, 2, 3), b.Position);
+
+			b = Grammar.RotateZ.Parse("RotateZ(Count:-15)", ' ');
+			Assert.IsNotNull(b);
+			Assert.AreEqual(-15, b.Count);
+
+			b = Grammar.RotateZ.Parse("RotateZ(Count:-15 Position:(3,2,1))", ' ');
+			Assert.IsNotNull(b);
+			Assert.AreEqual(-15, b.Count);
+			Assert.AreEqual(new Position(3, 2, 1), b.Position);
+
+			b = Grammar.RotateZ.Parse("RotateZ(Count:-15 Position:(3,2,1) Item:Brick() )", ' ');
+			Assert.IsNotNull(b);
+			Assert.AreEqual(-15, b.Count);
+			Assert.AreEqual(new Position(3, 2, 1), b.Position);
+			Assert.IsInstanceOfType(b.Item, typeof(Brick));
+		}
 		[TestMethod]
 		public void ShouldParsePrimitive()
 		{
@@ -409,7 +464,17 @@ namespace Brick_o_matic.Parsing.UnitTest
 			item = Grammar.Primitive.Parse("RotateX( Position:(1,2,3) Count:3 )", ' ');
 			Assert.IsNotNull(item);
 			Assert.IsInstanceOfType(item, typeof(RotateX));
+
+			item = Grammar.Primitive.Parse("RotateY( Position:(1,2,3) Count:3 )", ' ');
+			Assert.IsNotNull(item);
+			Assert.IsInstanceOfType(item, typeof(RotateY));
+
+
+			item = Grammar.Primitive.Parse("RotateZ( Position:(1,2,3) Count:3 )", ' ');
+			Assert.IsNotNull(item);
+			Assert.IsInstanceOfType(item, typeof(RotateZ));
 		}
+
 
 		[TestMethod]
 		public void ShouldParsePrimitives()
@@ -421,14 +486,16 @@ namespace Brick_o_matic.Parsing.UnitTest
 			Assert.AreEqual(1, items.Length);
 			Assert.IsInstanceOfType(items[0], typeof(Part));
 
-			items = Grammar.Primitives.Parse("Part() Brick(Position:(1,2,3)) Primitive(Name:homer) Import(Position:(1,2,3)) RotateX( Position:(1,2,3) Count:3 )", ' ').ToArray();
+			items = Grammar.Primitives.Parse("Part() Brick(Position:(1,2,3)) Primitive(Name:homer) Import(Position:(1,2,3)) RotateX( Position:(1,2,3) Count:3 ) RotateY( Position:(1,2,3) Count:3 ) RotateZ( Position:(1,2,3) Count:3 )", ' ').ToArray();
 			Assert.IsNotNull(items);
-			Assert.AreEqual(5, items.Length);
+			Assert.AreEqual(7, items.Length);
 			Assert.IsInstanceOfType(items[0], typeof(Part));
 			Assert.IsInstanceOfType(items[1], typeof(Brick));
 			Assert.IsInstanceOfType(items[2], typeof(PrimitiveRef));
 			Assert.IsInstanceOfType(items[3], typeof(Import));
 			Assert.IsInstanceOfType(items[4], typeof(RotateX));
+			Assert.IsInstanceOfType(items[5], typeof(RotateY));
+			Assert.IsInstanceOfType(items[6], typeof(RotateZ));
 		}
 
 
@@ -439,10 +506,10 @@ namespace Brick_o_matic.Parsing.UnitTest
 
 			scene = Grammar.Scene.Parse("Scene()", ' ');
 			Assert.IsNotNull(scene);
-			scene = Grammar.Scene.Parse("Scene( Resources: b1 = Brick() Red = (255,0,0) Items: Brick() Primitive() Part() Import() RotateX() )", ' ');
+			scene = Grammar.Scene.Parse("Scene( Resources: b1 = Brick() Red = (255,0,0) Items: Brick() Primitive() Part() Import() RotateX() RotateY() RotateZ()  )", ' ');
 			Assert.IsNotNull(scene);
 			Assert.AreEqual(2, scene.ResourcesCount);
-			Assert.AreEqual(5, scene.ItemsCount);
+			Assert.AreEqual(7, scene.ItemsCount);
 
 
 			//Assert.AreEqual(new Position(), b.Position);
