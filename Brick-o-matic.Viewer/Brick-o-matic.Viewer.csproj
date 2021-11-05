@@ -72,6 +72,7 @@
     <Compile Include="Views\SceneView.xaml.cs">
       <DependentUpon>SceneView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\TextEditorEx.cs" />
     <Compile Include="Views\TextEditorView.xaml.cs">
       <DependentUpon>TextEditorView.xaml</DependentUpon>
     </Compile>

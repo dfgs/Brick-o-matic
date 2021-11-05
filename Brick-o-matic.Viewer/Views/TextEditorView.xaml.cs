@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ICSharpCode.AvalonEdit;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,5 +25,7 @@ namespace Brick_o_matic.Viewer.Views
 		{
 			InitializeComponent();
 		}
+
+		
 	}
 }

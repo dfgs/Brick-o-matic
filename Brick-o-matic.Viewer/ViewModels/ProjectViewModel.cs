@@ -70,6 +70,16 @@ namespace Brick_o_matic.Viewer.ViewModels
 
 
 
+		public static readonly DependencyProperty PositionProperty = DependencyProperty.Register("Position", typeof(int), typeof(ProjectViewModel), new PropertyMetadata(0));
+		public int Position
+		{
+			get { return (int)GetValue(PositionProperty); }
+			set { SetValue(PositionProperty, value); }
+		}
+
+
+
+
 
 
 
@@ -246,6 +256,7 @@ namespace Brick_o_matic.Viewer.ViewModels
 			catch(ParserLib.UnexpectedCharException unexpected)
 			{
 				SetError(unexpected.Message);
+				Position = (int)unexpected.Position;
 				return;
 			}
 			catch (Exception ex)

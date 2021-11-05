@@ -88,7 +88,7 @@ namespace Brick_o_matic.Math
 
 			for (int t = 0; t < modulo; t++)
 			{
-				newPosition = new Position(newPosition.X, -(newPosition.Z+1), newPosition.Y);
+				newPosition = new Position(newPosition.X, -newPosition.Z, newPosition.Y);
 			}
 
 			return newPosition;
@@ -105,7 +105,7 @@ namespace Brick_o_matic.Math
 
 			for (int t = 0; t < modulo; t++)
 			{
-				newPosition = new Position(newPosition.Z, newPosition.Y, -(newPosition.X+1));
+				newPosition = new Position(newPosition.Z, newPosition.Y, -newPosition.X);
 			}
 
 			return newPosition;
@@ -122,7 +122,7 @@ namespace Brick_o_matic.Math
 
 			for (int t = 0; t < modulo; t++)
 			{
-				newPosition = new Position(-(newPosition.Y+1), newPosition.X, newPosition.Z);
+				newPosition = new Position(-newPosition.Y, newPosition.X, newPosition.Z);
 			}
 
 			return newPosition;

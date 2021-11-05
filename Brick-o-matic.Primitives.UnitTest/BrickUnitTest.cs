@@ -91,35 +91,53 @@ namespace Brick_o_matic.Primitives.UnitTest
 
 			b = new Brick(new Position(5, 0, 1), new Size(5, 2, 4), new Color());
 			rotate = b.RotateX(1);
-			Assert.AreEqual(new Position(5, -5, 0), rotate.Position);
+			Assert.AreEqual(new Position(5, -4, 0), rotate.Position);
 			Assert.AreEqual(new Size(5, 4, 2), rotate.Size);
 			b = new Brick(new Position(5, 0, 1), new Size(5, 2, 4), new Color());
 			rotate = b.RotateX(5);
-			Assert.AreEqual(new Position(5, -5, 0), rotate.Position);
+			Assert.AreEqual(new Position(5, -4, 0), rotate.Position);
 			Assert.AreEqual(new Size(5, 4, 2), rotate.Size);
 
 			b = new Brick(new Position(5, 0, 1), new Size(5, 2, 4), new Color());
 			rotate = b.RotateX(2);
-			Assert.AreEqual(new Position(5, -2, -5), rotate.Position);
+			Assert.AreEqual(new Position(5, -1, -4), rotate.Position);
 			Assert.AreEqual(new Size(5, 2, 4), rotate.Size);
 			b = new Brick(new Position(5, 0, 1), new Size(5, 2, 4), new Color());
 			rotate = b.RotateX(6);
-			Assert.AreEqual(new Position(5, -2, -5), rotate.Position);
+			Assert.AreEqual(new Position(5, -1, -4), rotate.Position);
 			Assert.AreEqual(new Size(5, 2, 4), rotate.Size);
 
 			b = new Brick(new Position(5, 0, 1), new Size(5, 2, 4), new Color());
 			rotate = b.RotateX(3);
-			Assert.AreEqual(new Position(5, 1, -2), rotate.Position);
+			Assert.AreEqual(new Position(5, 1, -1), rotate.Position);
 			Assert.AreEqual(new Size(5, 4, 2), rotate.Size);
 			b = new Brick(new Position(5, 0, 1), new Size(5, 2, 4), new Color());
 			rotate = b.RotateX(7);
-			Assert.AreEqual(new Position(5, 1, -2), rotate.Position);
+			Assert.AreEqual(new Position(5, 1, -1), rotate.Position);
 			Assert.AreEqual(new Size(5, 4, 2), rotate.Size);//*/
 
 			b = new Brick(new Position(5, 0, 1), new Size(5, 2, 4), new Color());
 			rotate = b.RotateX(-1);
-			Assert.AreEqual(new Position(5, 1, -2), rotate.Position);
+			Assert.AreEqual(new Position(5, 1, -1), rotate.Position);
 			Assert.AreEqual(new Size(5, 4, 2), rotate.Size);
+		}
+
+		[TestMethod]
+		public void ShouldRotateXLineShape()
+		{
+			Brick b, rotate;
+
+			b = new Brick(new Position(0, 0, 1), new Size(1, 1, 4), new Color());
+			rotate = b.RotateX(-1);
+			Assert.AreEqual(new Position(0, 1, 0), rotate.Position);
+
+			b = new Brick(new Position(0, 0, 1), new Size(1, 1, 4), new Color());
+			rotate = b.RotateX(-2);
+			Assert.AreEqual(new Position(0, 0, -4), rotate.Position);
+
+			b = new Brick(new Position(0, 0, 1), new Size(1, 1, 4), new Color());
+			rotate = b.RotateX(-3);
+			Assert.AreEqual(new Position(0, -4, 0), rotate.Position);
 		}
 
 		[TestMethod]
@@ -137,35 +155,54 @@ namespace Brick_o_matic.Primitives.UnitTest
 
 			b = new Brick(new Position(1, 5, 0), new Size(4, 5, 2), new Color());
 			rotate = b.RotateY(1);
-			Assert.AreEqual(new Position(0, 5, -5), rotate.Position);
+			Assert.AreEqual(new Position(0, 5, -4), rotate.Position);
 			Assert.AreEqual(new Size(2, 5, 4), rotate.Size);
 			b = new Brick(new Position(1, 5, 0), new Size(4, 5, 2), new Color());
 			rotate = b.RotateY(5);
-			Assert.AreEqual(new Position(0, 5, -5), rotate.Position);
+			Assert.AreEqual(new Position(0, 5, -4), rotate.Position);
 			Assert.AreEqual(new Size(2, 5, 4), rotate.Size);
 
 			b = new Brick(new Position(1, 5, 0), new Size(4, 5, 2), new Color());
 			rotate = b.RotateY(2);
-			Assert.AreEqual(new Position(-5, 5, -2), rotate.Position);
+			Assert.AreEqual(new Position(-4, 5, -1), rotate.Position);
 			Assert.AreEqual(new Size(4, 5, 2), rotate.Size);
 			b = new Brick(new Position(1, 5, 0), new Size(4, 5, 2), new Color());
 			rotate = b.RotateY(6);
-			Assert.AreEqual(new Position(-5, 5, -2), rotate.Position);
+			Assert.AreEqual(new Position(-4, 5, -1), rotate.Position);
 			Assert.AreEqual(new Size(4, 5, 2), rotate.Size);
 
 			b = new Brick(new Position(1, 5, 0), new Size(4, 5, 2), new Color());
 			rotate = b.RotateY(3);
-			Assert.AreEqual(new Position(-2, 5, 1), rotate.Position);
+			Assert.AreEqual(new Position(-1, 5, 1), rotate.Position);
 			Assert.AreEqual(new Size(2, 5, 4), rotate.Size);
 			b = new Brick(new Position(1, 5, 0), new Size(4, 5, 2), new Color());
 			rotate = b.RotateY(7);
-			Assert.AreEqual(new Position(-2, 5, 1), rotate.Position);
+			Assert.AreEqual(new Position(-1, 5, 1), rotate.Position);
 			Assert.AreEqual(new Size(2, 5, 4), rotate.Size);
 
 			b = new Brick(new Position(1, 5, 0), new Size(4, 5, 2), new Color());
 			rotate = b.RotateY(-1);
-			Assert.AreEqual(new Position(-2, 5, 1), rotate.Position);
+			Assert.AreEqual(new Position(-1, 5, 1), rotate.Position);
 			Assert.AreEqual(new Size(2, 5, 4), rotate.Size);
+
+
+		}
+		[TestMethod]
+		public void ShouldRotateYLineShape()
+		{
+			Brick b, rotate;
+
+			b = new Brick(new Position(1, 0, 0), new Size(4, 1, 1), new Color());
+			rotate = b.RotateY(-1);
+			Assert.AreEqual(new Position(0, 0, 1), rotate.Position);
+			
+			b = new Brick(new Position(1, 0, 0), new Size(4, 1, 1), new Color());
+			rotate = b.RotateY(-2);
+			Assert.AreEqual(new Position(-4, 0, 0), rotate.Position);
+
+			b = new Brick(new Position(1, 0, 0), new Size(4, 1, 1), new Color());
+			rotate = b.RotateY(-3);
+			Assert.AreEqual(new Position(0, 0, -4), rotate.Position);
 		}
 
 		[TestMethod]
@@ -183,37 +220,54 @@ namespace Brick_o_matic.Primitives.UnitTest
 
 			b = new Brick(new Position(1, 0, 5), new Size(4, 2, 5), new Color());
 			rotate = b.RotateZ(1);
-			Assert.AreEqual(new Position(-2, 1, 5), rotate.Position);
+			Assert.AreEqual(new Position(-1, 1, 5), rotate.Position);
 			Assert.AreEqual(new Size(2, 4, 5), rotate.Size);
 			b = new Brick(new Position(1, 0, 5), new Size(4, 2, 5), new Color());
 			rotate = b.RotateZ(5);
-			Assert.AreEqual(new Position(-2, 1, 5), rotate.Position);
+			Assert.AreEqual(new Position(-1, 1, 5), rotate.Position);
 			Assert.AreEqual(new Size(2, 4, 5), rotate.Size);
 
 			b = new Brick(new Position(1, 0, 5), new Size(4, 2, 5), new Color());
 			rotate = b.RotateZ(2);
-			Assert.AreEqual(new Position(-5, -2, 5), rotate.Position);
+			Assert.AreEqual(new Position(-4, -1, 5), rotate.Position);
 			Assert.AreEqual(new Size(4, 2, 5), rotate.Size);
 			b = new Brick(new Position(1, 0, 5), new Size(4, 2, 5), new Color());
 			rotate = b.RotateZ(6);
-			Assert.AreEqual(new Position(-5, -2, 5), rotate.Position);
+			Assert.AreEqual(new Position(-4, -1, 5), rotate.Position);
 			Assert.AreEqual(new Size(4, 2, 5), rotate.Size);
 
 			b = new Brick(new Position(1, 0, 5), new Size(4, 2, 5), new Color());
 			rotate = b.RotateZ(3);
-			Assert.AreEqual(new Position(0, -5, 5), rotate.Position);
+			Assert.AreEqual(new Position(0, -4, 5), rotate.Position);
 			Assert.AreEqual(new Size(2, 4, 5), rotate.Size);
 			b = new Brick(new Position(1, 0, 5), new Size(4, 2, 5), new Color());
 			rotate = b.RotateZ(7);
-			Assert.AreEqual(new Position(0, -5, 5), rotate.Position);
+			Assert.AreEqual(new Position(0, -4, 5), rotate.Position);
 			Assert.AreEqual(new Size(2, 4, 5), rotate.Size);
 
 			b = new Brick(new Position(1, 0, 5), new Size(4, 2, 5), new Color());
 			rotate = b.RotateZ(-1);
-			Assert.AreEqual(new Position(0, -5, 5), rotate.Position);
+			Assert.AreEqual(new Position(0, -4, 5), rotate.Position);
 			Assert.AreEqual(new Size(2, 4, 5), rotate.Size);
 		}
 
+		[TestMethod]
+		public void ShouldRotateZLineShape()
+		{
+			Brick b, rotate;
+
+			b = new Brick(new Position(0, 1, 0), new Size(1, 4, 1), new Color());
+			rotate = b.RotateZ(-1);
+			Assert.AreEqual(new Position(1, 0, 0), rotate.Position);
+
+			b = new Brick(new Position(0, 1, 0), new Size(1, 4, 1), new Color());
+			rotate = b.RotateZ(-2);
+			Assert.AreEqual(new Position(0, -4, 0), rotate.Position);
+
+			b = new Brick(new Position(0, 1, 0), new Size(1, 4, 1), new Color());
+			rotate = b.RotateZ(-3);
+			Assert.AreEqual(new Position(-4, 0, 0), rotate.Position);
+		}
 
 
 	}

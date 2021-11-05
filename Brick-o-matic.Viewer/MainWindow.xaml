@@ -42,7 +42,7 @@
 			<TextBlock Text="{Binding SelectedItem.IsModified}"/>
 			<Separator/>
 			<TextBlock Text="Position:"/>
-			<TextBlock Text="{Binding ElementName=avEditor,Path=CaretPosition}"/>
+			<TextBlock Text="{Binding SelectedItem.Position}"/>
 		</StatusBar>
 
 		<ToolBarTray DockPanel.Dock="Top">

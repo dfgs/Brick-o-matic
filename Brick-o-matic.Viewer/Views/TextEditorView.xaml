@@ -14,14 +14,14 @@
 			<TextBlock Margin="5,3,0,3" Text="{Binding ErrorMessage,FallbackValue=Error}"/>
 		</Border>
 		<!--TextBox Text="{Binding Text,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsTab="True" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" /-->
-		<avalonEdit:TextEditor
-                    Name="avEditor"
+		<views:TextEditorEx
                     Background="White"
                     Document="{Binding Document, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Foreground="Black"
                     IsModified="{Binding Path=IsModified, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Position="{Binding Position,Mode=TwoWay}"
                     LineNumbersForeground="Black" 
-                    SyntaxHighlighting="{Binding HighlightingDefinition, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ShowLineNumbers="True">
+                    SyntaxHighlighting="{Binding HighlightingDefinition, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"  ShowLineNumbers="True">
 			<avalonEdit:TextEditor.ContextMenu>
 				<ContextMenu>
 					<MenuItem Command="Cut" Header="Cut">
@@ -121,7 +121,7 @@
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</avalonEdit:TextEditor.Template>
-		</avalonEdit:TextEditor>
+		</views:TextEditorEx>
 
 	</DockPanel>
 
