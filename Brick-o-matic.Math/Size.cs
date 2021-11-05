@@ -67,14 +67,57 @@ namespace Brick_o_matic.Math
 			return ((Size1.X != Size2.X) || (Size1.Y != Size2.Y) || (Size1.Z != Size2.Z));
 		}
 
-		/*public static Size operator +(Size Size1, Size Size2)
+		public Size RotateX(int Count)
 		{
-			return new Size(Size1.X + Size2.X, Size1.Y + Size2.Y, Size1.Z + Size2.Z);
+			int modulo;
+			Size newSize;
+
+			newSize = this;
+
+			modulo = Count % 4;
+			if (modulo < 0) modulo += 4;
+
+			for (int t = 0; t < modulo; t++)
+			{
+				newSize = new Size(newSize.X, newSize.Z, newSize.Y);
+			}
+
+			return newSize;
 		}
-		public static Size operator -(Size Size1, Size Size2)
+		public Size RotateY(int Count)
 		{
-			return new Size(Size1.X - Size2.X, Size1.Y - Size2.Y, Size1.Z - Size2.Z);
-		}*/
+			int modulo;
+			Size newSize;
+
+			newSize = this;
+
+			modulo = Count % 4;
+			if (modulo < 0) modulo += 4;
+
+			for (int t = 0; t < modulo; t++)
+			{
+				newSize = new Size(newSize.Z, newSize.Y, newSize.X);
+			}
+
+			return newSize;
+		}
+		public Size RotateZ(int Count)
+		{
+			int modulo;
+			Size newSize;
+
+			newSize = this;
+
+			modulo = Count % 4;
+			if (modulo < 0) modulo += 4;
+
+			for (int t = 0; t < modulo; t++)
+			{
+				newSize = new Size(newSize.Y, newSize.X, newSize.Z);
+			}
+
+			return newSize;
+		}
 
 	}
 }

@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ImportUnitTest.cs" />
+    <Compile Include="RotateXUnitTest.cs" />
     <Compile Include="PrimitiveRefUnitTest.cs" />
     <Compile Include="SceneUnitTest.cs" />
     <Compile Include="ColorUnitTest.cs" />

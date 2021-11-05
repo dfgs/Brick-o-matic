@@ -39,6 +39,54 @@ namespace Brick_o_matic.Primitives
 			this.Size = Size; this.Color = Color;
 		}
 
+
+
+		public Brick RotateX(int Count)
+		{
+			Position cornerA, cornerB, rCornerA, rCornerB;
+			Size newSize;
+
+			cornerA = this.Position;
+			cornerB = this.Position + this.Size + new Position(-1, -1, -1);
+
+			rCornerA = cornerA.RotateX(Count);
+			rCornerB = cornerB.RotateX(Count);
+
+			newSize = Size.RotateX(Count);
+
+			return new Brick(new Position(rCornerA.X, System.Math.Min(rCornerA.Y, rCornerB.Y), System.Math.Min(rCornerA.Z, rCornerB.Z)), newSize, Color);
+		}
+		public Brick RotateY(int Count)
+		{
+			Position cornerA, cornerB, rCornerA, rCornerB;
+			Size newSize;
+
+			cornerA = this.Position;
+			cornerB = this.Position + this.Size + new Position(-1, -1, -1);
+
+			rCornerA = cornerA.RotateY(Count);
+			rCornerB = cornerB.RotateY(Count);
+
+			newSize = Size.RotateY(Count);
+
+			return new Brick(new Position(System.Math.Min(rCornerA.X, rCornerB.X), rCornerA.Y, System.Math.Min(rCornerA.Z, rCornerB.Z)), newSize, Color);
+		}
+		public Brick RotateZ(int Count)
+		{
+			Position cornerA,cornerB,rCornerA,rCornerB;
+			Size newSize;
+
+			cornerA = this.Position;
+			cornerB = this.Position + this.Size+new Position(-1,-1,-1);
+
+			rCornerA = cornerA.RotateZ(Count);
+			rCornerB = cornerB.RotateZ(Count);
+
+			newSize = Size.RotateZ(Count);
+
+			return new Brick(new Position(System.Math.Min(rCornerA.X,rCornerB.X), System.Math.Min(rCornerA.Y,rCornerB.Y), rCornerA.Z), newSize, Color);
+		}
+
 		public override Box GetBoundingBox(IScene Scene)
 		{
 			if (Scene == null) throw new ArgumentNullException(nameof(Scene));

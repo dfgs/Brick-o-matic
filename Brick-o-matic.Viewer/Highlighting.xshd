@@ -15,6 +15,9 @@
 			<Word>Part</Word>
 			<Word>Primitive</Word>
 			<Word>Import</Word>
+			<Word>RotateX</Word>
+			<Word>RotateY</Word>
+			<Word>RotateZ</Word>
 		</Keywords>
 
 		<Rule foreground="DarkGray" fontStyle="italic">\(\s*-?[0-9]+\s*,\s*-?[0-9]+\s*,\s*-?[0-9]+\s*\)</Rule>

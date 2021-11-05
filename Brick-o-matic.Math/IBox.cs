@@ -17,10 +17,10 @@ namespace Brick_o_matic.Math
 		{
             get;
 		}
-      
+
+       
 
 
-     
 
     }
 }

@@ -44,6 +44,10 @@
     <Compile Include="Grammar.cs" />
     <Compile Include="SceneReader.cs" />
     <Compile Include="Setters\BrickColorSetter.cs" />
+    <Compile Include="Setters\IRotateCountSetter.cs" />
+    <Compile Include="Setters\IRotatePrimitiveSetter.cs" />
+    <Compile Include="Setters\IRotatePositionSetter.cs" />
+    <Compile Include="Setters\IRotateSetter.cs" />
     <Compile Include="Setters\IImportSetter.cs" />
     <Compile Include="Setters\ImportSceneSetter.cs" />
     <Compile Include="Setters\PrimitiveRefNameSetter.cs" />

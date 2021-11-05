@@ -79,7 +79,103 @@ namespace Brick_o_matic.Math.UnitTest
 			Assert.AreEqual(new Position(3, 5, 7), new Position(5, 8, 11) - new Position(2, 3, 4));
 		}
 
+		[TestMethod]
+		public void ShouldAddSizeWithOperator()
+		{
+			Assert.AreEqual(new Position(3, 5, 7), new Position(1, 2, 3) + new Size(2, 3, 4));
+		}
+		[TestMethod]
+		public void ShouldSubSizeWithOperator()
+		{
+			Assert.AreEqual(new Position(3, 5, 7), new Position(5, 8, 11) - new Size(2, 3, 4));
+		}
 
 
+		[TestMethod]
+		public void ShouldRotateX()
+		{
+			Assert.AreEqual(new Position(2, 1, 0), new Position(2, 1, 0).RotateX(0));
+			Assert.AreEqual(new Position(2, 1, 0), new Position(2, 1, 0).RotateX(4));
+
+			Assert.AreEqual(new Position(2, -1, 1), new Position(2, 1, 0).RotateX(1));
+			Assert.AreEqual(new Position(2, -1, 1), new Position(2, 1, 0).RotateX(5));
+
+			Assert.AreEqual(new Position(2, -2, -1), new Position(2, -1, 1).RotateX(1));
+			Assert.AreEqual(new Position(2, -2, -1), new Position(2, -1, 1).RotateX(5));
+
+			Assert.AreEqual(new Position(2, 0, -2), new Position(2, -2, -1).RotateX(1));
+			Assert.AreEqual(new Position(2, 0, -2), new Position(2, -2, -1).RotateX(5));
+
+			Assert.AreEqual(new Position(2, 1, 0), new Position(2, 0, -2).RotateX(1));
+			Assert.AreEqual(new Position(2, 1, 0), new Position(2, 0, -2).RotateX(5));
+
+			Assert.AreEqual(new Position(2, -2, -1), new Position(2, 1, 0).RotateX(2));
+			Assert.AreEqual(new Position(2, 0, -2), new Position(2, -1, 1).RotateX(2));
+
+			Assert.AreEqual(new Position(2, 0, -2), new Position(2, 1, 0).RotateX(-1));
+			Assert.AreEqual(new Position(2, 0, -2), new Position(2, 1, 0).RotateX(-5));
+
+
+			Assert.AreEqual(new Position(2, -2, 3), new Position(2, 3, 1).RotateX(1)); ;
+			Assert.AreEqual(new Position(2, -2, 3), new Position(2, 3, 1).RotateX(5));
+		}
+
+		[TestMethod]
+		public void ShouldRotateY()
+		{
+			Assert.AreEqual(new Position(1, 2, 0), new Position(1, 2, 0).RotateY(0));
+			Assert.AreEqual(new Position(1, 2, 0), new Position(1, 2, 0).RotateY(4));
+
+			Assert.AreEqual(new Position(0, 2, -2), new Position(1, 2, 0).RotateY(1));
+			Assert.AreEqual(new Position(0, 2, -2), new Position(1, 2, 0).RotateY(5));
+
+			Assert.AreEqual(new Position(-2, 2, -1), new Position(0, 2, -2).RotateY(1));
+			Assert.AreEqual(new Position(-2, 2, -1), new Position(0, 2, -2).RotateY(5));
+
+			Assert.AreEqual(new Position(-1, 2, 1), new Position(-2, 2, -1).RotateY(1));
+			Assert.AreEqual(new Position(-1, 2, 1), new Position(-2, 2, -1).RotateY(5));
+
+			Assert.AreEqual(new Position(1, 2, 0), new Position(-1, 2, 1).RotateY(1));
+			Assert.AreEqual(new Position(1, 2, 0), new Position(-1, 2, 1).RotateY(5));
+
+			Assert.AreEqual(new Position(-2, 2, -1), new Position(1, 2, 0).RotateY(2));
+			Assert.AreEqual(new Position(0, 2, -2), new Position(-1, 2, 1).RotateY(2));
+
+			Assert.AreEqual(new Position(-1, 2, 1), new Position(1, 2, 0).RotateY(-1));
+			Assert.AreEqual(new Position(-1, 2, 1), new Position(1, 2, 0).RotateY(-5));
+
+
+			Assert.AreEqual(new Position(1, 2, -4), new Position(3, 2, 1).RotateY(1)); ;
+			Assert.AreEqual(new Position(1, 2, -4), new Position(3, 2, 1).RotateY(5));
+		}
+
+		[TestMethod]
+		public void ShouldRotateZ()
+		{
+			Assert.AreEqual(new Position(1, 0, 2), new Position(1, 0, 2).RotateZ(0));
+			Assert.AreEqual(new Position(1, 0, 2), new Position(1, 0, 2).RotateZ(4));
+
+			Assert.AreEqual(new Position(-1, 1, 2), new Position(1, 0, 2).RotateZ(1));
+			Assert.AreEqual(new Position(-1, 1, 2), new Position(1, 0, 2).RotateZ(5));
+
+			Assert.AreEqual(new Position(-2, -1, 2), new Position(-1, 1, 2).RotateZ(1));
+			Assert.AreEqual(new Position(-2, -1, 2), new Position(-1, 1, 2).RotateZ(5));
+
+			Assert.AreEqual(new Position(0, -2, 2), new Position(-2, -1, 2).RotateZ(1));
+			Assert.AreEqual(new Position(0, -2, 2), new Position(-2, -1, 2).RotateZ(5));
+
+			Assert.AreEqual(new Position(1, 0, 2), new Position(0, -2, 2).RotateZ(1));
+			Assert.AreEqual(new Position(1, 0, 2), new Position(0, -2, 2).RotateZ(5));
+
+			Assert.AreEqual(new Position(-2, -1, 2), new Position(1, 0, 2).RotateZ(2));
+			Assert.AreEqual(new Position(0, -2, 2), new Position(-1, 1, 2).RotateZ(2));
+
+			Assert.AreEqual(new Position(0, -2, 2), new Position(1, 0, 2).RotateZ(-1));
+			Assert.AreEqual(new Position(0, -2, 2), new Position(1, 0, 2).RotateZ(-5));
+
+
+			Assert.AreEqual(new Position(-2, 3, 2), new Position(3, 1, 2).RotateZ(1)); ;
+			Assert.AreEqual(new Position(-2, 3, 2), new Position(3, 1, 2).RotateZ(5));
+		}
 	}
 }

@@ -198,6 +198,38 @@ namespace Brick_o_matic.Parsing.UnitTest
 			Assert.AreEqual(new Position(1, 2, 3), setter.Value);
 		}
 
+		// IRotate Setters
+		[TestMethod]
+		public void ShouldParseRotateXPositionSetter()
+		{
+			IRotatePositionSetter setter;
+
+			setter = Grammar.IRotatePositionSetter.Parse("Position:(1, 2,3)", ' ');
+			Assert.IsNotNull(setter);
+			Assert.AreEqual(new Position(1, 2, 3), setter.Value);
+		}
+
+		[TestMethod]
+		public void ShouldParseRotateXCountSetter()
+		{
+			IRotateCountSetter setter;
+
+			setter = Grammar.IRotateCountSetter.Parse("Count:15", ' ');
+			Assert.IsNotNull(setter);
+			Assert.AreEqual(15, setter.Value);
+		}
+
+		[TestMethod]
+		public void ShouldParseIRotatePrimitiveSetter()
+		{
+			IRotatePrimitiveSetter setter;
+
+			setter = Grammar.IRotatePrimitiveSetter.Parse("Primitive:Brick()", ' ');
+			Assert.IsNotNull(setter);
+			Assert.IsInstanceOfType(setter.Value,typeof(Brick));
+
+		}
+
 
 		// Scene Setters
 		[TestMethod]
@@ -324,6 +356,36 @@ namespace Brick_o_matic.Parsing.UnitTest
 		}
 
 		[TestMethod]
+		public void ShouldParseRotateX()
+		{
+			RotateX b;
+
+			b = Grammar.RotateX.Parse("RotateX()", ' ');
+			Assert.IsNotNull(b);
+			Assert.AreEqual(new Position(), b.Position);
+
+			b = Grammar.RotateX.Parse("RotateX(Position:(1,2,3))", ' ');
+			Assert.IsNotNull(b);
+			Assert.AreEqual(new Position(1, 2, 3), b.Position);
+
+			b = Grammar.RotateX.Parse("RotateX(Count:-15)", ' ');
+			Assert.IsNotNull(b);
+			Assert.AreEqual(-15, b.Count);
+
+			b = Grammar.RotateX.Parse("RotateX(Count:-15 Position:(3,2,1))", ' ');
+			Assert.IsNotNull(b);
+			Assert.AreEqual(-15, b.Count);
+			Assert.AreEqual(new Position(3, 2, 1), b.Position);
+
+			b = Grammar.RotateX.Parse("RotateX(Count:-15 Position:(3,2,1) Primitive:Brick() )", ' ');
+			Assert.IsNotNull(b);
+			Assert.AreEqual(-15, b.Count);
+			Assert.AreEqual(new Position(3, 2, 1), b.Position);
+			Assert.IsInstanceOfType(b.Primitive,typeof(Brick));
+		}
+
+
+		[TestMethod]
 		public void ShouldParsePrimitive()
 		{
 			IPrimitive item;
@@ -343,6 +405,10 @@ namespace Brick_o_matic.Parsing.UnitTest
 			item = Grammar.Primitive.Parse("Import( Position:(1,2,3) )", ' ');
 			Assert.IsNotNull(item);
 			Assert.IsInstanceOfType(item, typeof(Import));
+
+			item = Grammar.Primitive.Parse("RotateX( Position:(1,2,3) Count:3 )", ' ');
+			Assert.IsNotNull(item);
+			Assert.IsInstanceOfType(item, typeof(RotateX));
 		}
 
 		[TestMethod]
@@ -355,13 +421,14 @@ namespace Brick_o_matic.Parsing.UnitTest
 			Assert.AreEqual(1, items.Length);
 			Assert.IsInstanceOfType(items[0], typeof(Part));
 
-			items = Grammar.Primitives.Parse("Part() Brick(Position:(1,2,3)) Primitive(Name:homer) Import(Position:(1,2,3))", ' ').ToArray();
+			items = Grammar.Primitives.Parse("Part() Brick(Position:(1,2,3)) Primitive(Name:homer) Import(Position:(1,2,3)) RotateX( Position:(1,2,3) Count:3 )", ' ').ToArray();
 			Assert.IsNotNull(items);
-			Assert.AreEqual(4, items.Length);
+			Assert.AreEqual(5, items.Length);
 			Assert.IsInstanceOfType(items[0], typeof(Part));
 			Assert.IsInstanceOfType(items[1], typeof(Brick));
 			Assert.IsInstanceOfType(items[2], typeof(PrimitiveRef));
 			Assert.IsInstanceOfType(items[3], typeof(Import));
+			Assert.IsInstanceOfType(items[4], typeof(RotateX));
 		}
 
 
@@ -372,10 +439,10 @@ namespace Brick_o_matic.Parsing.UnitTest
 
 			scene = Grammar.Scene.Parse("Scene()", ' ');
 			Assert.IsNotNull(scene);
-			scene = Grammar.Scene.Parse("Scene( Resources: b1 = Brick() Red = (255,0,0) Items: Brick() Primitive() Part() Import() )", ' ');
+			scene = Grammar.Scene.Parse("Scene( Resources: b1 = Brick() Red = (255,0,0) Items: Brick() Primitive() Part() Import() RotateX() )", ' ');
 			Assert.IsNotNull(scene);
 			Assert.AreEqual(2, scene.ResourcesCount);
-			Assert.AreEqual(4, scene.ItemsCount);
+			Assert.AreEqual(5, scene.ItemsCount);
 
 
 			//Assert.AreEqual(new Position(), b.Position);
