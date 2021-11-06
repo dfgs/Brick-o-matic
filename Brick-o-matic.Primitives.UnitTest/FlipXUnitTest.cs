@@ -50,14 +50,14 @@ namespace Brick_o_matic.Primitives.UnitTest
 			transform = new FlipX(new Position(0, 0, 0));
 			transform.Item = b;
 			box = transform.GetBoundingBox(new Scene());
-			Assert.AreEqual(new Position(-4, 1, 1), box.Position);
+			Assert.AreEqual(new Position(-3, 1, 1), box.Position);
 			Assert.AreEqual(new Size(2, 1, 1), box.Size);
 			
 
 			transform = new FlipX(new Position(2, 2, 2));
 			transform.Item = b;
 			box = transform.GetBoundingBox(new Scene());
-			Assert.AreEqual(new Position(-4 +2 , 1 +2 , 1 +2), box.Position);
+			Assert.AreEqual(new Position(-3 +2 , 1 +2 , 1 +2), box.Position);
 			Assert.AreEqual(new Size(2, 1, 1), box.Size);
 		}
 
@@ -91,7 +91,7 @@ namespace Brick_o_matic.Primitives.UnitTest
 			transform.Item = b;
 			bricks = transform.Build(new Scene()).ToArray();
 			Assert.AreEqual(1, bricks.Length);
-			Assert.AreEqual(new Position(-4, 1, 1), bricks[0].Position);
+			Assert.AreEqual(new Position(-3, 1, 1), bricks[0].Position);
 			Assert.AreEqual(new Size(2, 1, 1), bricks[0].Size);
 
 
@@ -99,7 +99,7 @@ namespace Brick_o_matic.Primitives.UnitTest
 			transform.Item = b;
 			bricks = transform.Build(new Scene()).ToArray();
 			Assert.AreEqual(1, bricks.Length);
-			Assert.AreEqual(new Position(-4 + 2, 1 + 2, 1 + 2), bricks[0].Position);
+			Assert.AreEqual(new Position(-3 + 2, 1 + 2, 1 + 2), bricks[0].Position);
 			Assert.AreEqual(new Size(2, 1, 1), bricks[0].Size);
 		}
 

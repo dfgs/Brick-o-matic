@@ -134,6 +134,20 @@ namespace Brick_o_matic.Parsing
         public static IParser<IRotateSetter> IRotateSetter = IRotatePositionSetter.Or<IRotateSetter>(IRotateCountSetter).Or<IRotateSetter>(IRotateItemSetter);
         public static IParser<IEnumerable<IRotateSetter>> IRotateSetters = IRotateSetter.ZeroOrMoreTimes();
 
+        // IFlip setters
+        public static IParser<IFlipPositionSetter> IFlipPositionSetter =
+            from _ in Parse.String("Position:")
+            from value in Position
+            select new IFlipPositionSetter(value);
+
+        public static IParser<IFlipItemSetter> IFlipItemSetter =
+             from _ in Parse.String("Item:")
+             from value in Primitive
+             select new IFlipItemSetter(value);
+
+        public static IParser<IFlipSetter> IFlipSetter = IFlipPositionSetter.Or<IFlipSetter>(IFlipItemSetter);
+        public static IParser<IEnumerable<IFlipSetter>> IFlipSetters = IFlipSetter.ZeroOrMoreTimes();
+
 
         // Primitives
         public static IParser<Brick> Brick =
@@ -185,9 +199,30 @@ namespace Brick_o_matic.Parsing
             from ___ in Parse.Char(')')
             select new RotateZ().Set(setters) as RotateZ;
 
+        public static IParser<FlipX> FlipX =
+            from _ in Parse.String("FlipX")
+            from __ in Parse.Char('(')
+            from setters in IFlipSetters
+            from ___ in Parse.Char(')')
+            select new FlipX().Set(setters) as FlipX;
+
+        public static IParser<FlipY> FlipY =
+            from _ in Parse.String("FlipY")
+            from __ in Parse.Char('(')
+            from setters in IFlipSetters
+            from ___ in Parse.Char(')')
+            select new FlipY().Set(setters) as FlipY;
+
+        public static IParser<FlipZ> FlipZ =
+            from _ in Parse.String("FlipZ")
+            from __ in Parse.Char('(')
+            from setters in IFlipSetters
+            from ___ in Parse.Char(')')
+            select new FlipZ().Set(setters) as FlipZ;
 
 
-        public static IParser<IPrimitive> Primitive = Brick.Or<IPrimitive>(Part).Or<IPrimitive>(PrimitiveRef).Or<IPrimitive>(Import).Or<IPrimitive>(RotateX).Or<IPrimitive>(RotateY).Or<IPrimitive>(RotateZ);
+
+        public static IParser<IPrimitive> Primitive = Brick.Or<IPrimitive>(Part).Or<IPrimitive>(PrimitiveRef).Or<IPrimitive>(Import).Or<IPrimitive>(RotateX).Or<IPrimitive>(RotateY).Or<IPrimitive>(RotateZ).Or<IPrimitive>(FlipX).Or<IPrimitive>(FlipY).Or<IPrimitive>(FlipZ);
         public static IParser<IEnumerable<IPrimitive>> Primitives = Primitive.OneOrMoreTimes();
 
         public static IParser<ISceneObject> SceneObject = StaticColor.Or<ISceneObject>(Primitive);

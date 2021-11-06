@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Brick_o_matic.Primitives
 {
-	public class FlipX : Primitive,ITransform
+	public class FlipX : Primitive, IFlip
 	{
 
 
@@ -36,7 +36,7 @@ namespace Brick_o_matic.Primitives
 			childBox = Item.GetBoundingBox(Scene);
 
 
-			return new Box(Position + new Position(-childBox.Position.X - childBox.Size.X, childBox.Position.Y, childBox.Position.Z), childBox.Size);
+			return new Box(Position + new Position(-childBox.Position.X - childBox.Size.X+1, childBox.Position.Y, childBox.Position.Z), childBox.Size);
 
 		}
 
@@ -48,7 +48,7 @@ namespace Brick_o_matic.Primitives
 
 			foreach(Brick brick in Item.Build(Scene))
 			{
-				yield return new Brick(Position + new Position(-brick.Position.X-brick.Size.X,brick.Position.Y,brick.Position.Z), brick.Size, brick.Color);
+				yield return new Brick(Position + new Position(-brick.Position.X-brick.Size.X+1,brick.Position.Y,brick.Position.Z), brick.Size, brick.Color);
 			}
 
 		}

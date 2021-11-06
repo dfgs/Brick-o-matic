@@ -47,6 +47,7 @@
     <Compile Include="FlipY.cs" />
     <Compile Include="IColor.cs" />
     <Compile Include="IImport.cs" />
+    <Compile Include="IFlip.cs" />
     <Compile Include="IRotate.cs" />
     <Compile Include="ITransform.cs" />
     <Compile Include="IPrimitiveRef.cs" />

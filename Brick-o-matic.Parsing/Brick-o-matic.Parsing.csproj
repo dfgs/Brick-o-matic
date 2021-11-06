@@ -45,8 +45,11 @@
     <Compile Include="SceneReader.cs" />
     <Compile Include="Setters\BrickColorSetter.cs" />
     <Compile Include="Setters\IRotateCountSetter.cs" />
+    <Compile Include="Setters\IFlipItemSetter.cs" />
     <Compile Include="Setters\IRotateItemSetter.cs" />
+    <Compile Include="Setters\IFlipPositionSetter.cs" />
     <Compile Include="Setters\IRotatePositionSetter.cs" />
+    <Compile Include="Setters\IFlipSetter.cs" />
     <Compile Include="Setters\IRotateSetter.cs" />
     <Compile Include="Setters\IImportSetter.cs" />
     <Compile Include="Setters\ImportSceneSetter.cs" />
