@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace Brick_o_matic.Parsing.Setters
 {
-	public class ImportPositionSetter : Setter<Import, Position>, IImportSetter
+	public class ImportedSceneSetter : Setter<ImportedScene, Scene>, IImportedSceneSetter
 	{
 		
-		public ImportPositionSetter(Position Value) : base(Value)
+		public ImportedSceneSetter(Scene Value) : base(Value)
 		{
 		}
 
-		public override Import Set(Import Component)
+		public override ImportedScene Set(ImportedScene Component)
 		{
-			Component.Position = Value;
+			Component.Scene = Value;
 			return Component;
 		}
 	}

@@ -73,7 +73,19 @@ namespace Brick_o_matic.Primitives.UnitTest
 			b = (Color)scene.GetResource("color");
 			Assert.AreEqual(b, a);
 		}
+		[TestMethod]
+		public void ShouldGetResources()
+		{
+			Scene scene;
+			Color a;
+			ISceneObject[] resources;
 
+			a = new Color(255, 0, 0);
+			scene = new Scene();
+			scene.AddResource("color", a);
+			resources = scene.GetResources().Select(item=>item.Object).ToArray();
+			Assert.AreEqual(1, resources.Length);
+		}
 
 		[TestMethod]
 		public void ShouldReturnFlatBoundingBoxWhenHasNoItems()

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Brick_o_matic.Primitives
 {
-	public class Import : Primitive,IImport
+	public class ImportedScene : Primitive,IImportedScene
 	{
 
 
@@ -18,10 +18,10 @@ namespace Brick_o_matic.Primitives
 		}
 
 
-		public Import()
+		public ImportedScene()
 		{
 		}
-		public Import(Position Position):base(Position)
+		public ImportedScene(Position Position):base(Position)
 		{
 			
 		}

@@ -29,6 +29,7 @@
 	<Window.CommandBindings>
 		<CommandBinding Command="New" CanExecute="NewCommandBinding_CanExecute" Executed="NewCommandBinding_Executed"/>
 		<CommandBinding Command="Open" CanExecute="OpenCommandBinding_CanExecute" Executed="OpenCommandBinding_Executed"/>
+		<CommandBinding Command="Close" CanExecute="CloseCommandBinding_CanExecute" Executed="CloseCommandBinding_Executed"/>
 		<CommandBinding Command="Save" CanExecute="SaveCommandBinding_CanExecute" Executed="SaveCommandBinding_Executed"/>
 		<CommandBinding Command="SaveAs" CanExecute="SaveAsCommandBinding_CanExecute" Executed="SaveAsCommandBinding_Executed"/>
 		<CommandBinding Command="{StaticResource Build}" CanExecute="BuildCommandBinding_CanExecute" Executed="BuildCommandBinding_Executed"/>
@@ -52,6 +53,9 @@
 				</Button>
 				<Button Command="Open" ToolTip="Open project">
 					<Image Stretch="None" Source="Images/folder.png" />
+				</Button>
+				<Button Command="Close" ToolTip="Close project">
+					<Image Stretch="None" Source="Images/cross.png" />
 				</Button>
 				<Button Command="Save" ToolTip="Save project">
 					<Image Stretch="None" Source="Images/disk.png" />

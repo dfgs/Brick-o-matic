@@ -28,5 +28,6 @@ namespace Brick_o_matic.Primitives
 			this.Name = Name;this.Object = Object;
 		}
 
+		
 	}
 }

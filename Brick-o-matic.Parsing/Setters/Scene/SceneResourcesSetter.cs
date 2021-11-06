@@ -21,7 +21,19 @@ namespace Brick_o_matic.Parsing.Setters
 		{
 			foreach (Resource resource in Value)
 			{
-				Component.AddResource(resource.Name, resource.Object);
+				if (resource.Object is ImportedResources importedResources)
+				{
+					if (importedResources.Scene == null) return Component;
+					foreach ((string Name, ISceneObject Object) item in importedResources.Scene.GetResources())
+					{
+						Component.AddResource($"{resource.Name}.{item.Name}", item.Object);
+					}
+				}
+				else
+				{
+					Component.AddResource(resource.Name, resource.Object);
+				}
+				
 			}
 			return Component;
 		}

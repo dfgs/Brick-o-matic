@@ -183,5 +183,8 @@
   <ItemGroup>
     <Resource Include="Images\arrow_redo.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\cross.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

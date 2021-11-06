@@ -13,7 +13,7 @@ namespace Brick_o_matic.Parsing
     public static class Grammar
     {
         public static IParser<string> Name = Parse.AnyInRange('A', 'z').Then(
-            Parse.AnyOf('-','_').Or(Parse.AnyInRange('0','9')).Or(Parse.AnyInRange('A', 'z')).OneOrMoreTimes().ReaderIncludes(' ','\t','\r','\n'));
+            Parse.AnyOf('-','_','.').Or(Parse.AnyInRange('0','9')).Or(Parse.AnyInRange('A', 'z')).OneOrMoreTimes().ReaderIncludes(' ','\t','\r','\n'));
 
         public static IParser<string> FileName = Parse.Except('\r', '\n').OneOrMoreTimes().ReaderIncludes( '\r', '\n');
 
@@ -102,18 +102,18 @@ namespace Brick_o_matic.Parsing
         public static IParser<IPrimitiveRefSetter> PrimitiveRefSetter = PrimitiveRefPositionSetter.Or<IPrimitiveRefSetter>(PrimitiveRefNameSetter);
         public static IParser<IEnumerable<IPrimitiveRefSetter>> PrimitiveRefSetters = PrimitiveRefSetter.ZeroOrMoreTimes();
 
-        // Import setters
-        public static IParser<ImportPositionSetter> ImportPositionSetter =
+        // ImportedScene setters
+        public static IParser<ImportedScenePositionSetter> ImportPositionSetter =
             from _ in Parse.String("Position:")
             from value in Position
-            select new ImportPositionSetter(value);
-        public static IParser<ImportSceneSetter> ImportSceneSetter =
+            select new ImportedScenePositionSetter(value);
+        public static IParser<ImportedSceneSetter> ImportSceneSetter =
              from _ in Parse.String("FileName:")
              from value in FileName
-             select new ImportSceneSetter(SceneReader.ReadFromFile(value));//*/
+             select new ImportedSceneSetter(SceneReader.ReadFromFile(value));//*/
 
-        public static IParser<IImportSetter> ImportSetter = ImportPositionSetter.Or<IImportSetter>(ImportSceneSetter);
-        public static IParser<IEnumerable<IImportSetter>> ImportSetters = ImportSetter.ZeroOrMoreTimes();
+        public static IParser<IImportedSceneSetter> ImportSetter = ImportPositionSetter.Or<IImportedSceneSetter>(ImportSceneSetter);
+        public static IParser<IEnumerable<IImportedSceneSetter>> ImportSetters = ImportSetter.ZeroOrMoreTimes();
 
         // IRotate setters
         public static IParser<IRotatePositionSetter> IRotatePositionSetter =
@@ -148,6 +148,15 @@ namespace Brick_o_matic.Parsing
         public static IParser<IFlipSetter> IFlipSetter = IFlipPositionSetter.Or<IFlipSetter>(IFlipItemSetter);
         public static IParser<IEnumerable<IFlipSetter>> IFlipSetters = IFlipSetter.ZeroOrMoreTimes();
 
+        // ImportedResources setters
+        public static IParser<ImportedResourcesSceneSetter> ImportedResourcesSceneSetter =
+             from _ in Parse.String("FileName:")
+             from value in FileName
+             select new ImportedResourcesSceneSetter(SceneReader.ReadFromFile(value));//*/
+
+        public static IParser<IImportedResourcesSetter> ImportedResourcesSetter = ImportedResourcesSceneSetter;//.Or<IImportedSceneSetter>(ImportSceneSetter);
+        public static IParser<IEnumerable<IImportedResourcesSetter>> ImportedResourcesSetters = ImportedResourcesSetter.ZeroOrMoreTimes();
+
 
         // Primitives
         public static IParser<Brick> Brick =
@@ -171,12 +180,12 @@ namespace Brick_o_matic.Parsing
              from ___ in Parse.Char(')')
              select new PrimitiveRef().Set(setters);
 
-        public static IParser<Import> Import =
+        public static IParser<ImportedScene> ImportedScene =
               from _ in Parse.String("Import")
               from __ in Parse.Char('(')
               from setters in ImportSetters
               from ___ in Parse.Char(')')
-              select new Import().Set(setters);
+              select new ImportedScene().Set(setters);
 
         public static IParser<RotateX> RotateX =
             from _ in Parse.String("RotateX")
@@ -221,17 +230,30 @@ namespace Brick_o_matic.Parsing
             select new FlipZ().Set(setters) as FlipZ;
 
 
+        // imported resources
 
-        public static IParser<IPrimitive> Primitive = Brick.Or<IPrimitive>(Part).Or<IPrimitive>(PrimitiveRef).Or<IPrimitive>(Import).Or<IPrimitive>(RotateX).Or<IPrimitive>(RotateY).Or<IPrimitive>(RotateZ).Or<IPrimitive>(FlipX).Or<IPrimitive>(FlipY).Or<IPrimitive>(FlipZ);
+        public static IParser<ImportedResources> ImportedResources =
+           from _ in Parse.String("Import")
+           from __ in Parse.Char('(')
+           from setters in ImportedResourcesSetters
+           from ___ in Parse.Char(')')
+           select new ImportedResources().Set(setters);
+
+
+        public static IParser<IPrimitive> Primitive = Brick.Or<IPrimitive>(Part).Or<IPrimitive>(PrimitiveRef).Or<IPrimitive>(ImportedScene).Or<IPrimitive>(RotateX).Or<IPrimitive>(RotateY).Or<IPrimitive>(RotateZ).Or<IPrimitive>(FlipX).Or<IPrimitive>(FlipY).Or<IPrimitive>(FlipZ);
         public static IParser<IEnumerable<IPrimitive>> Primitives = Primitive.OneOrMoreTimes();
 
-        public static IParser<ISceneObject> SceneObject = StaticColor.Or<ISceneObject>(Primitive);
+
+
+        // resources
+        public static IParser<ISceneObject> SceneObject = StaticColor.Or<ISceneObject>(ImportedResources).Or<ISceneObject>(Primitive);
 
         public static IParser<Resource> Resource =
             from name in Name
             from __ in Parse.Char('=')
             from obj in SceneObject
             select new Resource(name, obj);
+
         public static IParser<IEnumerable<Resource>> Resources = Resource.OneOrMoreTimes();
 
         // Scene setters

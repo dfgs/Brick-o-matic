@@ -27,6 +27,7 @@ namespace Brick_o_matic.Parsing.UnitTest
 			Assert.AreEqual("Homer-1", Grammar.Name.Parse("Homer-1", ' '));
 			Assert.AreEqual("Homer_1", Grammar.Name.Parse("Homer_1", ' '));
 			Assert.AreEqual("Homer_1A", Grammar.Name.Parse("Homer_1A", ' '));
+			Assert.AreEqual("Homer_1.A", Grammar.Name.Parse("Homer_1.A", ' '));
 		}
 
 
@@ -187,16 +188,18 @@ namespace Brick_o_matic.Parsing.UnitTest
 			Assert.AreEqual("Homer123", setter.Value);
 		}
 
-		// Import Setters
+		// ImportScene Setters
 		[TestMethod]
-		public void ShouldParseImportPositionSetter()
+		public void ShouldParseImportScenePositionSetter()
 		{
-			ImportPositionSetter setter;
+			ImportedScenePositionSetter setter;
 
 			setter = Grammar.ImportPositionSetter.Parse("Position:(1, 2,3)", ' ');
 			Assert.IsNotNull(setter);
 			Assert.AreEqual(new Position(1, 2, 3), setter.Value);
 		}
+
+		
 
 		// IRotate Setters
 		[TestMethod]
@@ -363,18 +366,28 @@ namespace Brick_o_matic.Parsing.UnitTest
 		}
 
 		[TestMethod]
-		public void ShouldParseImport()
+		public void ShouldParseImportScene()
 		{
-			Import b;
+			ImportedScene b;
 
-			b = Grammar.Import.Parse("Import()", ' ');
+			b = Grammar.ImportedScene.Parse("Import()", ' ');
 			Assert.IsNotNull(b);
 			Assert.AreEqual(new Position(), b.Position);
 
-			b = Grammar.Import.Parse("Import(Position:(1,2,3))", ' ');
+			b = Grammar.ImportedScene.Parse("Import(Position:(1,2,3))", ' ');
 			Assert.IsNotNull(b);
 			Assert.AreEqual(new Position(1, 2, 3), b.Position);
 
+		}
+		[TestMethod]
+		public void ShouldParseImportResources()
+		{
+			ImportedResources b;
+
+			b = Grammar.ImportedResources.Parse("Import()", ' ');
+			Assert.IsNotNull(b);
+
+		
 		}
 
 		[TestMethod]
@@ -540,7 +553,7 @@ namespace Brick_o_matic.Parsing.UnitTest
 
 			item = Grammar.Primitive.Parse("Import( Position:(1,2,3) )", ' ');
 			Assert.IsNotNull(item);
-			Assert.IsInstanceOfType(item, typeof(Import));
+			Assert.IsInstanceOfType(item, typeof(ImportedScene));
 
 			item = Grammar.Primitive.Parse("RotateX( Position:(1,2,3) Count:3 )", ' ');
 			Assert.IsNotNull(item);
@@ -587,7 +600,7 @@ namespace Brick_o_matic.Parsing.UnitTest
 			Assert.IsInstanceOfType(items[0], typeof(Part));
 			Assert.IsInstanceOfType(items[1], typeof(Brick));
 			Assert.IsInstanceOfType(items[2], typeof(PrimitiveRef));
-			Assert.IsInstanceOfType(items[3], typeof(Import));
+			Assert.IsInstanceOfType(items[3], typeof(ImportedScene));
 			Assert.IsInstanceOfType(items[4], typeof(RotateX));
 			Assert.IsInstanceOfType(items[5], typeof(RotateY));
 			Assert.IsInstanceOfType(items[6], typeof(RotateZ));

@@ -41,7 +41,11 @@ namespace Brick_o_matic.Viewer.ViewModels
 			Items.Add(project);
 			SelectedItem = project;
 		}
-
+		public void CloseCurrent()
+		{
+			Items.Remove(SelectedItem);
+			SelectedItem = Items.FirstOrDefault();
+		}
 		public void Open(string FileName)
 		{
 			ProjectViewModel project = new ProjectViewModel();
@@ -51,5 +55,7 @@ namespace Brick_o_matic.Viewer.ViewModels
 			SelectedItem = project;
 
 		}
+
+		
 	}
 }

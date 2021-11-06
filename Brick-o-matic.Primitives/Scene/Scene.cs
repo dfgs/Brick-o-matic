@@ -54,6 +54,14 @@ namespace Brick_o_matic.Primitives
 			return resources[Name];
 		}
 
+		public IEnumerable<(string Name, ISceneObject Object)> GetResources()
+		{
+			foreach(KeyValuePair<string,ISceneObject> keyValuePair in resources)
+			{
+				yield return (keyValuePair.Key, keyValuePair.Value);
+			}
+		}
+
 		public Box GetBoundingBox()
 		{
 			int minX = int.MaxValue, minY = int.MaxValue, minZ = int.MaxValue;

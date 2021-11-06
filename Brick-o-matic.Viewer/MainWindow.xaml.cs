@@ -62,6 +62,38 @@ namespace Brick_o_matic.Viewer
 			}
 			
 		}
+
+		private void CloseCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = (projects.SelectedItem != null) ; e.Handled = true;
+		}
+
+		private void CloseCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			MessageBoxResult result;
+
+			if (projects.SelectedItem.IsModified)
+			{
+				result = MessageBox.Show(this, "Project has been modified, do you want to save ?", "Warning", MessageBoxButton.YesNoCancel);
+				switch(result)
+				{
+					case MessageBoxResult.Cancel: return;
+					case MessageBoxResult.Yes:
+						if (projects.SelectedItem.FileName!=null)
+						{
+							projects.SelectedItem.Save();
+						}
+						else
+						{
+							if (!SaveAs()) return;
+						}
+						break;
+				}
+			}
+			Try(() => projects.CloseCurrent());
+		}
+
+
 		private void SaveAsCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
 		{
 			e.CanExecute = (projects.SelectedItem!=null); e.Handled = true;
@@ -69,17 +101,25 @@ namespace Brick_o_matic.Viewer
 
 		private void SaveAsCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
+			SaveAs();
+		}
+
+		private bool SaveAs()
+		{
 			SaveFileDialog dialog;
+			bool result;
 
 			dialog = new SaveFileDialog();
 			dialog.Filter = "Brick files|*.brk|All files|*.*";
 			dialog.Title = "Save project as";
 			dialog.DefaultExt = "brk";
 			dialog.FileName = projects.SelectedItem.FileName;
-			if (dialog.ShowDialog(this) ?? false)
+			result = (dialog.ShowDialog(this) ?? false);
+			if (result)
 			{
 				Try(() => projects.SelectedItem.SaveAs(dialog.FileName));
 			}
+			return result;
 		}
 		private void SaveCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
 		{

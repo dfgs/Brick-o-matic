@@ -27,7 +27,7 @@
 		<Rule fontWeight="bold">\=|\(|\)</Rule>
 		<Rule fontWeight="bold" foreground="CornFlowerBlue">Items:|Resources:</Rule>
 
-		<Rule foreground="SteelBlue">[A-z](-|_|[0-9]|[A-z])+:</Rule>
+		<Rule foreground="SteelBlue">[A-z](-|_|[0-9]|[A-z]|\.)+:</Rule>
 
 		<Rule foreground="Maroon">[A-z](-|_|[0-9]|[A-z])+</Rule>
 

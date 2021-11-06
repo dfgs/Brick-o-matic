@@ -9,7 +9,12 @@
     <TabControl ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem,Mode=TwoWay}">
 		<TabControl.ItemTemplate>
 			<DataTemplate>
-				<TextBlock Text="{Binding Name}"/>
+				<StackPanel Orientation="Horizontal">
+					<TextBlock Text="{Binding Name}"/>
+					<Button Margin="5,0,0,0" Command="Close" BorderThickness="0"  Background="Transparent" >
+						<Image  Source="/Brick-o-matic.Viewer;component/Images/cross.png" Stretch="None"/>
+					</Button>
+				</StackPanel>
 			</DataTemplate>
 		</TabControl.ItemTemplate>
 		<TabControl.ContentTemplate>

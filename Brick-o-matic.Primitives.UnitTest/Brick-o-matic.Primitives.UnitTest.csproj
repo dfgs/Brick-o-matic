@@ -51,7 +51,7 @@
   <ItemGroup>
     <Compile Include="FlipZUnitTest.cs" />
     <Compile Include="FlipYUnitTest.cs" />
-    <Compile Include="ImportUnitTest.cs" />
+    <Compile Include="ImportedSceneUnitTest.cs" />
     <Compile Include="FlipXUnitTest.cs" />
     <Compile Include="RotateZUnitTest.cs" />
     <Compile Include="RotateYUnitTest.cs" />
