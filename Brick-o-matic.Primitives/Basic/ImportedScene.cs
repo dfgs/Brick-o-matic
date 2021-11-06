@@ -27,11 +27,11 @@ namespace Brick_o_matic.Primitives
 		}
 		
 
-		public override Box GetBoundingBox(IScene Scene)
+		public override Box GetBoundingBox(IResourceProvider ResourceProvider)
 		{
 			Box childBox;
 
-			if (Scene == null) throw new ArgumentNullException(nameof(Scene));
+			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
 
 			if (this.Scene == null) childBox= new Box();
 			else childBox = this.Scene.GetBoundingBox();
@@ -40,9 +40,9 @@ namespace Brick_o_matic.Primitives
 
 		}
 
-		public override IEnumerable<Brick> Build(IScene Scene)
+		public override IEnumerable<Brick> Build(IResourceProvider ResourceProvider)
 		{
-			if (Scene == null) throw new ArgumentNullException(nameof(Scene));
+			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
 
 			if (this.Scene == null) yield break;
 

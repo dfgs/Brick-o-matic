@@ -25,17 +25,18 @@ namespace Brick_o_matic.Primitives
 			return $"(ref to {Name})";
 		}
 
-		public void GetComponents(IScene Scene, out byte R, out byte G, out byte B)
+		public void GetComponents(IResourceProvider ResourceProvider, out byte R, out byte G, out byte B)
 		{
-			ISceneObject resource;
-			Color color;
+			IColor color;
 
-			if (Scene == null) throw new ArgumentNullException(nameof(Scene));
+			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
 
-			resource = Scene.GetResource(Name);
-			if (!(resource is  Color)) throw new InvalidOperationException($"Reference to color {Name} was not found");
-			color = (Color)resource;
-			R = color.R;G = color.G;B = color.B;
+			if (!ResourceProvider.TryGetResource(Name,  out color))
+			{
+				throw new InvalidOperationException($"Reference to color {Name} was not found");
+			}
+			color.GetComponents(ResourceProvider, out R, out G, out B);
+			
 		}
 
 		

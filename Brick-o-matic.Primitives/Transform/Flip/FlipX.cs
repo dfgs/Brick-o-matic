@@ -26,27 +26,27 @@ namespace Brick_o_matic.Primitives
 		{
 		}
 		
-		public override Box GetBoundingBox(IScene Scene)
+		public override Box GetBoundingBox(IResourceProvider ResourceProvider)
 		{
 			Box childBox;
 
-			if (Scene == null) throw new ArgumentNullException(nameof(Scene));
+			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
 			if (Item == null) return new Box(Position, new Size());
 
-			childBox = Item.GetBoundingBox(Scene);
+			childBox = Item.GetBoundingBox(ResourceProvider);
 
 
 			return new Box(Position + new Position(-childBox.Position.X - childBox.Size.X+1, childBox.Position.Y, childBox.Position.Z), childBox.Size);
 
 		}
 
-		public override IEnumerable<Brick> Build(IScene Scene)
+		public override IEnumerable<Brick> Build(IResourceProvider ResourceProvider)
 		{
 
-			if (Scene == null) throw new ArgumentNullException(nameof(Scene));
+			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
 			if (Item == null) yield break;
 
-			foreach(Brick brick in Item.Build(Scene))
+			foreach(Brick brick in Item.Build(ResourceProvider))
 			{
 				yield return new Brick(Position + new Position(-brick.Position.X-brick.Size.X+1,brick.Position.Y,brick.Position.Z), brick.Size, brick.Color);
 			}

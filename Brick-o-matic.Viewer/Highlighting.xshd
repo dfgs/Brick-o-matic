@@ -14,7 +14,8 @@
 			<Word>Brick</Word>
 			<Word>Part</Word>
 			<Word>Primitive</Word>
-			<Word>Import</Word>
+			<Word>ImportScene</Word>
+			<Word>ImportResources</Word>
 			<Word>RotateX</Word>
 			<Word>RotateY</Word>
 			<Word>RotateZ</Word>

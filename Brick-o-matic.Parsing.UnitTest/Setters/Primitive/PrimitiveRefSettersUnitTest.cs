@@ -36,7 +36,16 @@ namespace Brick_o_matic.Parsing.UnitTest
 			Assert.IsNotNull(setter);
 			Assert.AreEqual("Homer123", setter.Value);
 		}
+		[TestMethod]
+		public void ShouldParsePrimitiveRefResourceSetter()
+		{
+			PrimitiveRefResourcesSetter setter;
 
-		
+			setter = Grammar.PrimitiveRefResourcesSetter.Parse("Resources:ResourceName=Brick() ResourceName2=Part()", ' ');
+			Assert.IsNotNull(setter);
+			Assert.AreEqual(2, setter.Value.Count());
+			Assert.AreEqual("ResourceName", setter.Value.First().Name);
+		}
+
 	}
 }

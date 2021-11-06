@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using System.Xml;
 
@@ -102,12 +103,23 @@ namespace Brick_o_matic.Viewer.ViewModels
 
 
 
-		public static readonly DependencyProperty CameraProperty = DependencyProperty.Register("Camera", typeof(Camera), typeof(ProjectViewModel), new PropertyMetadata(null));
-		public Camera Camera
+		public static readonly DependencyProperty CameraProperty = DependencyProperty.Register("Camera", typeof(PerspectiveCamera), typeof(ProjectViewModel), new PropertyMetadata(null));
+		public PerspectiveCamera Camera
 		{
-			get { return (Camera)GetValue(CameraProperty); }
+			get { return (PerspectiveCamera)GetValue(CameraProperty); }
 			set { SetValue(CameraProperty, value); }
 		}
+
+
+
+		public static readonly DependencyProperty LightProperty = DependencyProperty.Register("Light", typeof(DirectionalLight), typeof(ProjectViewModel), new PropertyMetadata(null));
+		public DirectionalLight Light
+		{
+			get { return (DirectionalLight)GetValue(LightProperty); }
+			set { SetValue(LightProperty, value); }
+		}
+
+
 
 		public static readonly DependencyProperty ModelVisualProperty = DependencyProperty.Register("ModelVisual", typeof(ModelVisual3D), typeof(ProjectViewModel), new PropertyMetadata(null));
 		public ModelVisual3D ModelVisual
@@ -202,8 +214,11 @@ namespace Brick_o_matic.Viewer.ViewModels
 			{
 				Build();
 			}
-			catch
-			{ }
+			catch (Exception ex)
+			{
+				SetError(ex.Message);
+				return;
+			}
 		}
 
 		private static void AnglePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -233,14 +248,19 @@ namespace Brick_o_matic.Viewer.ViewModels
 				System.Math.Cos(Angle * System.Math.PI / 180.0f)*cameraLength);
 			
 			direction = center - new Vector3D( position.X,position.Y,position.Z);
+			direction.Normalize();
 
 			camera = new PerspectiveCamera();
 			camera.LookDirection = direction;
 			camera.Position = position;
 			this.Camera = camera;
+
 		}
 		public void Build()
 		{
+			DirectionalLight light;
+			Model3DGroup group;
+			ModelVisual3D modelVisual;
 
 			if ((Document==null) || string.IsNullOrWhiteSpace(Document.Text))
 			{
@@ -264,8 +284,22 @@ namespace Brick_o_matic.Viewer.ViewModels
 				SetError(ex.Message);
 				return;
 			}
+
 			UpdateCamera();
-			this.ModelVisual = GeometryUtils.CreateModelVisual(scene);
+
+
+			group = GeometryUtils.CreateModelGroup(scene);
+
+			light = new DirectionalLight();
+			light.Color = Colors.White;
+			light.Direction = Camera.LookDirection;
+			this.Light = light;
+			group.Children.Add(light);
+
+
+			modelVisual = new ModelVisual3D();
+			modelVisual.Content = group;
+			this.ModelVisual = modelVisual;
 
 			SetError(null);
 		}

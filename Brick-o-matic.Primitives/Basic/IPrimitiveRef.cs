@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Brick_o_matic.Primitives
 {
-	public interface IPrimitiveRef:IPrimitive
+	public interface IPrimitiveRef:IPrimitive,IResourceProvider
 	{
 		string Name
 		{

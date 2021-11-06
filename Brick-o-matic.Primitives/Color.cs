@@ -34,8 +34,10 @@ namespace Brick_o_matic.Primitives
 			return $"({R},{G},{B})";
 		}
 
-		public void GetComponents(IScene Scene,out byte R, out byte G, out byte B)
+		public void GetComponents(IResourceProvider ResourceProvider, out byte R, out byte G, out byte B)
 		{
+			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
+
 			R = this.R;G = this.G;B = this.B;
 		}
 

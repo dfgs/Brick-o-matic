@@ -30,6 +30,10 @@ namespace Brick_o_matic.Parsing.UnitTest
 			item = Grammar.SceneObject.Parse("(1,2,3)", ' ');
 			Assert.IsNotNull(item);
 			Assert.IsInstanceOfType(item, typeof(Color));
+
+			item = Grammar.SceneObject.Parse("Red", ' ');
+			Assert.IsNotNull(item);
+			Assert.IsInstanceOfType(item, typeof(ColorRef));
 		}
 
 		[TestMethod]

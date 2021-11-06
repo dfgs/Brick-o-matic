@@ -156,18 +156,12 @@ namespace Brick_o_matic.Viewer
 
 		
 
-		public static ModelVisual3D CreateModelVisual(IScene Scene)
+		public static Model3DGroup CreateModelGroup(IScene Scene)
 		{
-			ModelVisual3D modelVisual;
 			Model3DGroup group;
-			DirectionalLight light;
 
-			light = new DirectionalLight();
-			light.Color = Colors.White;
-			light.Direction = new Vector3D(0.5, -1, -0.30);
 
 			group = new Model3DGroup();
-			group.Children.Add(light);
 
 			foreach (Brick brick in Scene.Build())
 			{
@@ -178,10 +172,7 @@ namespace Brick_o_matic.Viewer
 			}
 
 
-			modelVisual = new ModelVisual3D();
-			modelVisual.Content = group;
-
-			return modelVisual;
+			return group;
 		}
 
 

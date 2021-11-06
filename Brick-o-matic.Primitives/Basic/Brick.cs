@@ -87,21 +87,21 @@ namespace Brick_o_matic.Primitives
 			return new Brick(new Position(System.Math.Min(rCornerA.X,rCornerB.X), System.Math.Min(rCornerA.Y,rCornerB.Y), rCornerA.Z), newSize, Color);
 		}
 
-		public override Box GetBoundingBox(IScene Scene)
+		public override Box GetBoundingBox(IResourceProvider ResourceProvider)
 		{
-			if (Scene == null) throw new ArgumentNullException(nameof(Scene));
+			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
 			return new Box(Position, Size);
 		}
 
-		public override IEnumerable<Brick> Build(IScene Scene)
+		public override IEnumerable<Brick> Build(IResourceProvider ResourceProvider)
 		{
 			Color color;
 			byte R, G, B;
 
-			if (Scene == null) throw new ArgumentNullException(nameof(Scene));
+			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
 			
 			// We must replace colorref by color, in order to prevent resource not found in import
-			this.Color.GetComponents(Scene, out R, out G, out B);
+			this.Color.GetComponents(ResourceProvider, out R, out G, out B);
 			color = new Color(R, G, B);
 			yield return new Brick(Position, Size, color); ;
 		}

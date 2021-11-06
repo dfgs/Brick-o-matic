@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Brick_o_matic.Primitives
 {
-	public interface IScene
+	public interface IScene:IResourceProvider
 	{
 		IEnumerable<IPrimitive> Items
 		{
@@ -18,19 +18,11 @@ namespace Brick_o_matic.Primitives
 		{
 			get;
 		}
-		int ResourcesCount
-		{
-			get;
-		}
 		Box GetBoundingBox();
 
 		IEnumerable<Brick> Build();
 
 		void Add(IPrimitive Child);
 
-		void AddResource(string Name,ISceneObject Object);
-		ISceneObject GetResource(string Name);
-
-		IEnumerable<(string Name,ISceneObject Object)> GetResources();
 	}
 }

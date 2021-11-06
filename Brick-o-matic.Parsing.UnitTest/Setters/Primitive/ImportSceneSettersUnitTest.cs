@@ -24,7 +24,7 @@ namespace Brick_o_matic.Parsing.UnitTest
 		{
 			ImportedScenePositionSetter setter;
 
-			setter = Grammar.ImportPositionSetter.Parse("Position:(1, 2,3)", ' ');
+			setter = Grammar.ImportedScenePositionSetter.Parse("Position:(1, 2,3)", ' ');
 			Assert.IsNotNull(setter);
 			Assert.AreEqual(new Position(1, 2, 3), setter.Value);
 		}

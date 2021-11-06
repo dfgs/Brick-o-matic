@@ -3,12 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Brick_o_matic.Primitives
 {
 	public class Scene : IScene
 	{
+
 		private Dictionary<string, ISceneObject> resources;
 
 
@@ -48,10 +50,26 @@ namespace Brick_o_matic.Primitives
 			resources.Add(Name, Object);
 		}
 
-		public ISceneObject GetResource(string Name)
+		public bool TryGetResource<T>(string Name,  out T Object)
+			where T : ISceneObject
 		{
-			if (!resources.ContainsKey(Name)) throw new InvalidOperationException($"Resource name {Name} not found");
-			return resources[Name];
+			ISceneObject sceneObject;
+			IResourceProvider resourceProviderLocation;
+			string localName;
+
+			if (Name == null) throw new ArgumentNullException(nameof(Name));
+
+			Object= default(T);
+
+			resourceProviderLocation = NameSpaceUtils.GetResourceLocation(this, Name,out localName);
+			if (resourceProviderLocation != null) return resourceProviderLocation.TryGetResource(localName, out Object);
+			
+			if (!resources.TryGetValue(Name, out sceneObject)) return false;
+			if (!(sceneObject is T)) return false;
+
+			Object = (T)sceneObject;
+			
+			return true;
 		}
 
 		public IEnumerable<(string Name, ISceneObject Object)> GetResources()

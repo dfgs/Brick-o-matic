@@ -43,6 +43,9 @@
   <ItemGroup>
     <Compile Include="ColorRef.cs" />
     <Compile Include="Color.cs" />
+    <Compile Include="IResourceProvider.cs" />
+    <Compile Include="NameSpaceUtils.cs" />
+    <Compile Include="ResourceProviderRouter.cs" />
     <Compile Include="Transform\Flip\FlipZ.cs" />
     <Compile Include="Transform\Flip\FlipY.cs" />
     <Compile Include="IColor.cs" />

@@ -46,6 +46,7 @@
     <Compile Include="Setters\Primitives\Brick\BrickColorSetter.cs" />
     <Compile Include="Setters\ImportedResources\IImportedResourcesSetter.cs" />
     <Compile Include="Setters\ImportedResources\ImportedResourcesSceneSetter.cs" />
+    <Compile Include="Setters\Primitives\PrimitiveRef\PrimitiveRefResourcesSetter.cs" />
     <Compile Include="Setters\Primitives\Rotate\IRotateCountSetter.cs" />
     <Compile Include="Setters\Primitives\Flip\IFlipItemSetter.cs" />
     <Compile Include="Setters\Primitives\Rotate\IRotateItemSetter.cs" />

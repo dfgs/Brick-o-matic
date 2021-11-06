@@ -57,20 +57,26 @@ namespace Brick_o_matic.Primitives.UnitTest
 		public void ShouldNotGetResource()
 		{
 			Scene scene;
+			Brick b;
+			bool result;
 
 			scene = new Scene();
-			Assert.ThrowsException<InvalidOperationException>(() => scene.GetResource("Name"));
+			result = scene.TryGetResource("Name",  out b);
+			Assert.IsFalse(result);
+			Assert.ThrowsException<ArgumentNullException>(()=> scene.TryGetResource(null,  out b));
 		}
 		[TestMethod]
 		public void ShouldGetResource()
 		{
 			Scene scene;
 			Color a, b;
+			bool result;
 
 			a = new Color(255, 0, 0);
 			scene = new Scene();
 			scene.AddResource("color", a);
-			b = (Color)scene.GetResource("color");
+			result = scene.TryGetResource("color",  out b);
+			Assert.IsTrue(result);
 			Assert.AreEqual(b, a);
 		}
 		[TestMethod]

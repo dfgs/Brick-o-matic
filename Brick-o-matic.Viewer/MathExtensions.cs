@@ -20,11 +20,11 @@ namespace Brick_o_matic.Viewer
             return new Point3D(Point.X+X, Point.Y+Y, Point.Z+Z);
         }
 
-        public static System.Windows.Media.Color ToMediaColor(this IColor Color,IScene Scene)
+        public static System.Windows.Media.Color ToMediaColor(this IColor Color,IResourceProvider ResourceProvider)
 		{
             byte R, G, B;
 
-            Color.GetComponents(Scene,out R, out G, out B);
+            Color.GetComponents(ResourceProvider, out R, out G, out B) ;
             return System.Windows.Media.Color.FromArgb(255,R, G, B);
 		}
 

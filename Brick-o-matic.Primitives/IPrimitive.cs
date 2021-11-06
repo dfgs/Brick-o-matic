@@ -15,8 +15,8 @@ namespace Brick_o_matic.Primitives
 			set;
 		}
 
-		Box GetBoundingBox(IScene Scene);
-		IEnumerable<Brick> Build(IScene Scene);
+		Box GetBoundingBox(IResourceProvider ResourceProvider);
+		IEnumerable<Brick> Build(IResourceProvider ResourceProvider);
 
 	}
 }

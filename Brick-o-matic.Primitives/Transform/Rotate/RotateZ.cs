@@ -31,30 +31,30 @@ namespace Brick_o_matic.Primitives
 		{
 		}
 		
-		public override Box GetBoundingBox(IScene Scene)
+		public override Box GetBoundingBox(IResourceProvider ResourceProvider)
 		{
 			Box childBox;
 
-			if (Scene == null) throw new ArgumentNullException(nameof(Scene));
+			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
 			if (Item == null) return new Box(Position, new Size());
 
-			childBox = Item.GetBoundingBox(Scene).RotateZ(Count);
+			childBox = Item.GetBoundingBox(ResourceProvider).RotateZ(Count);
 
 
 			return new Box(Position + childBox.Position,childBox.Size);
 
 		}
 
-		public override IEnumerable<Brick> Build(IScene Scene)
+		public override IEnumerable<Brick> Build(IResourceProvider ResourceProvider)
 		{
 			Box childBox;
 
-			if (Scene == null) throw new ArgumentNullException(nameof(Scene));
+			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
 			if (Item == null) yield break;
 
-			foreach(Brick brick in Item.Build(Scene))
+			foreach(Brick brick in Item.Build(ResourceProvider))
 			{
-				childBox = brick.GetBoundingBox(Scene).RotateZ(Count);
+				childBox = brick.GetBoundingBox(ResourceProvider).RotateZ(Count);
 				yield return new Brick(Position + childBox.Position, childBox.Size, brick.Color);
 			}
 
