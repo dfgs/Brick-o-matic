@@ -49,7 +49,16 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GrammarUnitTest.cs" />
+    <Compile Include="Setters\Primitive\BrickSettersUnitTest.cs" />
+    <Compile Include="Setters\SceneSettersUnitTest.cs" />
+    <Compile Include="Setters\Transform\IFlipSettersUnitTest.cs" />
+    <Compile Include="Setters\Transform\IRotateSettersUnitTest.cs" />
+    <Compile Include="Setters\Primitive\ImportSceneSettersUnitTest.cs" />
+    <Compile Include="Setters\Primitive\PrimitiveRefSettersUnitTest.cs" />
+    <Compile Include="Setters\Primitive\PartSettersUnitTest.cs" />
+    <Compile Include="ResourceUnitTest.cs" />
+    <Compile Include="ScalarUnitTest.cs" />
+    <Compile Include="PrimitivesUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
