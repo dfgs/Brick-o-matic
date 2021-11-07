@@ -90,7 +90,7 @@ namespace Brick_o_matic.Primitives
 
 			if (ItemsCount == 0) return new Box(new Position(), new Size());
 
-			if (ResourceProvider == null) router = this;
+			if ((ResourceProvider == null) || (ResourceProvider==this)) router = this;
 			else router = new ResourceProviderRouter(ResourceProvider, this);
 
 			foreach (IPrimitive item in this.items)
@@ -113,7 +113,7 @@ namespace Brick_o_matic.Primitives
 		{
 			IResourceProvider router;
 
-			if (ResourceProvider == null) router = this;
+			if ((ResourceProvider == null) || (ResourceProvider == this)) router = this;
 			else router = new ResourceProviderRouter(ResourceProvider, this);
 
 			foreach (IPrimitive item in this.items)
