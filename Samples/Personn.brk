@@ -1,0 +1,100 @@
+Scene(
+	Resources:
+		ShoeColor=(88,41,0)
+		ArmColor=(255,0,0)
+		LegColor=(255,0,0)
+		BodyColor=(0,255,0)
+		SkinColor=(255,192,203)
+		
+		Shoe= Brick(
+					Position:(0,0,0)
+					Size:(1,1,2)
+					Color:ShoeColor
+				)
+		
+		Leg= Part(
+			Items:
+				Primitive(
+					Position:(0,0,0)
+					Name:Shoe
+				)
+				Brick(
+					Position:(0,1,0)
+					Size:(1,3,1)
+					Color:LegColor
+				)
+												
+		)
+		
+		Arm= Part(
+			Items:
+				Brick(
+					Position:(0,-3,0)
+					Size:(1,3,1)
+					Color:ArmColor
+				)
+				Brick(
+					Position:(0,-4,0)
+					Size:(1,1,1)
+					Color:SkinColor
+				)
+		)
+		
+		Head=Part(
+			Items:
+				Brick(
+					Position:(0,0,0)
+					Size:(1,1,1)
+					Color:SkinColor
+				)
+				Brick(
+					Position:(-1,1,0)
+					Size:(3,3,1)
+					Color:SkinColor
+			)
+		)
+		
+		Body=Part(
+			Items:
+				Brick(
+					Position:(-1,0,0)
+					Size:(3,4,1)
+					Color:BodyColor
+				)
+		)
+		
+		Personn=Part(
+			Items:
+				Primitive(
+					Position:(-1,0,0)
+					Name:Leg
+				)
+				Primitive(
+					Position:(1,0,0)
+					Name:Leg
+				)
+				Primitive(
+					Position:(0,4,0)
+					Name:Body
+				)
+				
+				Primitive(
+					Position:(0,8,0)
+					Name:Head
+				)
+		
+				Primitive(
+					Position:(2,8,0)
+					Name:Arm
+				)
+				Primitive(
+					Position:(-2,8,0)
+					Name:Arm
+				)
+		)
+		
+	Items:
+		Primitive(Name:Personn)
+		
+		
+)
