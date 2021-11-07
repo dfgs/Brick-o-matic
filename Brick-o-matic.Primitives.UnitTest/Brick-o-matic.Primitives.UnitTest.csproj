@@ -49,10 +49,12 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColorRefUnitTest.cs" />
     <Compile Include="FlipZUnitTest.cs" />
     <Compile Include="FlipYUnitTest.cs" />
     <Compile Include="ImportedSceneUnitTest.cs" />
     <Compile Include="FlipXUnitTest.cs" />
+    <Compile Include="ResourceProviderRouterUnitTest.cs" />
     <Compile Include="RotateZUnitTest.cs" />
     <Compile Include="RotateYUnitTest.cs" />
     <Compile Include="RotateXUnitTest.cs" />

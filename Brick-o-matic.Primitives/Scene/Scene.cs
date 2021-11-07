@@ -80,17 +80,22 @@ namespace Brick_o_matic.Primitives
 			}
 		}
 
-		public Box GetBoundingBox()
+		public Box GetBoundingBox(IResourceProvider ResourceProvider)
 		{
+			IResourceProvider router;
+
 			int minX = int.MaxValue, minY = int.MaxValue, minZ = int.MaxValue;
 			int maxX = int.MinValue, maxY = int.MinValue, maxZ = int.MinValue;
 			Box childBox;
 
 			if (ItemsCount == 0) return new Box(new Position(), new Size());
 
+			if (ResourceProvider == null) router = this;
+			else router = new ResourceProviderRouter(ResourceProvider, this);
+
 			foreach (IPrimitive item in this.items)
 			{
-				childBox = item.GetBoundingBox(this);
+				childBox = item.GetBoundingBox(router);
 				minX = System.Math.Min(minX, childBox.Position.X);
 				minY = System.Math.Min(minY, childBox.Position.Y);
 				minZ = System.Math.Min(minZ, childBox.Position.Z);
@@ -104,11 +109,16 @@ namespace Brick_o_matic.Primitives
 
 		}
 
-		public IEnumerable<Brick> Build()
+		public IEnumerable<Brick> Build(IResourceProvider ResourceProvider)
 		{
+			IResourceProvider router;
+
+			if (ResourceProvider == null) router = this;
+			else router = new ResourceProviderRouter(ResourceProvider, this);
+
 			foreach (IPrimitive item in this.items)
 			{
-				foreach(Brick brick in item.Build(this))
+				foreach(Brick brick in item.Build(router))
 				{
 					yield return brick;
 				}

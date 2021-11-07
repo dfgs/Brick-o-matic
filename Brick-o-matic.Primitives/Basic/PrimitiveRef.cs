@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Brick_o_matic.Primitives
 {
 	public class PrimitiveRef : Primitive,IPrimitiveRef
 	{
-		//private IResourceProvider alternativeResourceProvider;
+		private ThreadLocal<int> counter;
 
 		private Dictionary<string, ISceneObject> resources;
 		public int ResourcesCount
@@ -28,11 +29,12 @@ namespace Brick_o_matic.Primitives
 		public PrimitiveRef()
 		{
 			resources = new Dictionary<string, ISceneObject>();
+			counter = new ThreadLocal<int>();
 		}
 		public PrimitiveRef(Position Position):base(Position)
 		{
 			resources = new Dictionary<string, ISceneObject>();
-
+			counter = new ThreadLocal<int>();
 		}
 
 		public void AddResource(string Name, ISceneObject Object)
@@ -83,18 +85,29 @@ namespace Brick_o_matic.Primitives
 			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
 
 
+
 			if (!ResourceProvider.TryGetResource(this.Name,  out referencedPrimitive))
 			{
 				throw new InvalidOperationException($"Reference to primitive {Name} was not found");
 			}
 
 			alternativeResourceProvider = NameSpaceUtils.GetResourceLocation(ResourceProvider, Name, out localName);
-			if (alternativeResourceProvider == null) alternativeResourceProvider = ResourceProvider;
+			if (alternativeResourceProvider == null)
+			{
+				router = new ResourceProviderRouter(this, ResourceProvider);
+			}
+			else
+			{
+				router = new ResourceProviderRouter(new ResourceProviderRouter(this, ResourceProvider), alternativeResourceProvider);
+			}
 
-			router = new ResourceProviderRouter(new ResourceProviderRouter(this,ResourceProvider), alternativeResourceProvider);
-			
+
+			if (counter.Value >= 2) throw new InvalidOperationException($"Self referenced primitive detected ({Name})");
+			counter.Value++;
+
 			childBox = referencedPrimitive.GetBoundingBox(router);
 
+			counter.Value--;
 
 			return new Box(Position + childBox.Position, childBox.Size);
 
@@ -109,20 +122,31 @@ namespace Brick_o_matic.Primitives
 
 			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
 
-				if (!ResourceProvider.TryGetResource(this.Name,  out referencedPrimitive))
+			if (!ResourceProvider.TryGetResource(this.Name,  out referencedPrimitive))
 			{
 				throw new InvalidOperationException($"Reference to primitive {Name} was not found");
 			}
 
 			alternativeResourceProvider = NameSpaceUtils.GetResourceLocation(ResourceProvider, Name, out localName);
-			if (alternativeResourceProvider == null) alternativeResourceProvider = ResourceProvider;
-			
-			router = new ResourceProviderRouter(new ResourceProviderRouter(this, ResourceProvider), alternativeResourceProvider);
+			if (alternativeResourceProvider == null)
+			{
+				router = new ResourceProviderRouter(this, ResourceProvider);
+			}
+			else
+			{
+				router = new ResourceProviderRouter(new ResourceProviderRouter(this, ResourceProvider), alternativeResourceProvider);
+			}
+
+
+			if (counter.Value >= 2) throw new InvalidOperationException($"Self referenced primitive detected ({Name})");
+			counter.Value++;
 
 			foreach (Brick brick in referencedPrimitive.Build(router))
 			{
 				yield return new Brick(this.Position + brick.Position, brick.Size,brick.Color);
 			}
+
+			counter.Value--;
 
 
 		}

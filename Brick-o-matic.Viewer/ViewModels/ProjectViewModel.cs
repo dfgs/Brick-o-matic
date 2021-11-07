@@ -237,7 +237,7 @@ namespace Brick_o_matic.Viewer.ViewModels
 			Box boundingBox;
 
 			if (scene == null) boundingBox = new Box();
-			else boundingBox = scene.GetBoundingBox();
+			else boundingBox = scene.GetBoundingBox(null);
 
 			center = new Vector3D(boundingBox.Position.X + boundingBox.Size.X * 0.5f, boundingBox.Position.Y + boundingBox.Size.Y * 0.5f, boundingBox.Position.Z + boundingBox.Size.Z * 0.5f);
 			cameraLength = System.Math.Max(System.Math.Max(boundingBox.Size.X, boundingBox.Size.Y), boundingBox.Size.Z) * Zoom;

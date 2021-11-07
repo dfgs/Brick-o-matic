@@ -101,7 +101,7 @@ namespace Brick_o_matic.Primitives.UnitTest
 
 			scene = new Scene();
 			Assert.IsNotNull(scene);
-			box = scene.GetBoundingBox();
+			box = scene.GetBoundingBox(null);
 			Assert.AreEqual(0, box.Position.X);
 			Assert.AreEqual(0, box.Position.Y);
 			Assert.AreEqual(0, box.Position.Z);
@@ -119,7 +119,7 @@ namespace Brick_o_matic.Primitives.UnitTest
 			Assert.IsNotNull(scene);
 			b = new Brick(new Position(-1, -2, -3), new Size(1, 1, 1));
 			scene.Add(b);
-			box = scene.GetBoundingBox();
+			box = scene.GetBoundingBox(null);
 			Assert.AreEqual(-1, box.Position.X);
 			Assert.AreEqual(-2, box.Position.Y);
 			Assert.AreEqual(-3, box.Position.Z);
@@ -129,7 +129,7 @@ namespace Brick_o_matic.Primitives.UnitTest
 			Assert.IsNotNull(scene);
 			b = new Brick(new Position(-1, -2, -3), new Size(1, 1, 1));
 			scene.Add(b);
-			box = scene.GetBoundingBox();
+			box = scene.GetBoundingBox(null);
 			Assert.AreEqual(-1, box.Position.X);
 			Assert.AreEqual(-2, box.Position.Y);
 			Assert.AreEqual(-3, box.Position.Z);
@@ -141,7 +141,7 @@ namespace Brick_o_matic.Primitives.UnitTest
 			scene.Add(b);
 			b = new Brick(new Position(1, 2, 3), new Size(1, 1, 1));
 			scene.Add(b);
-			box = scene.GetBoundingBox();
+			box = scene.GetBoundingBox(null);
 			Assert.AreEqual(-1, box.Position.X);
 			Assert.AreEqual(-2, box.Position.Y);
 			Assert.AreEqual(-3, box.Position.Z);
@@ -153,7 +153,7 @@ namespace Brick_o_matic.Primitives.UnitTest
 			scene.Add(b);
 			b = new Brick(new Position(1, 2, 3), new Size(2, 2, 2));
 			scene.Add(b);
-			box = scene.GetBoundingBox();
+			box = scene.GetBoundingBox(null);
 			Assert.AreEqual(-1, box.Position.X);
 			Assert.AreEqual(-2, box.Position.Y);
 			Assert.AreEqual(-3, box.Position.Z);

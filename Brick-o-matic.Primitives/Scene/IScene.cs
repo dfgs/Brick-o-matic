@@ -18,9 +18,9 @@ namespace Brick_o_matic.Primitives
 		{
 			get;
 		}
-		Box GetBoundingBox();
+		Box GetBoundingBox(IResourceProvider ResourceProvider);
 
-		IEnumerable<Brick> Build();
+		IEnumerable<Brick> Build(IResourceProvider ResourceProvider);
 
 		void Add(IPrimitive Child);
 

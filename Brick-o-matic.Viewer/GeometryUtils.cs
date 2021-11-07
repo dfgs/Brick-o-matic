@@ -163,7 +163,7 @@ namespace Brick_o_matic.Viewer
 
 			group = new Model3DGroup();
 
-			foreach (Brick brick in Scene.Build())
+			foreach (Brick brick in Scene.Build(null))
 			{
 				foreach (GeometryModel3D model in CreateGeometryModels(Scene,brick))
 				{

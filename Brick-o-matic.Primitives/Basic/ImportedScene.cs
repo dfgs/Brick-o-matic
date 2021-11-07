@@ -34,7 +34,7 @@ namespace Brick_o_matic.Primitives
 			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
 
 			if (this.Scene == null) childBox= new Box();
-			else childBox = this.Scene.GetBoundingBox();
+			else childBox = this.Scene.GetBoundingBox(ResourceProvider);
 			
 			return new Box(Position + childBox.Position, childBox.Size);
 
@@ -46,7 +46,7 @@ namespace Brick_o_matic.Primitives
 
 			if (this.Scene == null) yield break;
 
-			foreach (Brick brick in this.Scene.Build())
+			foreach (Brick brick in this.Scene.Build(ResourceProvider))
 			{
 				yield return new Brick(this.Position + brick.Position, brick.Size,brick.Color);
 			}

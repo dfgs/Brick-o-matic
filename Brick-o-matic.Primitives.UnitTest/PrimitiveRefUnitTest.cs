@@ -61,7 +61,36 @@ namespace PrimitiveRef_o_matic.Primitives.UnitTest
 			bricks = primitive.Build(scene).ToArray();
 			Assert.AreEqual(1, bricks.Length);
 		}
+		[TestMethod]
+		public void ShouldNotGetBoudingBoxWhenPrimitiveIsSelfReferenced()
+		{
+			PrimitiveRef p1, p2;
+			Scene scene;
 
-		
+			p1 = new PrimitiveRef() { Name="p2" };
+			p2 = new PrimitiveRef() { Name="p1" };
+
+			scene = new Scene();
+			scene.AddResource("p1", p1);
+			scene.AddResource("p2", p2);
+
+			Assert.ThrowsException<InvalidOperationException>(() => p1.GetBoundingBox(scene));
+		}
+		[TestMethod]
+		public void ShouldNotBuildWhenPrimitiveIsSelfReferenced()
+		{
+			PrimitiveRef p1, p2;
+			Scene scene;
+
+			p1 = new PrimitiveRef() { Name = "p2" };
+			p2 = new PrimitiveRef() { Name = "p1" };
+
+			scene = new Scene();
+			scene.AddResource("p1", p1);
+			scene.AddResource("p2", p2);
+
+			Assert.ThrowsException<InvalidOperationException>(() => p1.Build(scene).ToArray());
+		}
+
 	}
 }
