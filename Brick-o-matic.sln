@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brick-o-matic.Primitives", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brick-o-matic.Primitives.UnitTest", "Brick-o-matic.Primitives.UnitTest\Brick-o-matic.Primitives.UnitTest.csproj", "{A3EED6E5-C066-48E8-9FD2-1DDEE6AF4D45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brick-o-matic.Viewer", "Brick-o-matic.Viewer\Brick-o-matic.Viewer.csproj", "{7EBE7B3E-582C-4C13-B730-1F341AFE1685}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brick-o-matic.Viewer_Old", "Brick-o-matic.Viewer\Brick-o-matic.Viewer_Old.csproj", "{7EBE7B3E-582C-4C13-B730-1F341AFE1685}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brick-o-matic.Parsing", "Brick-o-matic.Parsing\Brick-o-matic.Parsing.csproj", "{6626CADA-23D2-4363-A2C8-31A582C2DDC1}"
 EndProject
