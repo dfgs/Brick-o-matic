@@ -1,0 +1,72 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Brick",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#variables"
+		},
+		{
+			"include": "#storages"
+		},
+		{
+			"include": "#supports"
+		},
+		{
+			"include": "#constants"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.brk",
+				"match": "\\b(zzz)\\b"
+			},
+			{
+				"name": "keyword.other.brk",
+				"match": "Resources|Items"
+			}]
+		},
+		"variables": {
+			"patterns": [{
+				"name": "variable.parameter.brk",
+				"match": "[^:]+(?=:)"
+			}]
+		},
+
+		"storages": {
+			"patterns": [{
+				"name": "storage.type.brk",
+				"match": "\\b(Scene|Brick|Part|Primitive)\\b"
+			}]
+		},
+		"supports": {
+			"patterns": [{
+				"name": "support.function.brk",
+				"match": "ImportScene|ImportResources"
+			},
+			{
+				"name": "support.variable.brk",
+				"match": "[A-z]+([-_\\.]|[A-z]|[0-9]*)"
+			}
+			]
+		},
+		"constants": {
+			"patterns": [{
+				"name": "constant.numeric.brk",
+				"match": "\\(-?[0-9]+,-?[0-9]+,-?[0-9]+\\)"
+			}]
+		},
+		"strings": {
+			"name": "string.quoted.double.brk",
+			"begin": "\"",
+			"end": "\""
+		}
+	},
+	"scopeName": "source.brk"
+}

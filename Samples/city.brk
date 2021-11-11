@@ -6,26 +6,28 @@ Scene(
 		
 		PersonnScene=ImportScene(
 			Position:(0,0,0)
-			FileName:D:\Projets\Brick-o-matic\Samples\Personn.brk
+			FileName:"D:\Projets\Brick-o-matic\Samples\Personn.brk"
 		)
 		Road=ImportResources(
-			FileName:D:\Projets\Brick-o-matic\Samples\RoadTiles.brk
+			FileName:"D:\Projets\Brick-o-matic\Samples\RoadTiles.brk"
 		)
 		PersonnRes=ImportResources(
-			FileName:D:\Projets\Brick-o-matic\Samples\Personn.brk
+			FileName:"D:\Projets\Brick-o-matic\Samples\Personn.brk"
 		)
 	Items:
 		Primitive(
 			Resources:
 				BodyColor=Blue
-				LegColor=(255,255,0)
+				LegColor= (255,255,0)
 			Position:(5,2,8)
 			Name:PersonnRes.Personn
 		)
+		
+		
 		Primitive(
 			Resources:
 				Shoe=Brick(
-					Position:(0,0,0)
+					Position: (0,0,0)
 					Size:(1,1,4)
 					Color:Red
 				)
@@ -72,7 +74,7 @@ Scene(
 			Position:(64,0,96)
 			Name:Road.Tile12
 		)
-	Primitive(
+		Primitive(
 			Position:(32,0,96)
 			Name:Road.Tile3
 		)

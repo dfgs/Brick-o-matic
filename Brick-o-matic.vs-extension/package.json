@@ -1,0 +1,25 @@
+{
+    "name": "brk",
+    "displayName": "brk",
+    "description": "Brick files",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.62.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "brk",
+            "aliases": ["Brick", "brk"],
+            "extensions": [".brk"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "brk",
+            "scopeName": "source.brk",
+            "path": "./syntaxes/brk.tmLanguage.json"
+        }]
+    }
+}

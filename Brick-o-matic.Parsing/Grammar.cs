@@ -15,7 +15,7 @@ namespace Brick_o_matic.Parsing
         public static IParser<string> Name = Parse.AnyInRange('A', 'z').Then(
             Parse.AnyOf('-','_','.').Or(Parse.AnyInRange('0','9')).Or(Parse.AnyInRange('A', 'z')).OneOrMoreTimes().ReaderIncludes(' ','\t','\r','\n'));
 
-        public static IParser<string> FileName = Parse.Except('\r', '\n').OneOrMoreTimes().ReaderIncludes( '\r', '\n');
+        public static IParser<string> FileName = Parse.Char('"').Then(Parse.Except('"').OneOrMoreTimes()).Then(Parse.Char('"'));
 
         public static IParser<string> Comment = Parse.String("//").Then(Parse.Except('\r').ZeroOrMoreTimes().ReaderIncludes('\r'));
 
@@ -114,7 +114,7 @@ namespace Brick_o_matic.Parsing
         public static IParser<ImportedSceneSetter> ImportedSceneSceneSetter =
              from _ in Parse.String("FileName:")
              from value in FileName
-             select new ImportedSceneSetter(SceneReader.ReadFromFile(value));//*/
+             select new ImportedSceneSetter(SceneReader.ReadFromFile(value.TrimStart('"').TrimEnd('"')));//*/
 
         public static IParser<IImportedSceneSetter> ImportedSceneSetter = ImportedScenePositionSetter.Or<IImportedSceneSetter>(ImportedSceneSceneSetter);
         public static IParser<IEnumerable<IImportedSceneSetter>> ImportedSceneSetters = ImportedSceneSetter.ZeroOrMoreTimes();
@@ -156,7 +156,7 @@ namespace Brick_o_matic.Parsing
         public static IParser<ImportedResourcesSceneSetter> ImportedResourcesSceneSetter =
              from _ in Parse.String("FileName:")
              from value in FileName
-             select new ImportedResourcesSceneSetter(SceneReader.ReadFromFile(value));//*/
+             select new ImportedResourcesSceneSetter(SceneReader.ReadFromFile(value.TrimStart('"').TrimEnd('"')));//*/
 
         public static IParser<IImportedResourcesSetter> ImportedResourcesSetter = ImportedResourcesSceneSetter;//.Or<IImportedSceneSetter>(ImportSceneSetter);
         public static IParser<IEnumerable<IImportedResourcesSetter>> ImportedResourcesSetters = ImportedResourcesSetter.ZeroOrMoreTimes();

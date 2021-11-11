@@ -277,7 +277,65 @@ Scene(
 					Color:Gray
 				)
 		)
-		
+		Tile7=Part(
+			Items:
+				Brick(
+					Position:(-1,0,1)
+					Size:(2,1,15)
+					Color:White
+				)
+				
+				Brick(
+					Position:(-16,0,-1)
+					Size:(32,1,2)
+					Color:White
+				)
+				
+				Brick(
+					Position:(-16,0,-11)
+					Size:(32,1,10)
+					Color:Black
+				)
+				Brick(
+					Position:(-16,0,1)
+					Size:(15,1,10)
+					Color:Black
+				)
+				Brick(
+					Position:(1,0,1)
+					Size:(15,1,10)
+					Color:Black
+				)
+
+				Brick(
+					Position:(-11,0,11)
+					Size:(10,1,5)
+					Color:Black
+				)
+				
+				Brick(
+					Position:(1,0,11)
+					Size:(10,1,5)
+					Color:Black
+				)
+
+				Brick(
+					Position:(-16,1,-16)
+					Size:(32,1,5)
+					Color:Gray
+				)
+				Brick(
+					Position:(11,1,11)
+					Size:(5,1,5)
+					Color:Gray
+				)
+				Brick(
+					Position:(-16,1,11)
+					Size:(5,1,5)
+					Color:Gray
+				)
+		)
+
 		Tile8=Part(
 			Items:
 				Brick(
@@ -523,7 +581,7 @@ Scene(
 				)
 		)
 	Items:
-		Primitive(Name:Tile9)
+		Primitive(Name:Tile7)
 		Primitive(Name:Tile15 Position:(33,0,0))
 		Primitive(Name:Tile15 Position:(0,0,33))
 		Primitive(Name:Tile15 Position:(-33,0,0))
