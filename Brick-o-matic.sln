@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brick-o-matic.TextMate", "B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Brick-o-matic.Viewer", "Brick-o-matic.Viewer\Brick-o-matic.Viewer.csproj", "{EADF2FE9-CC1F-4C54-94CE-4B200B12DC56}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brick-o-matic.Editor", "Brick-o-matic.Editor\Brick-o-matic.Editor.csproj", "{7EBE7B3E-582C-4C13-B730-1F341AFE1685}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,10 @@ Global
 		{EADF2FE9-CC1F-4C54-94CE-4B200B12DC56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EADF2FE9-CC1F-4C54-94CE-4B200B12DC56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EADF2FE9-CC1F-4C54-94CE-4B200B12DC56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EBE7B3E-582C-4C13-B730-1F341AFE1685}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EBE7B3E-582C-4C13-B730-1F341AFE1685}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EBE7B3E-582C-4C13-B730-1F341AFE1685}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EBE7B3E-582C-4C13-B730-1F341AFE1685}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
