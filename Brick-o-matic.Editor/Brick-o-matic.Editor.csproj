@@ -6,14 +6,16 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{7EBE7B3E-582C-4C13-B730-1F341AFE1685}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Brick_o_matic.Viewer</RootNamespace>
-    <AssemblyName>Brick-o-matic.Viewer</AssemblyName>
+    <RootNamespace>Brick_o_matic.Editor</RootNamespace>
+    <AssemblyName>Brick-o-matic.Editor</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,9 +37,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ICSharpCode.AvalonEdit, Version=6.1.2.30, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
-      <HintPath>..\packages\AvalonEdit.6.1.2.30\lib\net45\ICSharpCode.AvalonEdit.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
@@ -53,6 +52,21 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=4.1.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.1.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=4.1.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.1.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=4.1.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.1.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=4.1.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.1.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=4.1.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.1.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -60,21 +74,66 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="GeometryUtils.cs" />
+    <Compile Include="ViewModels\Math\SizeViewModel.cs" />
+    <Compile Include="ViewModels\Math\PositionViewModel.cs" />
+    <Compile Include="ViewModels\Resources\ColorRefResourceViewModel.cs" />
+    <Compile Include="ViewModels\Resources\PrimitiveResourceViewModel.cs" />
+    <Compile Include="ViewModels\Resources\UnknownResourceViewModel.cs" />
+    <Compile Include="ViewModels\Resources\ColorResourceViewModel.cs" />
+    <Compile Include="ViewModels\SceneObjects\ColorRefViewModel.cs" />
+    <Compile Include="ViewModels\SceneObjects\ISceneObjectViewModel.cs" />
+    <Compile Include="ViewModels\SceneObjects\SceneObjectViewModel.cs" />
+    <Compile Include="ViewModels\SceneObjects\UnknownSceneObjectViewModel.cs" />
+    <Compile Include="ViewModels\Primitives\UnknownPrimitiveViewModel.cs" />
+    <Compile Include="ViewModels\Primitives\FlipXViewModel.cs" />
+    <Compile Include="ViewModels\Primitives\FlipYViewModel.cs" />
+    <Compile Include="ViewModels\Primitives\FlipZViewModel.cs" />
+    <Compile Include="ViewModels\Primitives\RotateZViewModel.cs" />
+    <Compile Include="ViewModels\Primitives\RotateYViewModel.cs" />
+    <Compile Include="ViewModels\Primitives\RotateXViewModel.cs" />
+    <Compile Include="ViewModels\Primitives\TileMapViewModel.cs" />
+    <Compile Include="ViewModels\Primitives\PrimitiveRefViewModel.cs" />
+    <Compile Include="ViewModels\Primitives\PartViewModel.cs" />
+    <Compile Include="ViewModels\Primitives\BrickViewModel.cs" />
+    <Compile Include="ViewModels\Primitives\IPrimitiveViewModel.cs" />
     <Compile Include="ViewModels\ProjectMarkupExtension.cs" />
     <Compile Include="ViewModels\ProjectsViewModel.cs" />
     <Compile Include="ViewModels\ProjectViewModel.cs" />
+    <Compile Include="ViewModels\Primitives\PrimitivesViewModel.cs" />
+    <Compile Include="ViewModels\Resources\ResourcesViewModel.cs" />
+    <Compile Include="ViewModels\Primitives\PrimitiveViewModel.cs" />
+    <Compile Include="ViewModels\SceneObjects\ColorViewModel.cs" />
+    <Compile Include="ViewModels\Resources\ResourceViewModel.cs" />
+    <Compile Include="ViewModels\SceneViewModel.cs" />
+    <Compile Include="Views\MeshesView.xaml.cs">
+      <DependentUpon>MeshesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ProjectsView.xaml.cs">
       <DependentUpon>ProjectsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProjectView.xaml.cs">
       <DependentUpon>ProjectView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PropertiesView.xaml.cs">
+      <DependentUpon>PropertiesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Properties\ColorRefView.xaml.cs">
+      <DependentUpon>ColorRefView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Properties\ColorView.xaml.cs">
+      <DependentUpon>ColorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Properties\NameView.xaml.cs">
+      <DependentUpon>NameView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Properties\PositionView.xaml.cs">
+      <DependentUpon>PositionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Properties\SizeView.xaml.cs">
+      <DependentUpon>SizeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SceneView.xaml.cs">
       <DependentUpon>SceneView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\TextEditorEx.cs" />
-    <Compile Include="Views\TextEditorView.xaml.cs">
-      <DependentUpon>TextEditorView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -88,6 +147,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\MeshesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ProjectsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -96,11 +159,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SceneView.xaml">
+    <Page Include="Views\PropertiesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\TextEditorView.xaml">
+    <Page Include="Views\Properties\ColorRefView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Properties\ColorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Properties\NameView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Properties\PositionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Properties\SizeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SceneView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -124,7 +207,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Highlighting.xshd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -138,6 +220,10 @@
     <ProjectReference Include="..\..\ParserLib\ParserLib\ParserLib.csproj">
       <Project>{1902999e-4c85-4302-a6cd-6c1fabc80895}</Project>
       <Name>ParserLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ViewModelLib\ViewModelLib\ViewModelLib.csproj">
+      <Project>{9cd722c0-3abe-48c7-a2fe-b18fbc6b5daa}</Project>
+      <Name>ViewModelLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\Brick-o-matic.Math\Brick-o-matic.Math.csproj">
       <Project>{dc7a215c-d662-4664-9400-8d93d677de1d}</Project>

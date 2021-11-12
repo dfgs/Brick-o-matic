@@ -13,7 +13,7 @@ namespace Brick_o_matic.Primitives
 	{
 		private ThreadLocal<int> counter;
 
-		private Dictionary<string, ISceneObject> resources;
+		private Dictionary<string, Resource> resources;
 		public int ResourcesCount
 		{
 			get { return resources.Count; }
@@ -28,12 +28,12 @@ namespace Brick_o_matic.Primitives
 
 		public PrimitiveRef()
 		{
-			resources = new Dictionary<string, ISceneObject>();
+			resources = new Dictionary<string, Resource>();
 			counter = new ThreadLocal<int>();
 		}
 		public PrimitiveRef(Position Position):base(Position)
 		{
-			resources = new Dictionary<string, ISceneObject>();
+			resources = new Dictionary<string, Resource>();
 			counter = new ThreadLocal<int>();
 		}
 
@@ -42,33 +42,32 @@ namespace Brick_o_matic.Primitives
 			if (Object == null) throw new ArgumentNullException(nameof(Object));
 			if (Name == null) throw new ArgumentNullException(nameof(Name));
 			if (resources.ContainsKey(Name)) throw new InvalidOperationException($"A resource with name {Name} already exists");
-			resources.Add(Name, Object);
+			resources.Add(Name, new Resource(Name,Object));
 		}
 
 		public bool TryGetResource<T>(string Name,  out T Object)
 			where T : ISceneObject
 		{
-		
-			ISceneObject sceneObject;
+			Resource resource;
 
 			if (Name == null) throw new ArgumentNullException(nameof(Name));
 
 			Object = default(T);
 
-			if (!resources.TryGetValue(Name, out sceneObject)) return false;
-			if (!(sceneObject is T)) return false;
+			if (!resources.TryGetValue(Name, out resource)) return false;
+			if (!(resource.Object is T)) return false;
 
-			Object = (T)sceneObject;
+			Object = (T)resource.Object;
 
 			return true;
 
 		}
 
-		public IEnumerable<(string Name, ISceneObject Object)> GetResources()
+		public IEnumerable<Resource> GetResources()
 		{
-			foreach (KeyValuePair<string, ISceneObject> keyValuePair in resources)
+			foreach (KeyValuePair<string, Resource> keyValuePair in resources)
 			{
-				yield return (keyValuePair.Key, keyValuePair.Value);
+				yield return keyValuePair.Value;
 			}
 		}
 		

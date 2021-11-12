@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Brick_o_matic.Viewer
+namespace Brick_o_matic.Editor
 {
 	/// <summary>
 	/// Logique d'interaction pour App.xaml

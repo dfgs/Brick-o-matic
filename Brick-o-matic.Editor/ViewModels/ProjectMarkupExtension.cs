@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Markup;
 
-namespace Brick_o_matic.Viewer.ViewModels
+namespace Brick_o_matic.Editor.ViewModels
 {
     [MarkupExtensionReturnType(typeof(object))]
     public abstract class ProjectMarkupExtension : MarkupExtension

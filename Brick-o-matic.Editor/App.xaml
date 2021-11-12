@@ -1,9 +1,8 @@
-﻿<Application x:Class="Brick_o_matic.Viewer.App"
+﻿<Application x:Class="Brick_o_matic.Editor.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Brick_o_matic.Viewer"
+             xmlns:local="clr-namespace:Brick_o_matic.Editor"
              StartupUri="MainWindow.xaml">
-    <Application.Resources>
-         
-    </Application.Resources>
+	
+
 </Application>

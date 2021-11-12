@@ -19,7 +19,7 @@ namespace Brick_o_matic.Primitives
 
 		void AddResource(string Name, ISceneObject Object);
 
-		IEnumerable<(string Name, ISceneObject Object)> GetResources();
+		IEnumerable<Resource> GetResources();
 
 	}
 }

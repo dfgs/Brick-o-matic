@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Media3D;
 
-namespace Brick_o_matic.Viewer
+namespace Brick_o_matic.Editor
 {
     public static class MathExtensions
     {

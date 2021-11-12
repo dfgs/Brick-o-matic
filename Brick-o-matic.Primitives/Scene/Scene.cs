@@ -11,7 +11,7 @@ namespace Brick_o_matic.Primitives
 	public class Scene : IScene
 	{
 
-		private Dictionary<string, ISceneObject> resources;
+		private Dictionary<string, Resource> resources;
 
 
 		public int ItemsCount
@@ -31,7 +31,7 @@ namespace Brick_o_matic.Primitives
 
 		public Scene()
 		{
-			resources = new Dictionary<string, ISceneObject>();
+			resources = new Dictionary<string, Resource>();
 			items = new List<IPrimitive>();
 		}
 
@@ -47,13 +47,13 @@ namespace Brick_o_matic.Primitives
 			if (Object == null) throw new ArgumentNullException(nameof(Object));
 			if (Name == null) throw new ArgumentNullException(nameof(Name));
 			if (resources.ContainsKey(Name)) throw new InvalidOperationException($"A resource with name {Name} already exists");
-			resources.Add(Name, Object);
+			resources.Add(Name, new Resource(Name,Object));
 		}
 
 		public bool TryGetResource<T>(string Name,  out T Object)
 			where T : ISceneObject
 		{
-			ISceneObject sceneObject;
+			Resource resource;
 			IResourceProvider resourceProviderLocation;
 			string localName;
 
@@ -64,19 +64,19 @@ namespace Brick_o_matic.Primitives
 			resourceProviderLocation = NameSpaceUtils.GetResourceLocation(this, Name,out localName);
 			if (resourceProviderLocation != null) return resourceProviderLocation.TryGetResource(localName, out Object);
 			
-			if (!resources.TryGetValue(Name, out sceneObject)) return false;
-			if (!(sceneObject is T)) return false;
+			if (!resources.TryGetValue(Name, out resource)) return false;
+			if (!(resource.Object is T)) return false;
 
-			Object = (T)sceneObject;
+			Object = (T)resource.Object;
 			
 			return true;
 		}
 
-		public IEnumerable<(string Name, ISceneObject Object)> GetResources()
+		public IEnumerable<Resource> GetResources()
 		{
-			foreach(KeyValuePair<string,ISceneObject> keyValuePair in resources)
+			foreach(KeyValuePair<string,Resource> keyValuePair in resources)
 			{
-				yield return (keyValuePair.Key, keyValuePair.Value);
+				yield return  keyValuePair.Value;
 			}
 		}
 

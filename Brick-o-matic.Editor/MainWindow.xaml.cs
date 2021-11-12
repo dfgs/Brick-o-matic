@@ -1,10 +1,11 @@
-﻿using Brick_o_matic.Viewer.ViewModels;
+﻿using Brick_o_matic.Editor.ViewModels;
 using Microsoft.Win32;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-namespace Brick_o_matic.Viewer
+namespace Brick_o_matic.Editor
 {
 	/// <summary>
 	/// Logique d'interaction pour MainWindow.xaml
@@ -31,7 +32,17 @@ namespace Brick_o_matic.Viewer
 				MessageBox.Show(ex.Message,"Error");
 			}
 		}
-
+		private async Task TryAsync(Task Task)
+		{
+			try
+			{
+				await Task;
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message, "Error");
+			}
+		}
 
 		private void NewCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
 		{
@@ -47,7 +58,7 @@ namespace Brick_o_matic.Viewer
 			e.CanExecute = true; e.Handled = true;
 		}
 
-		private void OpenCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+		private async void OpenCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
 			OpenFileDialog dialog;
 
@@ -58,7 +69,7 @@ namespace Brick_o_matic.Viewer
 			
 			if (dialog.ShowDialog(this)??false)
 			{
-				Try(() => projects.Open(dialog.FileName));
+				await TryAsync(projects.OpenAsync(dialog.FileName));
 			}
 			
 		}

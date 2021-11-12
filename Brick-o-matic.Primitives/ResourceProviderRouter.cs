@@ -27,7 +27,7 @@ namespace Brick_o_matic.Primitives
 			throw new InvalidOperationException("Cannot add resource") ;
 		}
 
-		public IEnumerable<(string Name, ISceneObject Object)> GetResources()
+		public IEnumerable<Resource> GetResources()
 		{
 			return primary.GetResources().Union(secondary.GetResources());
 		}

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Brick_o_matic.Viewer.ViewModels
+namespace Brick_o_matic.Editor.ViewModels
 {
 	public class ProjectsViewModel:DependencyObject
 	{
@@ -46,11 +46,11 @@ namespace Brick_o_matic.Viewer.ViewModels
 			Items.Remove(SelectedItem);
 			SelectedItem = Items.FirstOrDefault();
 		}
-		public void Open(string FileName)
+		public async Task OpenAsync(string FileName)
 		{
 			ProjectViewModel project = new ProjectViewModel();
 			
-			project.LoadFromFile(FileName);
+			await project.LoadFromFileAsync(FileName);
 			Items.Add(project);
 			SelectedItem = project;
 

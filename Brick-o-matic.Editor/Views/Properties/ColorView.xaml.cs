@@ -1,5 +1,4 @@
-﻿using ICSharpCode.AvalonEdit;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,18 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Brick_o_matic.Viewer.Views
+namespace Brick_o_matic.Editor.Views.Properties
 {
 	/// <summary>
-	/// Logique d'interaction pour TextEditorView.xaml
+	/// Logique d'interaction pour ColorView.xaml
 	/// </summary>
-	public partial class TextEditorView : UserControl
+	public partial class ColorView : UserControl
 	{
-		public TextEditorView()
+		public ColorView()
 		{
 			InitializeComponent();
 		}
-
-		
 	}
 }

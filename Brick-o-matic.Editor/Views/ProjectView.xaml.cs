@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Brick_o_matic.Viewer.Views
+namespace Brick_o_matic.Editor.Views
 {
 	/// <summary>
 	/// Logique d'interaction pour ProjectView.xaml
