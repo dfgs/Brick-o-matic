@@ -15,24 +15,31 @@ Scene(
 			FileName:"D:\Projets\Brick-o-matic\Samples\Personn.brk"
 		)
 	Items:
-		Primitive(
-			Resources:
-				BodyColor=Blue
-				LegColor= (255,255,0)
-			Position:(5,2,8)
-			Name:PersonnRes.Personn
+		RotateY(
+			Position:(45,2,8)
+			Count:1
+			Item:
+				Primitive(
+					Resources:
+						BodyColor=Blue
+						LegColor= (255,255,0)
+					Name:PersonnRes.Personn
+				)
 		)
 		
 		
-		Primitive(
-			Resources:
-				Shoe=Brick(
-					Position: (0,0,0)
-					Size:(1,1,4)
-					Color:Red
+		FlipZ(
+			Position:(13,2,-15)
+			Item:
+				Primitive(
+					Resources:
+						Shoe=Brick(
+							Position: (0,0,0)
+							Size:(1,1,4)
+							Color:Red
+						)
+					Name:PersonnRes.Personn
 				)
-			Position:(13,2,0)
-			Name:PersonnRes.Personn
 		)
 		Primitive(
 			Position:(-14,2,20)
@@ -69,6 +76,7 @@ Scene(
 				Primitive(Position:(3,0,2) Name:Road.Tile4)
 				Primitive(Position:(-1,0,2) Name:Road.Tile5)
 				Primitive(Position:(-2,0,2) Name:Road.Tile1)
+				Primitive(Position:(2,0,0) Name:Road.Tile0)
 		)
 
 		

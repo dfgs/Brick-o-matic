@@ -746,7 +746,7 @@ Scene(
 				)
 		)
 	Items:
-		Primitive(Name:Tile11)
+		Primitive(Name:Tile0)
 		Primitive(Name:Tile15 Position:(33,0,0))
 		Primitive(Name:Tile15 Position:(0,0,33))
 		Primitive(Name:Tile15 Position:(-33,0,0))
