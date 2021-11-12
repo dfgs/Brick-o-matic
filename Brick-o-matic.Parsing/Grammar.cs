@@ -89,6 +89,32 @@ namespace Brick_o_matic.Parsing
         public static IParser<IPartSetter> PartSetter = PartPositionSetter.Or< IPartSetter>(PartItemsSetter);
         public static IParser<IEnumerable<IPartSetter>> PartSetters = PartSetter.ZeroOrMoreTimes();
 
+        // TileMap setters
+        public static IParser<TileMapPositionSetter> TileMapPositionSetter =
+            from _ in Parse.String("Position:")
+            from value in Position
+            select new TileMapPositionSetter(value);
+        public static IParser<TileMapTileSizeXSetter> TileMapTileSizeXSetter =
+            from _ in Parse.String("TileSizeX:")
+            from value in Parse.Int()
+            select new TileMapTileSizeXSetter(value);
+        public static IParser<TileMapTileSizeYSetter> TileMapTileSizeYSetter =
+            from _ in Parse.String("TileSizeY:")
+            from value in Parse.Int()
+            select new TileMapTileSizeYSetter(value);
+        public static IParser<TileMapTileSizeZSetter> TileMapTileSizeZSetter =
+            from _ in Parse.String("TileSizeZ:")
+            from value in Parse.Int()
+            select new TileMapTileSizeZSetter(value);
+        public static IParser<TileMapItemsSetter> TileMapItemsSetter =
+             from _ in Parse.String("Items:")
+             from value in Primitives
+             select new TileMapItemsSetter(value);
+
+        public static IParser<ITileMapSetter> TileMapSetter = TileMapPositionSetter.Or<ITileMapSetter>(TileMapTileSizeXSetter).Or<ITileMapSetter>(TileMapTileSizeYSetter).Or<ITileMapSetter>(TileMapTileSizeZSetter).Or<ITileMapSetter>(TileMapItemsSetter);
+        public static IParser<IEnumerable<ITileMapSetter>> TileMapSetters = TileMapSetter.ZeroOrMoreTimes();
+
+
         // PrimitiveRef setters
         public static IParser<PrimitiveRefPositionSetter> PrimitiveRefPositionSetter =
             from _ in Parse.String("Position:")
@@ -169,14 +195,21 @@ namespace Brick_o_matic.Parsing
             from setters in BrickSetters
             from ___ in Parse.Char(')')
             select new Brick().Set(setters);
-        
+
         public static IParser<Part> Part =
              from _ in Parse.String("Part")
              from __ in Parse.Char('(')
              from setters in PartSetters
              from ___ in Parse.Char(')')
              select new Part().Set(setters);
-        
+
+        public static IParser<TileMap> TileMap =
+             from _ in Parse.String("TileMap")
+             from __ in Parse.Char('(')
+             from setters in TileMapSetters
+             from ___ in Parse.Char(')')
+             select new TileMap().Set(setters);
+
         public static IParser<PrimitiveRef> PrimitiveRef =
              from _ in Parse.String("Primitive")
              from __ in Parse.Char('(')
@@ -244,7 +277,7 @@ namespace Brick_o_matic.Parsing
            select new ImportedResources().Set(setters);
 
 
-        public static IParser<IPrimitive> Primitive = Brick.Or<IPrimitive>(Part).Or<IPrimitive>(PrimitiveRef).Or<IPrimitive>(ImportedScene).Or<IPrimitive>(RotateX).Or<IPrimitive>(RotateY).Or<IPrimitive>(RotateZ).Or<IPrimitive>(FlipX).Or<IPrimitive>(FlipY).Or<IPrimitive>(FlipZ);
+        public static IParser<IPrimitive> Primitive = Brick.Or<IPrimitive>(Part).Or<IPrimitive>(TileMap).Or<IPrimitive>(PrimitiveRef).Or<IPrimitive>(ImportedScene).Or<IPrimitive>(RotateX).Or<IPrimitive>(RotateY).Or<IPrimitive>(RotateZ).Or<IPrimitive>(FlipX).Or<IPrimitive>(FlipY).Or<IPrimitive>(FlipZ);
         public static IParser<IEnumerable<IPrimitive>> Primitives = Primitive.OneOrMoreTimes();
 
 

@@ -38,48 +38,39 @@ Scene(
 			Position:(-14,2,20)
 			Name:PersonnScene
 		)
-		Primitive(
-			Position:(0,0,-32)
-			Name:Road.Tile3
+
+		TileMap(
+			Position:(-1,0,2)
+			TileSizeX:32
+			TileSizeY:32
+			TileSizeZ:32
+
+			Items:
+				Primitive(Position:(0,0,0) Name:Road.Tile15)
+				Primitive( Position:(1,0,0) Name:Road.Tile14)
+				Primitive( Position:(0,0,1) Name:Road.Tile14)
+				Primitive( Position:(1,0,1) Name:Road.Tile11)
+				Primitive(Position:(1,0,-1) Name:Road.Tile3)
+				Primitive(Position:(0,0,-1) Name:Road.Tile6)
+				Primitive(Position:(2,0,-1) Name:Road.Tile5)
+				Primitive(Position:(-1,0,-1) Name:Road.Tile5)
+				Primitive(Position:(-1,0,0) Name:Road.Tile3)
+				Primitive(Position:(-1,0,1) Name:Road.Tile13)
+				Primitive(Position:(-2,0,1) Name:Road.Tile9)
+				Primitive(Position:(-2,0,0) Name:Road.Tile10)
+				Primitive(Position:(-2,0,-1) Name:Road.Tile3)
+				Primitive(Position:(2,0,1) Name:Road.Tile7)
+				Primitive(Position:(3,0,1) Name:Road.Tile12)
+				Primitive(Position:(3,0,0) Name:Road.Tile10)
+				Primitive(Position:(3,0,-1) Name:Road.Tile6)
+				Primitive(Position:(0,0,2) Name:Road.Tile12)
+				Primitive(Position:(2,0,2) Name:Road.Tile13)
+				Primitive(Position:(1,0,2) Name:Road.Tile9)
+				Primitive(Position:(3,0,2) Name:Road.Tile4)
+				Primitive(Position:(-1,0,2) Name:Road.Tile5)
+				Primitive(Position:(-2,0,2) Name:Road.Tile1)
 		)
-		Primitive(
-			Position:(32,0,-32)
-			Name:Road.Tile4
-		)
-		Primitive(
-			Position:(0,0,0)
-			Name:Road.Tile10
-		)
-		Primitive(
-			Position:(0,0,32)
-			Name:Road.Tile10
-		)
-		Primitive(
-			Position:(0,0,64)
-			Name:Road.Tile15
-		)
-		Primitive(
-			Position:(0,0,96)
-			Name:Road.Tile8
-		)
-		Primitive(
-			Position:(32,0,64)
-			Name:Road.Tile5
-		)
-		Primitive(
-			Position:(64,0,64)
-			Name:Road.Tile6
-		)
-		Primitive(
-			Position:(64,0,96)
-			Name:Road.Tile12
-		)
-		Primitive(
-			Position:(32,0,96)
-			Name:Road.Tile3
-		)
-		Primitive(
-			Position:(-32,0,64)
-			Name:Road.Tile1
-		)
+
+		
+	
 )

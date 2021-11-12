@@ -73,6 +73,24 @@ namespace Brick_o_matic.Parsing.UnitTest
 			Assert.AreEqual(3, p.Count);
 		}
 		[TestMethod]
+		public void ShouldParseTileMap()
+		{
+			TileMap p;
+
+			p = Grammar.TileMap.Parse("TileMap()", ' ');
+			Assert.IsNotNull(p);
+			Assert.AreEqual(new Position(), p.Position);
+
+			p = Grammar.TileMap.Parse("TileMap(Position:(1,2,3))", ' ');
+			Assert.IsNotNull(p);
+			Assert.AreEqual(new Position(1, 2, 3), p.Position);
+
+			p = Grammar.TileMap.Parse("TileMap(Position:(1,2,3) Items: Brick() Part() Primitive())", ' ');
+			Assert.IsNotNull(p);
+			Assert.AreEqual(new Position(1, 2, 3), p.Position);
+			Assert.AreEqual(3, p.Count);
+		}
+		[TestMethod]
 		public void ShouldParsePrimitiveRef()
 		{
 			PrimitiveRef b;
@@ -335,9 +353,9 @@ namespace Brick_o_matic.Parsing.UnitTest
 			Assert.AreEqual(1, items.Length);
 			Assert.IsInstanceOfType(items[0], typeof(Part));
 
-			items = Grammar.Primitives.Parse("Part() Brick(Position:(1,2,3)) Primitive(Name:homer) ImportScene(Position:(1,2,3)) RotateX( Position:(1,2,3) Count:3 ) RotateY( Position:(1,2,3) Count:3 ) RotateZ( Position:(1,2,3) Count:3 ) FlipX( Position:(1,2,3)  ) FlipY( Position:(1,2,3) ) FlipZ( Position:(1,2,3)  )", ' ').ToArray();
+			items = Grammar.Primitives.Parse("Part() Brick(Position:(1,2,3)) Primitive(Name:homer) ImportScene(Position:(1,2,3)) RotateX( Position:(1,2,3) Count:3 ) RotateY( Position:(1,2,3) Count:3 ) RotateZ( Position:(1,2,3) Count:3 ) FlipX( Position:(1,2,3)  ) FlipY( Position:(1,2,3) ) FlipZ( Position:(1,2,3) ) TileMap(Position:(1,2,3) )  )", ' ').ToArray();
 			Assert.IsNotNull(items);
-			Assert.AreEqual(10, items.Length);
+			Assert.AreEqual(11, items.Length);
 			Assert.IsInstanceOfType(items[0], typeof(Part));
 			Assert.IsInstanceOfType(items[1], typeof(Brick));
 			Assert.IsInstanceOfType(items[2], typeof(PrimitiveRef));
@@ -348,6 +366,7 @@ namespace Brick_o_matic.Parsing.UnitTest
 			Assert.IsInstanceOfType(items[7], typeof(FlipX));
 			Assert.IsInstanceOfType(items[8], typeof(FlipY));
 			Assert.IsInstanceOfType(items[9], typeof(FlipZ));
+			Assert.IsInstanceOfType(items[10], typeof(TileMap));
 		}
 
 
@@ -358,10 +377,10 @@ namespace Brick_o_matic.Parsing.UnitTest
 
 			scene = Grammar.Scene.Parse("Scene()", ' ');
 			Assert.IsNotNull(scene);
-			scene = Grammar.Scene.Parse("Scene( Resources: b1 = Brick() Red = (255,0,0) Items: Brick() Primitive() Part() ImportScene() RotateX() RotateY() RotateZ() FlipX() FlipY() FlipZ() )", ' ');
+			scene = Grammar.Scene.Parse("Scene( Resources: b1 = Brick() Red = (255,0,0) Items: Brick() Primitive() Part() ImportScene() RotateX() RotateY() RotateZ() FlipX() FlipY() FlipZ() TileMap() )", ' ');
 			Assert.IsNotNull(scene);
 			Assert.AreEqual(2, scene.ResourcesCount);
-			Assert.AreEqual(10, scene.ItemsCount);
+			Assert.AreEqual(11, scene.ItemsCount);
 
 
 			//Assert.AreEqual(new Position(), b.Position);

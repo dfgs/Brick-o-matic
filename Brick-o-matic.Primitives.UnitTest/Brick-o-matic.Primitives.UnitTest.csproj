@@ -54,6 +54,7 @@
     <Compile Include="FlipYUnitTest.cs" />
     <Compile Include="ImportedSceneUnitTest.cs" />
     <Compile Include="FlipXUnitTest.cs" />
+    <Compile Include="TileMapUnitTest.cs" />
     <Compile Include="ResourceProviderRouterUnitTest.cs" />
     <Compile Include="RotateZUnitTest.cs" />
     <Compile Include="RotateYUnitTest.cs" />

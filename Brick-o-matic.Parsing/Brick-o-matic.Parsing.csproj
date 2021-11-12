@@ -46,6 +46,12 @@
     <Compile Include="Setters\Primitives\Brick\BrickColorSetter.cs" />
     <Compile Include="Setters\ImportedResources\IImportedResourcesSetter.cs" />
     <Compile Include="Setters\ImportedResources\ImportedResourcesSceneSetter.cs" />
+    <Compile Include="Setters\Primitives\TileMap\ITileMapSetter.cs" />
+    <Compile Include="Setters\Primitives\TileMap\TileMapItemsSetter.cs" />
+    <Compile Include="Setters\Primitives\TileMap\TileMapTileSizeZSetter.cs" />
+    <Compile Include="Setters\Primitives\TileMap\TileMapTileSizeYSetter.cs" />
+    <Compile Include="Setters\Primitives\TileMap\TileMapTileSizeXSetter.cs" />
+    <Compile Include="Setters\Primitives\TileMap\TileMapPositionSetter.cs" />
     <Compile Include="Setters\Primitives\PrimitiveRef\PrimitiveRefResourcesSetter.cs" />
     <Compile Include="Setters\Primitives\Rotate\IRotateCountSetter.cs" />
     <Compile Include="Setters\Primitives\Flip\IFlipItemSetter.cs" />

@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Basic\ITileMap.cs" />
+    <Compile Include="Basic\TileMap.cs" />
     <Compile Include="ColorRef.cs" />
     <Compile Include="Color.cs" />
     <Compile Include="IResourceProvider.cs" />

@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Setters\Primitive\BrickSettersUnitTest.cs" />
+    <Compile Include="Setters\Primitive\TileMapSettersUnitTest.cs" />
     <Compile Include="Setters\SceneSettersUnitTest.cs" />
     <Compile Include="Setters\Transform\IFlipSettersUnitTest.cs" />
     <Compile Include="Setters\Transform\IRotateSettersUnitTest.cs" />
