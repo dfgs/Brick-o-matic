@@ -19,6 +19,7 @@ namespace Brick_o_matic.Editor.ViewModels
 				case Brick brick: return new BrickViewModel();
 				case Part part: return new PartViewModel();
 				case PrimitiveRef primitiveRef: return new PrimitiveRefViewModel();
+				case ImportedScene importedScene: return new ImportedSceneViewModel();
 				case TileMap tileMap: return new TileMapViewModel();
 				case RotateX rotateX: return new RotateXViewModel();
 				case RotateY rotateY: return new RotateYViewModel();

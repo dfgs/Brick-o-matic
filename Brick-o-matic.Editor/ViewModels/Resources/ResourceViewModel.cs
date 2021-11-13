@@ -11,11 +11,18 @@ namespace Brick_o_matic.Editor.ViewModels
 {
 	public abstract class ResourceViewModel : ViewModel<Resource>
 	{
-		public static readonly DependencyProperty NameProperty = DependencyProperty.Register("Name", typeof(string), typeof(ResourceViewModel));
-		public string Name
+
+		public ResourceViewModel():base()
 		{
-			get { return (string)GetValue(NameProperty); }
-			set { SetValue(NameProperty, value); }
+
+		}
+		protected override IViewModel OnRegisterProperty(string Name, Type PropertyType)
+		{
+			switch (Name)
+			{
+				case "Name": return new PropertyViewModel<string>();
+			}
+			return base.OnRegisterProperty(Name, PropertyType);
 		}
 		public static ResourceViewModel CreateResourceViewModel(Resource Model)
 		{
@@ -27,11 +34,7 @@ namespace Brick_o_matic.Editor.ViewModels
 				default: return new UnknownResourceViewModel();
 			}
 		}
-		protected override async Task OnLoadAsync(Resource Model)
-		{
-			await base.OnLoadAsync(Model);
-			this.Name = Model.Name;
-		}
+		
 
 
 

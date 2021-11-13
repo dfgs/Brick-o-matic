@@ -89,7 +89,7 @@ namespace Brick_o_matic.Primitives.UnitTest
 			a = new Color(255, 0, 0);
 			scene = new Scene();
 			scene.AddResource("color", a);
-			resources = scene.GetResources().Select(item=>item.Object).ToArray();
+			resources = scene.Resources.Select(item=>item.Object).ToArray();
 			Assert.AreEqual(1, resources.Length);
 		}
 

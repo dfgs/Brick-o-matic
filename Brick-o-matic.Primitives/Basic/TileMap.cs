@@ -21,31 +21,22 @@ namespace Brick_o_matic.Primitives
 		{
 			get => items;
 		}
-		public int TileSizeX
+		public Size TileSize
 		{
 			get;
 			set;
 		}
-		public int TileSizeY
-		{
-			get;
-			set;
-		}
-		public int TileSizeZ
-		{
-			get;
-			set;
-		}
+		
 
 		public TileMap()
 		{
 			items = new List<IPrimitive>();
-			TileSizeX = 16;TileSizeY = 16;TileSizeZ = 16;
+			TileSize = new Size(16,16,16);
 		}
 		public TileMap(Position Position):base(Position)
 		{
 			items = new List<IPrimitive>();
-			TileSizeX = 16; TileSizeY = 16; TileSizeZ = 16;
+			TileSize = new Size(16, 16, 16);
 		}
 		public void Add(IPrimitive Child)
 		{
@@ -66,13 +57,13 @@ namespace Brick_o_matic.Primitives
 			foreach (IPrimitive item in this.items)
 			{
 				childBox = item.GetBoundingBox(ResourceProvider);
-				minX = System.Math.Min(minX, item.Position.X * TileSizeX);
-				minY = System.Math.Min(minY, item.Position.Y * TileSizeY);
-				minZ = System.Math.Min(minZ, item.Position.Z * TileSizeZ);
+				minX = System.Math.Min(minX, item.Position.X * TileSize.X);
+				minY = System.Math.Min(minY, item.Position.Y * TileSize.Y);
+				minZ = System.Math.Min(minZ, item.Position.Z * TileSize.Z);
 
-				maxX = System.Math.Max(maxX, item.Position.X * TileSizeX + childBox.Size.X);
-				maxY = System.Math.Max(maxY, item.Position.Y * TileSizeY + childBox.Size.Y);
-				maxZ = System.Math.Max(maxZ, item.Position.Z * TileSizeZ + childBox.Size.Z);
+				maxX = System.Math.Max(maxX, item.Position.X * TileSize.X + childBox.Size.X);
+				maxY = System.Math.Max(maxY, item.Position.Y * TileSize.Y + childBox.Size.Y);
+				maxZ = System.Math.Max(maxZ, item.Position.Z * TileSize.Z + childBox.Size.Z);
 			}
 
 			return new Box(Position + new Position(minX, minY , minZ ), new Size(maxX-minX,maxY-minY,maxZ-minZ));
@@ -88,7 +79,7 @@ namespace Brick_o_matic.Primitives
 			
 			foreach (IPrimitive item in this.items)
 			{
-				childPosition = new Position(item.Position.X * TileSizeX, item.Position.Y * TileSizeY, item.Position.Z * TileSizeZ);
+				childPosition = new Position(item.Position.X * TileSize.X, item.Position.Y * TileSize.Y, item.Position.Z * TileSize.Z);
 				foreach (Brick brick in item.Build(ResourceProvider))
 				{
 					yield return new Brick(this.Position + brick.Position - item.Position+childPosition, brick.Size,brick.Color);

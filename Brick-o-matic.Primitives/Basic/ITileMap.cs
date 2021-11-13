@@ -19,18 +19,11 @@ namespace Brick_o_matic.Primitives
 			get;
 		}
 
-		int TileSizeX
+		Size TileSize
 		{
 			get;
 		}
-		int TileSizeY
-		{
-			get;
-		}
-		int TileSizeZ
-		{
-			get;
-		}
+	
 		void Add(IPrimitive Child);
 	}
 }

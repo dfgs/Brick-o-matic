@@ -12,27 +12,22 @@ namespace Brick_o_matic.Editor.ViewModels
 	public class ColorResourceViewModel : ResourceViewModel
 	{
 
-
-		public static readonly DependencyProperty ObjectProperty = DependencyProperty.Register("Object", typeof(ColorViewModel), typeof(ColorResourceViewModel));
-		public ColorViewModel Object
-		{
-			get { return (ColorViewModel )GetValue(ObjectProperty); }
-			set { SetValue(ObjectProperty, value); }
-		}
-
-
 		public ColorResourceViewModel()
 		{
-			Object = new ColorViewModel();
+			
 		}
 
-
-
-		protected override async Task OnLoadAsync(Resource Model)
+		protected override IViewModel OnRegisterProperty(string Name, Type PropertyType)
 		{
-			await base.OnLoadAsync(Model);
-			await Object.LoadAsync((Color)Model.Object);
+			switch(Name)
+			{
+				case "Object": return new ColorViewModel();
+			}
+			return base.OnRegisterProperty(Name, PropertyType);
 		}
+
+
+		
 
 		public override Task RefreshAsync()
 		{

@@ -14,18 +14,18 @@
 
 		<DataTemplate DataType="{x:Type viewModels:ColorResourceViewModel}">
 			<StackPanel>
-				<properties:NameView/>
+				<properties:NameView DataContext="{Binding Name}"/>
 				<properties:ColorView DataContext="{Binding Object}"/>
 			</StackPanel>
 		</DataTemplate>
 		<DataTemplate DataType="{x:Type viewModels:ColorRefResourceViewModel}">
 			<StackPanel>
-				<properties:NameView/>
+				<properties:NameView DataContext="{Binding Name}"/>
 				<properties:ColorRefView DataContext="{Binding Object}"/>
 			</StackPanel>
 		</DataTemplate>
 		<DataTemplate DataType="{x:Type viewModels:PrimitiveResourceViewModel}">
-			<properties:NameView/>
+			<properties:NameView DataContext="{Binding Name}"/>
 		</DataTemplate>
 
 
@@ -55,12 +55,50 @@
 		</DataTemplate>
 		<DataTemplate DataType="{x:Type viewModels:PrimitiveRefViewModel}">
 			<StackPanel>
-				<properties:NameView/>
+				<properties:NameView DataContext="{Binding Name}"/>
 				<properties:PositionView DataContext="{Binding Position}"/>
 			</StackPanel>
 		</DataTemplate>
+		<DataTemplate DataType="{x:Type viewModels:RotateXViewModel}">
+			<StackPanel>
+				<properties:PositionView DataContext="{Binding Position}"/>
+				<properties:NameView DataContext="{Binding Count}"/>
+			</StackPanel>
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type viewModels:RotateYViewModel}">
+			<StackPanel>
+				<properties:PositionView DataContext="{Binding Position}"/>
+				<properties:NameView DataContext="{Binding Count}"/>
+			</StackPanel>
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type viewModels:RotateZViewModel}">
+			<StackPanel>
+				<properties:PositionView DataContext="{Binding Position}"/>
+				<properties:NameView DataContext="{Binding Count}"/>
+			</StackPanel>
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type viewModels:FlipXViewModel}">
+			<StackPanel>
+				<properties:PositionView DataContext="{Binding Position}"/>
+			</StackPanel>
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type viewModels:FlipYViewModel}">
+			<StackPanel>
+				<properties:PositionView DataContext="{Binding Position}"/>
+			</StackPanel>
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type viewModels:FlipZViewModel}">
+			<StackPanel>
+				<properties:PositionView DataContext="{Binding Position}"/>
+			</StackPanel>
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type viewModels:TileMapViewModel}">
+			<StackPanel>
+				<properties:PositionView DataContext="{Binding Position}"/>
+				<properties:SizeView DataContext="{Binding TileSize}"/>
+			</StackPanel>
+		</DataTemplate>
 
-		
 
 	</UserControl.Resources>
 

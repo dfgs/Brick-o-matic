@@ -8,17 +8,16 @@ using ViewModelLib;
 
 namespace Brick_o_matic.Editor.ViewModels
 {
-	public class FlipZViewModel : PrimitiveViewModel<FlipZ>
+	public class ImportedSceneViewModel : PrimitiveViewModel<ImportedScene>
 	{
 		protected override IViewModel OnRegisterProperty(string Name, Type PropertyType)
 		{
-			switch (Name)
+			switch(Name)
 			{
-
+				case "Scene":return new SceneViewModel();
 			}
 			return base.OnRegisterProperty(Name, PropertyType);
 		}
-
 		public override Task RefreshAsync()
 		{
 			throw new NotImplementedException();

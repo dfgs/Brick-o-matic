@@ -10,6 +10,15 @@ namespace Brick_o_matic.Editor.ViewModels
 {
 	public class FlipXViewModel : PrimitiveViewModel<FlipX>
 	{
+		protected override IViewModel OnRegisterProperty(string Name, Type PropertyType)
+		{
+			switch (Name)
+			{
+
+			}
+			return base.OnRegisterProperty(Name, PropertyType);
+		}
+
 		public override Task RefreshAsync()
 		{
 			throw new NotImplementedException();

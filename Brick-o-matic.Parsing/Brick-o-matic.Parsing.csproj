@@ -48,9 +48,7 @@
     <Compile Include="Setters\ImportedResources\ImportedResourcesSceneSetter.cs" />
     <Compile Include="Setters\Primitives\TileMap\ITileMapSetter.cs" />
     <Compile Include="Setters\Primitives\TileMap\TileMapItemsSetter.cs" />
-    <Compile Include="Setters\Primitives\TileMap\TileMapTileSizeZSetter.cs" />
-    <Compile Include="Setters\Primitives\TileMap\TileMapTileSizeYSetter.cs" />
-    <Compile Include="Setters\Primitives\TileMap\TileMapTileSizeXSetter.cs" />
+    <Compile Include="Setters\Primitives\TileMap\TileMapTileSizeSetter.cs" />
     <Compile Include="Setters\Primitives\TileMap\TileMapPositionSetter.cs" />
     <Compile Include="Setters\Primitives\PrimitiveRef\PrimitiveRefResourcesSetter.cs" />
     <Compile Include="Setters\Primitives\Rotate\IRotateCountSetter.cs" />

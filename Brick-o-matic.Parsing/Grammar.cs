@@ -94,24 +94,16 @@ namespace Brick_o_matic.Parsing
             from _ in Parse.String("Position:")
             from value in Position
             select new TileMapPositionSetter(value);
-        public static IParser<TileMapTileSizeXSetter> TileMapTileSizeXSetter =
-            from _ in Parse.String("TileSizeX:")
-            from value in Parse.Int()
-            select new TileMapTileSizeXSetter(value);
-        public static IParser<TileMapTileSizeYSetter> TileMapTileSizeYSetter =
-            from _ in Parse.String("TileSizeY:")
-            from value in Parse.Int()
-            select new TileMapTileSizeYSetter(value);
-        public static IParser<TileMapTileSizeZSetter> TileMapTileSizeZSetter =
-            from _ in Parse.String("TileSizeZ:")
-            from value in Parse.Int()
-            select new TileMapTileSizeZSetter(value);
+        public static IParser<TileMapTileSizeSetter> TileMapTileSizeSetter =
+            from _ in Parse.String("TileSize:")
+            from value in Size
+            select new TileMapTileSizeSetter(value);
         public static IParser<TileMapItemsSetter> TileMapItemsSetter =
              from _ in Parse.String("Items:")
              from value in Primitives
              select new TileMapItemsSetter(value);
 
-        public static IParser<ITileMapSetter> TileMapSetter = TileMapPositionSetter.Or<ITileMapSetter>(TileMapTileSizeXSetter).Or<ITileMapSetter>(TileMapTileSizeYSetter).Or<ITileMapSetter>(TileMapTileSizeZSetter).Or<ITileMapSetter>(TileMapItemsSetter);
+        public static IParser<ITileMapSetter> TileMapSetter = TileMapPositionSetter.Or<ITileMapSetter>(TileMapTileSizeSetter).Or<ITileMapSetter>(TileMapItemsSetter);
         public static IParser<IEnumerable<ITileMapSetter>> TileMapSetters = TileMapSetter.ZeroOrMoreTimes();
 
 

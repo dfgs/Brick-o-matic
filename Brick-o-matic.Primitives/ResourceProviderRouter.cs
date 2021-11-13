@@ -12,6 +12,13 @@ namespace Brick_o_matic.Primitives
 		private IResourceProvider secondary;
 
 		public int ResourcesCount => primary.ResourcesCount+secondary.ResourcesCount;
+		public IEnumerable<Resource> Resources
+		{
+			get
+			{
+				return primary.Resources.Union(secondary.Resources);
+			}
+		}
 
 		public ResourceProviderRouter(IResourceProvider Primary, IResourceProvider Secondary)
 		{
@@ -27,10 +34,7 @@ namespace Brick_o_matic.Primitives
 			throw new InvalidOperationException("Cannot add resource") ;
 		}
 
-		public IEnumerable<Resource> GetResources()
-		{
-			return primary.GetResources().Union(secondary.GetResources());
-		}
+		
 
 		public bool TryGetResource<T>(string Name, out T Object) where T : ISceneObject
 		{

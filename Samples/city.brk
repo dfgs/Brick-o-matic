@@ -11,12 +11,15 @@ Scene(
 		Road=ImportResources(
 			FileName:"D:\Projets\Brick-o-matic\Samples\RoadTiles.brk"
 		)
+		Building=ImportResources(
+			FileName:"D:\Projets\Brick-o-matic\Samples\BuildingTiles.brk"
+		)
 		PersonnRes=ImportResources(
 			FileName:"D:\Projets\Brick-o-matic\Samples\Personn.brk"
 		)
 	Items:
 		RotateY(
-			Position:(45,2,8)
+			Position:(60,2,-43)
 			Count:1
 			Item:
 				Primitive(
@@ -48,9 +51,7 @@ Scene(
 
 		TileMap(
 			Position:(-1,0,2)
-			TileSizeX:32
-			TileSizeY:32
-			TileSizeZ:32
+			TileSize:(32,32,32)
 
 			Items:
 				Primitive(Position:(0,0,0) Name:Road.Tile15)
@@ -77,6 +78,7 @@ Scene(
 				Primitive(Position:(-1,0,2) Name:Road.Tile5)
 				Primitive(Position:(-2,0,2) Name:Road.Tile1)
 				Primitive(Position:(2,0,0) Name:Road.Tile0)
+				Primitive(Position:(2,0,-2) Name:Building.Building0)
 		)
 
 		

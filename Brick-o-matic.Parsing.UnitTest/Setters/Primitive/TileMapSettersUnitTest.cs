@@ -26,35 +26,16 @@ namespace Brick_o_matic.Parsing.UnitTest
 
 		}
 		[TestMethod]
-		public void ShouldParseTileMapTileSizeXSetter()
+		public void ShouldParseTileMapTileSizeSetter()
 		{
-			TileMapTileSizeXSetter setter;
+			TileMapTileSizeSetter setter;
 
-			setter = Grammar.TileMapTileSizeXSetter.Parse("TileSizeX:123)", ' ');
+			setter = Grammar.TileMapTileSizeSetter.Parse("TileSize:(123,456,789))", ' ');
 			Assert.IsNotNull(setter);
-			Assert.AreEqual(123, setter.Value);
+			Assert.AreEqual(new Size(123,456,789), setter.Value);
 
 		}
-		[TestMethod]
-		public void ShouldParseTileMapTileSizeYSetter()
-		{
-			TileMapTileSizeYSetter setter;
-
-			setter = Grammar.TileMapTileSizeYSetter.Parse("TileSizeY:123)", ' ');
-			Assert.IsNotNull(setter);
-			Assert.AreEqual(123, setter.Value);
-
-		}
-		[TestMethod]
-		public void ShouldParseTileMapTileSizeZSetter()
-		{
-			TileMapTileSizeZSetter setter;
-
-			setter = Grammar.TileMapTileSizeZSetter.Parse("TileSizeZ:123)", ' ');
-			Assert.IsNotNull(setter);
-			Assert.AreEqual(123, setter.Value);
-
-		}
+		
 
 		[TestMethod]
 		public void ShouldParseTileMapItemsSetter()

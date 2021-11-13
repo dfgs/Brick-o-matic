@@ -12,7 +12,16 @@ namespace Brick_o_matic.Primitives
 	{
 
 		private Dictionary<string, Resource> resources;
-
+		public IEnumerable<Resource> Resources
+		{
+			get
+			{
+				foreach (KeyValuePair<string, Resource> keyValuePair in resources)
+				{
+					yield return keyValuePair.Value;
+				}
+			}
+		}
 
 		public int ItemsCount
 		{
@@ -72,13 +81,7 @@ namespace Brick_o_matic.Primitives
 			return true;
 		}
 
-		public IEnumerable<Resource> GetResources()
-		{
-			foreach(KeyValuePair<string,Resource> keyValuePair in resources)
-			{
-				yield return  keyValuePair.Value;
-			}
-		}
+		
 
 		public Box GetBoundingBox(IResourceProvider ResourceProvider)
 		{

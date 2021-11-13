@@ -71,7 +71,7 @@ namespace TileMap_o_matic.Primitives.UnitTest
 
 			TileMap = new TileMap(new Position(10, 10, 10));
 			Assert.IsNotNull(TileMap);
-			TileMap.TileSizeX = 10; TileMap.TileSizeY = 10; TileMap.TileSizeZ = 10;
+			TileMap.TileSize = new Size(10, 10, 10);
 			b = new Brick(new Position(1, 0, 0), new Size(10, 10, 10));
 			TileMap.Add(b);
 
@@ -86,7 +86,7 @@ namespace TileMap_o_matic.Primitives.UnitTest
 
 			TileMap = new TileMap(new Position(10, 10, 10));
 			Assert.IsNotNull(TileMap);
-			TileMap.TileSizeX = 10; TileMap.TileSizeY = 10; TileMap.TileSizeZ = 10;
+			TileMap.TileSize = new Size(10, 10, 10);
 			b = new Brick(new Position(0, 1, 0), new Size(10, 10, 10));
 			TileMap.Add(b);
 
@@ -101,7 +101,7 @@ namespace TileMap_o_matic.Primitives.UnitTest
 
 			TileMap = new TileMap(new Position(10, 10, 10));
 			Assert.IsNotNull(TileMap);
-			TileMap.TileSizeX = 10; TileMap.TileSizeY = 10; TileMap.TileSizeZ = 10;
+			TileMap.TileSize = new Size(10, 10, 10);
 			b = new Brick(new Position(0, 0, 1), new Size(10, 10, 10));
 			TileMap.Add(b);
 
@@ -114,7 +114,7 @@ namespace TileMap_o_matic.Primitives.UnitTest
 
 			TileMap = new TileMap(new Position(10, 10, 10));
 			Assert.IsNotNull(TileMap);
-			TileMap.TileSizeX = 10; TileMap.TileSizeY = 10; TileMap.TileSizeZ = 10;
+			TileMap.TileSize = new Size(10, 10, 10);
 			b = new Brick(new Position(1, 0, 0), new Size(10, 10, 10));
 			TileMap.Add(b);
 			b = new Brick(new Position(2, 0, 0), new Size(10, 10, 10));
@@ -140,7 +140,7 @@ namespace TileMap_o_matic.Primitives.UnitTest
 
 			TileMap = new TileMap(new Position(10, 10, 10));
 			Assert.IsNotNull(TileMap);
-			TileMap.TileSizeX = 10; TileMap.TileSizeY = 10; TileMap.TileSizeZ = 10;
+			TileMap.TileSize = new Size(10, 10, 10);
 			p = new Part(new Position(0,0,0));
 			TileMap.Add(p);
 			b = new Brick(new Position(0, 0, 0), new Size(1, 1, 1));
@@ -158,7 +158,7 @@ namespace TileMap_o_matic.Primitives.UnitTest
 
 			TileMap = new TileMap(new Position(10, 10, 10));
 			Assert.IsNotNull(TileMap);
-			TileMap.TileSizeX = 10; TileMap.TileSizeY = 10; TileMap.TileSizeZ = 10;
+			TileMap.TileSize = new Size(10, 10, 10);
 			p = new Part(new Position(0, 0, 0));
 			TileMap.Add(p);
 			b = new Brick(new Position(0, 0, 0), new Size(1, 1, 1));
@@ -190,7 +190,7 @@ namespace TileMap_o_matic.Primitives.UnitTest
 
 			TileMap = new TileMap(new Position(10, 10, 10));
 			Assert.IsNotNull(TileMap);
-			TileMap.TileSizeX = 10; TileMap.TileSizeY = 10; TileMap.TileSizeZ = 10;
+			TileMap.TileSize = new Size(10, 10, 10);
 			b = new Brick(new Position(1, 0, 0), new Size(10, 10, 10));
 			TileMap.Add(b);
 
@@ -205,7 +205,7 @@ namespace TileMap_o_matic.Primitives.UnitTest
 
 			TileMap = new TileMap(new Position(10, 10, 10));
 			Assert.IsNotNull(TileMap);
-			TileMap.TileSizeX = 10; TileMap.TileSizeY = 10; TileMap.TileSizeZ = 10;
+			TileMap.TileSize = new Size(10, 10, 10);
 			b = new Brick(new Position(0, 1, 0), new Size(10, 10, 10));
 			TileMap.Add(b);
 
@@ -220,7 +220,7 @@ namespace TileMap_o_matic.Primitives.UnitTest
 
 			TileMap = new TileMap(new Position(10, 10, 10));
 			Assert.IsNotNull(TileMap);
-			TileMap.TileSizeX = 10; TileMap.TileSizeY = 10; TileMap.TileSizeZ = 10;
+			TileMap.TileSize = new Size(10, 10, 10);
 			b = new Brick(new Position(0, 0, 1), new Size(10, 10, 10));
 			TileMap.Add(b);
 
@@ -233,7 +233,7 @@ namespace TileMap_o_matic.Primitives.UnitTest
 
 			TileMap = new TileMap(new Position(10, 10, 10));
 			Assert.IsNotNull(TileMap);
-			TileMap.TileSizeX = 10; TileMap.TileSizeY = 10; TileMap.TileSizeZ = 10;
+			TileMap.TileSize = new Size(10, 10, 10);
 			b = new Brick(new Position(1, 0, 0), new Size(10, 10, 10));
 			TileMap.Add(b);
 			b = new Brick(new Position(2, 0, 0), new Size(10, 10, 10));
@@ -257,7 +257,7 @@ namespace TileMap_o_matic.Primitives.UnitTest
 
 			TileMap = new TileMap(new Position(10, 10, 10));
 			Assert.IsNotNull(TileMap);
-			TileMap.TileSizeX = 10; TileMap.TileSizeY = 10; TileMap.TileSizeZ = 10;
+			TileMap.TileSize = new Size(10, 10, 10);
 			p = new Part(new Position(0, 0, 0));
 			TileMap.Add(p);
 			b = new Brick(new Position(0, 0, 0), new Size(1, 1, 1));
@@ -278,7 +278,7 @@ namespace TileMap_o_matic.Primitives.UnitTest
 
 			TileMap = new TileMap(new Position(10, 10, 10));
 			Assert.IsNotNull(TileMap);
-			TileMap.TileSizeX = 10; TileMap.TileSizeY = 10; TileMap.TileSizeZ = 10;
+			TileMap.TileSize = new Size(10, 10, 10);
 			p = new Part(new Position(0, 0, 0));
 			TileMap.Add(p);
 			b = new Brick(new Position(0, 0, 0), new Size(1, 1, 1));

@@ -14,6 +14,17 @@ namespace Brick_o_matic.Primitives
 		private ThreadLocal<int> counter;
 
 		private Dictionary<string, Resource> resources;
+		public IEnumerable<Resource> Resources
+		{
+			get
+			{
+				foreach (KeyValuePair<string, Resource> keyValuePair in resources)
+				{
+					yield return keyValuePair.Value;
+				}
+			}
+		}
+		
 		public int ResourcesCount
 		{
 			get { return resources.Count; }
@@ -61,14 +72,6 @@ namespace Brick_o_matic.Primitives
 
 			return true;
 
-		}
-
-		public IEnumerable<Resource> GetResources()
-		{
-			foreach (KeyValuePair<string, Resource> keyValuePair in resources)
-			{
-				yield return keyValuePair.Value;
-			}
 		}
 		
 		

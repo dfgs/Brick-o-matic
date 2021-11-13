@@ -10,6 +10,15 @@ namespace Brick_o_matic.Editor.ViewModels
 {
 	public class RotateYViewModel : PrimitiveViewModel<RotateY>
 	{
+		protected override IViewModel OnRegisterProperty(string Name, Type PropertyType)
+		{
+			switch (Name)
+			{
+				case "Count": return new PropertyViewModel<int>();
+
+			}
+			return base.OnRegisterProperty(Name, PropertyType);
+		}
 		public override Task RefreshAsync()
 		{
 			throw new NotImplementedException();

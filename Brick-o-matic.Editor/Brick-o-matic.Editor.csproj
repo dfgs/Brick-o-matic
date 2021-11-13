@@ -76,6 +76,7 @@
     <Compile Include="GeometryUtils.cs" />
     <Compile Include="ViewModels\Math\SizeViewModel.cs" />
     <Compile Include="ViewModels\Math\PositionViewModel.cs" />
+    <Compile Include="ViewModels\Primitives\ImportedSceneViewModel.cs" />
     <Compile Include="ViewModels\Resources\ColorRefResourceViewModel.cs" />
     <Compile Include="ViewModels\Resources\PrimitiveResourceViewModel.cs" />
     <Compile Include="ViewModels\Resources\UnknownResourceViewModel.cs" />

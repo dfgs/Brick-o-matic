@@ -16,7 +16,10 @@
 			<TextBlock Text="Part"/>
 		</HierarchicalDataTemplate>
 		<DataTemplate DataType="{x:Type viewModels:PrimitiveRefViewModel}">
-			<TextBlock Text="{Binding Name}"/>
+			<TextBlock Text="{Binding Name.Value}"/>
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type viewModels:ImportedSceneViewModel}">
+			<TextBlock Text="Scene"/>
 		</DataTemplate>
 		<DataTemplate DataType="{x:Type viewModels:TileMapViewModel}">
 			<TextBlock Text="Tile map"/>
@@ -51,7 +54,7 @@
 						<SolidColorBrush Color="{Binding Object.Color}"/>
 					</Border.Background>
 				</Border>
-				<TextBlock Margin="5,0,0,0" Text="{Binding Name}"/>
+				<TextBlock Margin="5,0,0,0" Text="{Binding Name.Value}"/>
 			</StackPanel>
 		</DataTemplate>
 		<DataTemplate DataType="{x:Type viewModels:ColorRefResourceViewModel}">
@@ -61,13 +64,13 @@
 		</DataTemplate>
 
 		<HierarchicalDataTemplate DataType="{x:Type viewModels:PrimitiveResourceViewModel}" ItemsSource="{Binding Items}">
-			<TextBlock  Text="{Binding Name}"/>
+			<TextBlock  Text="{Binding Name.Value}"/>
 		</HierarchicalDataTemplate>
 		
 		<DataTemplate DataType="{x:Type viewModels:UnknownResourceViewModel}">
 			<StackPanel Orientation="Horizontal">
 				<TextBlock Text="Unknown: "/>
-				<TextBlock Text="{Binding Name}"/>
+				<TextBlock Text="{Binding Name.Value}"/>
 			</StackPanel>
 		</DataTemplate>
 		

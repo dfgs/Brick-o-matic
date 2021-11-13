@@ -10,16 +10,16 @@ using System.Threading.Tasks;
 
 namespace Brick_o_matic.Parsing.Setters
 {
-	public class TileMapTileSizeXSetter : Setter<TileMap, int>, ITileMapSetter
+	public class TileMapTileSizeSetter : Setter<TileMap, Size>, ITileMapSetter
 	{
 		
-		public TileMapTileSizeXSetter(int Value) : base(Value)
+		public TileMapTileSizeSetter(Size Value) : base(Value)
 		{
 		}
 
 		public override TileMap Set(TileMap Component)
 		{
-			Component.TileSizeX = Value;
+			Component.TileSize = Value;
 			return Component;
 		}
 	}
