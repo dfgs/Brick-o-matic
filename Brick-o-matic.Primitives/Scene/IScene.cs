@@ -18,11 +18,12 @@ namespace Brick_o_matic.Primitives
 		{
 			get;
 		}
-		Box GetBoundingBox(IResourceProvider ResourceProvider);
-
-		IEnumerable<Brick> Build(IResourceProvider ResourceProvider);
-
 		void Add(IPrimitive Child);
+
+		Box GetBoundingBox(IResourceProvider ResourceProvider);
+		IEnumerable<Brick> Build(IResourceProvider ResourceProvider);
+		ICSGNode BuildCSGNode(IResourceProvider ResourceProvider);
+
 
 	}
 }

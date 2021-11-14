@@ -76,7 +76,39 @@ namespace Brick_o_matic.Primitives
 			}
 
 		}
-		
 
+		public override ICSGNode BuildCSGNode(IResourceProvider ResourceProvider)
+		{
+			CSGNode node;
+			int minX = int.MaxValue, minY = int.MaxValue, minZ = int.MaxValue;
+			int maxX = int.MinValue, maxY = int.MinValue, maxZ = int.MinValue;
+			ICSGNode childNode;
+
+			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
+
+			node = new CSGNode(); node.Name = "Part";
+
+			if (Count == 0) node.BoundingBox = new Box(Position, new Size());
+			else
+			{
+				foreach (IPrimitive item in this.items)
+				{
+					childNode = item.BuildCSGNode(ResourceProvider);
+					node.Add(childNode);
+
+					minX = System.Math.Min(minX, childNode.BoundingBox.Position.X);
+					minY = System.Math.Min(minY, childNode.BoundingBox.Position.Y);
+					minZ = System.Math.Min(minZ, childNode.BoundingBox.Position.Z);
+
+					maxX = System.Math.Max(maxX, childNode.BoundingBox.Position.X + childNode.BoundingBox.Size.X);
+					maxY = System.Math.Max(maxY, childNode.BoundingBox.Position.Y + childNode.BoundingBox.Size.Y);
+					maxZ = System.Math.Max(maxZ, childNode.BoundingBox.Position.Z + childNode.BoundingBox.Size.Z);
+				}
+
+				node.BoundingBox = new Box(Position + new Position(minX, minY, minZ), new Size(maxX - minX, maxY - minY, maxZ - minZ));
+			}
+
+			return node;
+		}
 	}
 }

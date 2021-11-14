@@ -105,5 +105,19 @@ namespace Brick_o_matic.Primitives
 			color = new Color(R, G, B);
 			yield return new Brick(Position, Size, color); ;
 		}
+
+		public override ICSGNode BuildCSGNode(IResourceProvider ResourceProvider)
+		{
+			CSGNode node;
+
+			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
+
+			node = new CSGNode(); node.Name = "Brick";
+			node.BoundingBox = GetBoundingBox(ResourceProvider);
+			
+			return node;
+		}
+
+
 	}
 }

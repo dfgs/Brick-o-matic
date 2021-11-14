@@ -51,7 +51,24 @@ namespace Brick_o_matic.Primitives
 				yield return new Brick(this.Position + brick.Position, brick.Size,brick.Color);
 			}
 		}
-		
+
+		public override ICSGNode BuildCSGNode(IResourceProvider ResourceProvider)
+		{
+			CSGNode node;
+			ICSGNode childNode;
+
+			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
+
+			node = new CSGNode();node.Name = "Scene";
+			if (this.Scene == null) node.BoundingBox = new Box();
+			else
+			{
+				childNode = this.Scene.BuildCSGNode(ResourceProvider);
+				node.BoundingBox= new Box(Position + childNode.BoundingBox.Position, childNode.BoundingBox.Size);
+			}
+
+			return node;
+		}
 
 	}
 }

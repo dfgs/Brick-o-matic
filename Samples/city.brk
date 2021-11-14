@@ -54,7 +54,7 @@ Scene(
 			TileSize:(32,32,32)
 
 			Items:
-				Primitive(Position:(0,0,0) Name:Road.Tile15)
+				Primitive(Position:(0,0,0) Name:Building.Tile0)
 				Primitive( Position:(1,0,0) Name:Road.Tile14)
 				Primitive( Position:(0,0,1) Name:Road.Tile14)
 				Primitive( Position:(1,0,1) Name:Road.Tile11)
@@ -78,7 +78,7 @@ Scene(
 				Primitive(Position:(-1,0,2) Name:Road.Tile5)
 				Primitive(Position:(-2,0,2) Name:Road.Tile1)
 				Primitive(Position:(2,0,0) Name:Road.Tile0)
-				Primitive(Position:(2,0,-2) Name:Building.Building0)
+				
 		)
 
 		
