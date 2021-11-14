@@ -102,5 +102,45 @@ namespace Brick_o_matic.Primitives.UnitTest
 			Assert.AreEqual(new Size(2, 4, 5), bricks[0].Size);
 		}
 
+
+		[TestMethod]
+		public void ShouldReturnFlatBoundingICSGNodeWhenHasNoPrimitive()
+		{
+			RotateZ transform;
+			ICSGNode node;
+
+			transform = new RotateZ(new Position(1, 2, 3));
+			Assert.IsNotNull(transform);
+			node = transform.BuildCSGNode(new Scene());
+			Assert.AreEqual(1, node.BoundingBox.Position.X);
+			Assert.AreEqual(2, node.BoundingBox.Position.Y);
+			Assert.AreEqual(3, node.BoundingBox.Position.Z);
+			Assert.AreEqual(new Size(0, 0, 0), node.BoundingBox.Size);
+		}
+
+		[TestMethod]
+		public void ShouldReturnBoudingICSGNode()
+		{
+			RotateZ transform;
+			ICSGNode node;
+			Brick b;
+
+			b = new Brick(new Position(1, 0, 5), new Size(4, 2, 5), new Color());
+
+			transform = new RotateZ(new Position(0, 0, 0));
+			transform.Count = 1; transform.Item = b;
+			node = transform.BuildCSGNode(new Scene());
+			Assert.AreEqual(new Position(-1, 1, 5), node.BoundingBox.Position);
+			Assert.AreEqual(new Size(2, 4, 5), node.BoundingBox.Size);
+
+
+			transform = new RotateZ(new Position(2, 2, 2));
+			transform.Count = -1; transform.Item = b;
+			node = transform.BuildCSGNode(new Scene());
+			Assert.AreEqual(new Position(0 + 2, -4 + 2, 5 + 2), node.BoundingBox.Position);
+			Assert.AreEqual(new Size(2, 4, 5), node.BoundingBox.Size);
+		}
+
+
 	}
 }

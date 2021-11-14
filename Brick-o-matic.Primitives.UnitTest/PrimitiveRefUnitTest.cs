@@ -9,8 +9,6 @@ namespace PrimitiveRef_o_matic.Primitives.UnitTest
 	[TestClass]
 	public class PrimitiveRefUnitTest
 	{
-		
-		
 
 		[TestMethod]
 		public void ShouldReturnBoudingBox()
@@ -22,13 +20,13 @@ namespace PrimitiveRef_o_matic.Primitives.UnitTest
 
 			scene = new Scene();
 			b = new Brick(new Position(-1, -2, -3), new Size(1, 1, 1));
-			scene.AddResource("b",b);
+			scene.AddResource("b", b);
 
 			primitive = new PrimitiveRef(new Position(0, 0, 0));
 			primitive.Name = "b";
 
 			box = primitive.GetBoundingBox(scene);
-			Assert.AreEqual(new Position(-1,-2,-3), box.Position);
+			Assert.AreEqual(new Position(-1, -2, -3), box.Position);
 			Assert.AreEqual(new Size(1, 1, 1), box.Size);
 
 
@@ -40,8 +38,24 @@ namespace PrimitiveRef_o_matic.Primitives.UnitTest
 			Assert.AreEqual(new Size(1, 1, 1), box.Size);
 
 		}
-		
 
+
+
+		[TestMethod]
+		public void ShouldNotGetBoudingBoxWhenPrimitiveIsSelfReferenced()
+		{
+			PrimitiveRef p1, p2;
+			Scene scene;
+
+			p1 = new PrimitiveRef() { Name = "p2" };
+			p2 = new PrimitiveRef() { Name = "p1" };
+
+			scene = new Scene();
+			scene.AddResource("p1", p1);
+			scene.AddResource("p2", p2);
+
+			Assert.ThrowsException<InvalidOperationException>(() => p1.GetBoundingBox(scene));
+		}
 
 		[TestMethod]
 		public void ShouldGetBricks()
@@ -61,21 +75,7 @@ namespace PrimitiveRef_o_matic.Primitives.UnitTest
 			bricks = primitive.Build(scene).ToArray();
 			Assert.AreEqual(1, bricks.Length);
 		}
-		[TestMethod]
-		public void ShouldNotGetBoudingBoxWhenPrimitiveIsSelfReferenced()
-		{
-			PrimitiveRef p1, p2;
-			Scene scene;
 
-			p1 = new PrimitiveRef() { Name="p2" };
-			p2 = new PrimitiveRef() { Name="p1" };
-
-			scene = new Scene();
-			scene.AddResource("p1", p1);
-			scene.AddResource("p2", p2);
-
-			Assert.ThrowsException<InvalidOperationException>(() => p1.GetBoundingBox(scene));
-		}
 		[TestMethod]
 		public void ShouldNotBuildWhenPrimitiveIsSelfReferenced()
 		{
@@ -92,5 +92,53 @@ namespace PrimitiveRef_o_matic.Primitives.UnitTest
 			Assert.ThrowsException<InvalidOperationException>(() => p1.Build(scene).ToArray());
 		}
 
+
+
+		[TestMethod]
+		public void ShouldBuildICSGNode()
+		{
+			Scene scene;
+			PrimitiveRef primitive;
+			ICSGNode node;
+			Brick b;
+
+			scene = new Scene();
+			b = new Brick(new Position(-1, -2, -3), new Size(1, 1, 1));
+			scene.AddResource("b", b);
+
+			primitive = new PrimitiveRef(new Position(0, 0, 0));
+			primitive.Name = "b";
+
+			node = primitive.BuildCSGNode(scene);
+			Assert.AreEqual(new Position(-1, -2, -3), node.BoundingBox.Position);
+			Assert.AreEqual(new Size(1, 1, 1), node.BoundingBox.Size);
+
+
+			primitive = new PrimitiveRef(new Position(1, 2, 3));
+			primitive.Name = "b";
+
+			node = primitive.BuildCSGNode(scene);
+			Assert.AreEqual(new Position(0, 0, 0), node.BoundingBox.Position);
+			Assert.AreEqual(new Size(1, 1, 1), node.BoundingBox.Size);
+
+		}
+
+
+
+		[TestMethod]
+		public void ShouldNotBuildICSGNodeWhenPrimitiveIsSelfReferenced()
+		{
+			PrimitiveRef p1, p2;
+			Scene scene;
+
+			p1 = new PrimitiveRef() { Name = "p2" };
+			p2 = new PrimitiveRef() { Name = "p1" };
+
+			scene = new Scene();
+			scene.AddResource("p1", p1);
+			scene.AddResource("p2", p2);
+
+			Assert.ThrowsException<InvalidOperationException>(() => p1.BuildCSGNode(scene));
+		}
 	}
 }

@@ -161,5 +161,74 @@ namespace Brick_o_matic.Primitives.UnitTest
 
 		}
 
+
+
+		[TestMethod]
+		public void ShouldReturnFlatBoundingICSGNodeWhenHasNoItems()
+		{
+			ICSGNode node;
+			Scene scene;
+
+			scene = new Scene();
+			Assert.IsNotNull(scene);
+			node = scene.BuildCSGNode(null);
+			Assert.AreEqual(0, node.BoundingBox.Position.X);
+			Assert.AreEqual(0, node.BoundingBox.Position.Y);
+			Assert.AreEqual(0, node.BoundingBox.Position.Z);
+			Assert.AreEqual(new Size(0, 0, 0), node.BoundingBox.Size);
+		}
+
+		[TestMethod]
+		public void ShouldReturnBoundingICSGNode()
+		{
+			Scene scene;
+			ICSGNode node;
+			Brick b;
+
+			scene = new Scene();
+			Assert.IsNotNull(scene);
+			b = new Brick(new Position(-1, -2, -3), new Size(1, 1, 1));
+			scene.Add(b);
+			node = scene.BuildCSGNode(null);
+			Assert.AreEqual(-1, node.BoundingBox.Position.X);
+			Assert.AreEqual(-2, node.BoundingBox.Position.Y);
+			Assert.AreEqual(-3, node.BoundingBox.Position.Z);
+			Assert.AreEqual(new Size(1, 1, 1), node.BoundingBox.Size);
+
+			scene = new Scene();
+			Assert.IsNotNull(scene);
+			b = new Brick(new Position(-1, -2, -3), new Size(1, 1, 1));
+			scene.Add(b);
+			node = scene.BuildCSGNode(null);
+			Assert.AreEqual(-1, node.BoundingBox.Position.X);
+			Assert.AreEqual(-2, node.BoundingBox.Position.Y);
+			Assert.AreEqual(-3, node.BoundingBox.Position.Z);
+			Assert.AreEqual(new Size(1, 1, 1), node.BoundingBox.Size);
+
+			scene = new Scene();
+			Assert.IsNotNull(scene);
+			b = new Brick(new Position(-1, -2, -3), new Size(1, 1, 1));
+			scene.Add(b);
+			b = new Brick(new Position(1, 2, 3), new Size(1, 1, 1));
+			scene.Add(b);
+			node = scene.BuildCSGNode(null);
+			Assert.AreEqual(-1, node.BoundingBox.Position.X);
+			Assert.AreEqual(-2, node.BoundingBox.Position.Y);
+			Assert.AreEqual(-3, node.BoundingBox.Position.Z);
+			Assert.AreEqual(new Size(3, 5, 7), node.BoundingBox.Size);
+
+			scene = new Scene();
+			Assert.IsNotNull(scene);
+			b = new Brick(new Position(-1, -2, -3), new Size(2, 2, 2));
+			scene.Add(b);
+			b = new Brick(new Position(1, 2, 3), new Size(2, 2, 2));
+			scene.Add(b);
+			node = scene.BuildCSGNode(null);
+			Assert.AreEqual(-1, node.BoundingBox.Position.X);
+			Assert.AreEqual(-2, node.BoundingBox.Position.Y);
+			Assert.AreEqual(-3, node.BoundingBox.Position.Z);
+			Assert.AreEqual(new Size(4, 6, 8), node.BoundingBox.Size);
+
+		}
 	}
 }

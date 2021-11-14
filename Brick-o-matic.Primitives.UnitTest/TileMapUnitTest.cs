@@ -311,5 +311,142 @@ namespace TileMap_o_matic.Primitives.UnitTest
 		}
 
 
+
+		[TestMethod]
+		public void ShouldReturnFlatBoundingCSGNodeWhenHasNoItems()
+		{
+			TileMap TileMap;
+			ICSGNode node;
+
+			TileMap = new TileMap(new Position(1, 2, 3));
+			Assert.IsNotNull(TileMap);
+			node = TileMap.BuildCSGNode(new Scene());
+			Assert.AreEqual(1, node.BoundingBox.Position.X);
+			Assert.AreEqual(2, node.BoundingBox.Position.Y);
+			Assert.AreEqual(3, node.BoundingBox.Position.Z);
+			Assert.AreEqual(new Size(0, 0, 0), node.BoundingBox.Size);
+		}
+
+		[TestMethod]
+		public void ShouldReturnBoundingCSGNode()
+		{
+			TileMap TileMap;
+			ICSGNode node;
+			Brick b;
+
+			TileMap = new TileMap(new Position(10, 10, 10));
+			Assert.IsNotNull(TileMap);
+			TileMap.TileSize = new Size(10, 10, 10);
+			b = new Brick(new Position(1, 0, 0), new Size(10, 10, 10));
+			TileMap.Add(b);
+
+			node = TileMap.BuildCSGNode(new Scene());
+			Assert.AreEqual(20, node.BoundingBox.Position.X);
+			Assert.AreEqual(10, node.BoundingBox.Position.Y);
+			Assert.AreEqual(10, node.BoundingBox.Position.Z);
+			Assert.AreEqual(new Size(10, 10, 10), node.BoundingBox.Size);
+
+
+
+
+			TileMap = new TileMap(new Position(10, 10, 10));
+			Assert.IsNotNull(TileMap);
+			TileMap.TileSize = new Size(10, 10, 10);
+			b = new Brick(new Position(0, 1, 0), new Size(10, 10, 10));
+			TileMap.Add(b);
+
+			node = TileMap.BuildCSGNode(new Scene());
+			Assert.AreEqual(10, node.BoundingBox.Position.X);
+			Assert.AreEqual(20, node.BoundingBox.Position.Y);
+			Assert.AreEqual(10, node.BoundingBox.Position.Z);
+			Assert.AreEqual(new Size(10, 10, 10), node.BoundingBox.Size);
+
+
+
+
+			TileMap = new TileMap(new Position(10, 10, 10));
+			Assert.IsNotNull(TileMap);
+			TileMap.TileSize = new Size(10, 10, 10);
+			b = new Brick(new Position(0, 0, 1), new Size(10, 10, 10));
+			TileMap.Add(b);
+
+			node = TileMap.BuildCSGNode(new Scene());
+			Assert.AreEqual(10, node.BoundingBox.Position.X);
+			Assert.AreEqual(10, node.BoundingBox.Position.Y);
+			Assert.AreEqual(20, node.BoundingBox.Position.Z);
+			Assert.AreEqual(new Size(10, 10, 10), node.BoundingBox.Size);
+
+
+			TileMap = new TileMap(new Position(10, 10, 10));
+			Assert.IsNotNull(TileMap);
+			TileMap.TileSize = new Size(10, 10, 10);
+			b = new Brick(new Position(1, 0, 0), new Size(10, 10, 10));
+			TileMap.Add(b);
+			b = new Brick(new Position(2, 0, 0), new Size(10, 10, 10));
+			TileMap.Add(b);
+
+			node = TileMap.BuildCSGNode(new Scene());
+			Assert.AreEqual(20, node.BoundingBox.Position.X);
+			Assert.AreEqual(10, node.BoundingBox.Position.Y);
+			Assert.AreEqual(10, node.BoundingBox.Position.Z);
+			Assert.AreEqual(new Size(20, 10, 10), node.BoundingBox.Size);
+
+
+		}
+
+
+		[TestMethod]
+		public void ShouldReturnNestedBoundingCSGNode()
+		{
+			TileMap TileMap;
+			ICSGNode node;
+			Part p;
+			Brick b;
+
+			TileMap = new TileMap(new Position(10, 10, 10));
+			Assert.IsNotNull(TileMap);
+			TileMap.TileSize = new Size(10, 10, 10);
+			p = new Part(new Position(0, 0, 0));
+			TileMap.Add(p);
+			b = new Brick(new Position(0, 0, 0), new Size(1, 1, 1));
+			p.Add(b);
+			b = new Brick(new Position(9, 9, 9), new Size(1, 1, 1));
+			p.Add(b);
+
+			node = TileMap.BuildCSGNode(new Scene());
+			Assert.AreEqual(10, node.BoundingBox.Position.X);
+			Assert.AreEqual(10, node.BoundingBox.Position.Y);
+			Assert.AreEqual(10, node.BoundingBox.Position.Z);
+			Assert.AreEqual(new Size(10, 10, 10), node.BoundingBox.Size);
+
+
+
+			TileMap = new TileMap(new Position(10, 10, 10));
+			Assert.IsNotNull(TileMap);
+			TileMap.TileSize = new Size(10, 10, 10);
+			p = new Part(new Position(0, 0, 0));
+			TileMap.Add(p);
+			b = new Brick(new Position(0, 0, 0), new Size(1, 1, 1));
+			p.Add(b);
+			b = new Brick(new Position(9, 9, 9), new Size(1, 1, 1));
+			p.Add(b);
+			p = new Part(new Position(1, 1, 1));
+			TileMap.Add(p);
+			b = new Brick(new Position(0, 0, 0), new Size(1, 1, 1));
+			p.Add(b);
+			b = new Brick(new Position(9, 9, 9), new Size(1, 1, 1));
+			p.Add(b);
+
+			node = TileMap.BuildCSGNode(new Scene());
+			Assert.AreEqual(10, node.BoundingBox.Position.X);
+			Assert.AreEqual(10, node.BoundingBox.Position.Y);
+			Assert.AreEqual(10, node.BoundingBox.Position.Z);
+			Assert.AreEqual(new Size(20, 20, 20), node.BoundingBox.Size);
+
+		}
+
+
+
+
 	}
 }

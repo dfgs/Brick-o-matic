@@ -76,6 +76,19 @@ namespace Brick_o_matic.Primitives.UnitTest
 			Assert.AreEqual(new Size(5, 5, 5), box.Size);
 
 		}
+
+		[TestMethod]
+		public void ShouldReturnBoudingICSGNode()
+		{
+			Brick b;
+			ICSGNode node;
+
+			b = new Brick(new Position(1, 2, 3), new Size(5, 5, 5));
+			node = b.BuildCSGNode(new Scene());
+			Assert.AreEqual(new Position(1, 2, 3), node.BoundingBox.Position);
+			Assert.AreEqual(new Size(5, 5, 5), node.BoundingBox.Size);
+
+		}
 		[TestMethod]
 		public void ShouldRotateX()
 		{

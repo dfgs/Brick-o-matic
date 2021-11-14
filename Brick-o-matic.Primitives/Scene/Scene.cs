@@ -147,7 +147,7 @@ namespace Brick_o_matic.Primitives
 			{
 				foreach (IPrimitive item in this.items)
 				{
-					childNode = item.BuildCSGNode(ResourceProvider);
+					childNode = item.BuildCSGNode(router);
 					node.Add(childNode);
 
 					minX = System.Math.Min(minX, childNode.BoundingBox.Position.X);

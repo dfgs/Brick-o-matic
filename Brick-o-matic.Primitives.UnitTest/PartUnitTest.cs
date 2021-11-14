@@ -205,5 +205,103 @@ namespace Part_o_matic.Primitives.UnitTest
 			bricks = part.Build(scene).ToArray();
 			Assert.AreEqual(2, bricks.Length);
 		}
+
+		[TestMethod]
+		public void ShouldReturnFlatBoundingICSGNodeWhenHasNoItems()
+		{
+			Part part;
+			ICSGNode node;
+
+			part = new Part(new Position(1, 2, 3));
+			Assert.IsNotNull(part);
+			node = part.BuildCSGNode(new Scene());
+			Assert.AreEqual(1, node.BoundingBox.Position.X);
+			Assert.AreEqual(2, node.BoundingBox.Position.Y);
+			Assert.AreEqual(3, node.BoundingBox.Position.Z);
+			Assert.AreEqual(new Size(0, 0, 0), node.BoundingBox.Size);
+		}
+
+		[TestMethod]
+		public void ShouldReturnBoudingICSGNode()
+		{
+			Part part;
+			ICSGNode node;
+			Brick b;
+
+			part = new Part(new Position(0, 0, 0));
+			Assert.IsNotNull(part);
+			b = new Brick(new Position(-1, -2, -3), new Size(1, 1, 1));
+			part.Add(b);
+			node = part.BuildCSGNode(new Scene());
+			Assert.AreEqual(-1, node.BoundingBox.Position.X);
+			Assert.AreEqual(-2, node.BoundingBox.Position.Y);
+			Assert.AreEqual(-3, node.BoundingBox.Position.Z);
+			Assert.AreEqual(new Size(1, 1, 1), node.BoundingBox.Size);
+
+			part = new Part(new Position(1, 2, 3));
+			Assert.IsNotNull(part);
+			b = new Brick(new Position(-1, -2, -3), new Size(1, 1, 1));
+			part.Add(b);
+			node = part.BuildCSGNode(new Scene());
+			Assert.AreEqual(0, node.BoundingBox.Position.X);
+			Assert.AreEqual(0, node.BoundingBox.Position.Y);
+			Assert.AreEqual(0, node.BoundingBox.Position.Z);
+			Assert.AreEqual(new Size(1, 1, 1), node.BoundingBox.Size);
+
+			part = new Part(new Position(0, 0, 0));
+			Assert.IsNotNull(part);
+			b = new Brick(new Position(-1, -2, -3), new Size(1, 1, 1));
+			part.Add(b);
+			b = new Brick(new Position(1, 2, 3), new Size(1, 1, 1));
+			part.Add(b);
+			node = part.BuildCSGNode(new Scene());
+			Assert.AreEqual(-1, node.BoundingBox.Position.X);
+			Assert.AreEqual(-2, node.BoundingBox.Position.Y);
+			Assert.AreEqual(-3, node.BoundingBox.Position.Z);
+			Assert.AreEqual(new Size(3, 5, 7), node.BoundingBox.Size);
+
+			part = new Part(new Position(0, 0, 0));
+			Assert.IsNotNull(part);
+			b = new Brick(new Position(-1, -2, -3), new Size(2, 2, 2));
+			part.Add(b);
+			b = new Brick(new Position(1, 2, 3), new Size(2, 2, 2));
+			part.Add(b);
+			node = part.BuildCSGNode(new Scene());
+			Assert.AreEqual(-1, node.BoundingBox.Position.X);
+			Assert.AreEqual(-2, node.BoundingBox.Position.Y);
+			Assert.AreEqual(-3, node.BoundingBox.Position.Z);
+			Assert.AreEqual(new Size(4, 6, 8), node.BoundingBox.Size);
+
+		}
+		[TestMethod]
+		public void ShouldReturnNestedBoudingICSGNode()
+		{
+			Part part;
+			Part p1, p2;
+			Brick b1, b2;
+			ICSGNode node;
+
+			part = new Part();
+
+			p1 = new Part();
+			b1 = new Brick(new Position(-1, -1, -1));
+			p1.Add(b1);
+
+			p2 = new Part();
+			b2 = new Brick(new Position(1, 1, 1));
+			p2.Add(b2);
+
+			part.Add(b1);
+			part.Add(b2);
+
+			node = part.BuildCSGNode(new Scene());
+			Assert.AreEqual(-1, node.BoundingBox.Position.X);
+			Assert.AreEqual(-1, node.BoundingBox.Position.Y);
+			Assert.AreEqual(-1, node.BoundingBox.Position.Z);
+			Assert.AreEqual(new Size(3, 3, 3), node.BoundingBox.Size);
+		}
+
+
+
 	}
 }

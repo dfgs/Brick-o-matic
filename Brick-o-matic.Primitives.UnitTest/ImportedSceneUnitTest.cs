@@ -73,5 +73,37 @@ namespace Import_o_matic.Primitives.UnitTest
 		}
 
 
+		[TestMethod]
+		public void ShouldBuildICSGNode()
+		{
+			Scene scene;
+			ImportedScene import;
+			ICSGNode node;
+			Brick b;
+
+			scene = new Scene();
+			b = new Brick(new Position(-1, -2, -3), new Size(1, 1, 1));
+			scene.Add(b);
+
+			import = new ImportedScene(new Position(0, 0, 0));
+			import.Scene = scene;
+			node = import.BuildCSGNode(new Scene());
+			Assert.AreEqual(new Position(-1, -2, -3), node.BoundingBox.Position);
+			Assert.AreEqual(new Size(1, 1, 1), node.BoundingBox.Size);
+
+
+			import = new ImportedScene(new Position(1, 2, 3));
+			import.Scene = scene;
+			node = import.BuildCSGNode(new Scene());
+			Assert.AreEqual(new Position(0, 0, 0), node.BoundingBox.Position);
+			Assert.AreEqual(new Size(1, 1, 1), node.BoundingBox.Size);
+
+			import = new ImportedScene(new Position(1, 2, 3));
+			import.Scene = null;
+			node = import.BuildCSGNode(new Scene());
+			Assert.AreEqual(new Position(1, 2, 3), node.BoundingBox.Position);
+			Assert.AreEqual(new Size(0, 0, 0), node.BoundingBox.Size);
+		}
+
 	}
 }

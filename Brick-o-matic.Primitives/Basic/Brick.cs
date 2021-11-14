@@ -113,8 +113,8 @@ namespace Brick_o_matic.Primitives
 			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
 
 			node = new CSGNode(); node.Name = "Brick";
-			node.BoundingBox = GetBoundingBox(ResourceProvider);
-			
+			node.BoundingBox = new Box(Position, Size);
+
 			return node;
 		}
 

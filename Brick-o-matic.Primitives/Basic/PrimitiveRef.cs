@@ -194,9 +194,11 @@ namespace Brick_o_matic.Primitives
 
 			counter.Value--;
 
-			node.BoundingBox= new Box(Position + childNode.BoundingBox.Position, node.BoundingBox.Size);
+			node.BoundingBox= new Box(Position + childNode.BoundingBox.Position, childNode.BoundingBox.Size);
 
 			return node;
+
+
 		}
 
 

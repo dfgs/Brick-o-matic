@@ -64,6 +64,7 @@ namespace Brick_o_matic.Primitives
 		{
 			CSGNode node;
 			ICSGNode childNode;
+			Box childBox;
 
 			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
 
@@ -72,7 +73,8 @@ namespace Brick_o_matic.Primitives
 			else
 			{
 				childNode = Item.BuildCSGNode(ResourceProvider);
-				node.BoundingBox = childNode.BoundingBox.RotateX(Count);
+				childBox = childNode.BoundingBox.RotateX(Count);
+				node.BoundingBox = new Box(Position + childBox.Position, childBox.Size);
 			}
 
 			return node;
