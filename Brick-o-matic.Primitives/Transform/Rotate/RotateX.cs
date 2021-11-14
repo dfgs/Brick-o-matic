@@ -68,11 +68,12 @@ namespace Brick_o_matic.Primitives
 
 			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
 
-			node = new CSGNode(); node.Name = "RotateX";
+			node = new CSGNode(); node.Name = "RotateX"; node.Primitive = this;
 			if (Item == null) node.BoundingBox = new Box(Position, new Size());
 			else
 			{
 				childNode = Item.BuildCSGNode(ResourceProvider);
+				node.Add(childNode);
 				childBox = childNode.BoundingBox.RotateX(Count);
 				node.BoundingBox = new Box(Position + childBox.Position, childBox.Size);
 			}

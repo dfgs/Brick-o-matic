@@ -35,6 +35,7 @@ namespace Brick_o_matic.Primitives
 
 		void Add(ICSGNode child);
 
+		IEnumerable<ICSGNode> GetIntersections(Box BoundingBox);
 
 	}
 }

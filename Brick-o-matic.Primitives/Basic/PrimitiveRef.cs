@@ -185,7 +185,7 @@ namespace Brick_o_matic.Primitives
 			if (counter.Value >= 2) throw new InvalidOperationException($"Self referenced primitive detected ({Name})");
 			counter.Value++;
 
-			node = new CSGNode();node.Name = Name;
+			node = new CSGNode();node.Name = Name; node.Primitive = this;
 			childNode = referencedPrimitive.BuildCSGNode(router);
 			foreach ( ICSGNode item in childNode.Nodes)
 			{

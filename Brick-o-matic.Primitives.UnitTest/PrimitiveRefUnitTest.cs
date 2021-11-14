@@ -112,6 +112,9 @@ namespace PrimitiveRef_o_matic.Primitives.UnitTest
 			node = primitive.BuildCSGNode(scene);
 			Assert.AreEqual(new Position(-1, -2, -3), node.BoundingBox.Position);
 			Assert.AreEqual(new Size(1, 1, 1), node.BoundingBox.Size);
+			Assert.AreEqual("b", node.Name);
+			Assert.AreEqual(0, node.Count);
+			Assert.AreEqual(primitive, node.Primitive);
 
 
 			primitive = new PrimitiveRef(new Position(1, 2, 3));
@@ -120,6 +123,9 @@ namespace PrimitiveRef_o_matic.Primitives.UnitTest
 			node = primitive.BuildCSGNode(scene);
 			Assert.AreEqual(new Position(0, 0, 0), node.BoundingBox.Position);
 			Assert.AreEqual(new Size(1, 1, 1), node.BoundingBox.Size);
+			Assert.AreEqual("b", node.Name);
+			Assert.AreEqual(0, node.Count);
+			Assert.AreEqual(primitive, node.Primitive);
 
 		}
 

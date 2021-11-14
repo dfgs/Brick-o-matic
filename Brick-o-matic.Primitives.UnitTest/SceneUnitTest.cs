@@ -164,7 +164,7 @@ namespace Brick_o_matic.Primitives.UnitTest
 
 
 		[TestMethod]
-		public void ShouldReturnFlatBoundingICSGNodeWhenHasNoItems()
+		public void ShouldReturnFlatICSGNodeWhenHasNoItems()
 		{
 			ICSGNode node;
 			Scene scene;
@@ -176,6 +176,10 @@ namespace Brick_o_matic.Primitives.UnitTest
 			Assert.AreEqual(0, node.BoundingBox.Position.Y);
 			Assert.AreEqual(0, node.BoundingBox.Position.Z);
 			Assert.AreEqual(new Size(0, 0, 0), node.BoundingBox.Size);
+			Assert.AreEqual("Scene", node.Name);
+			Assert.AreEqual(0, node.Count);
+			Assert.AreEqual(null, node.Primitive);
+
 		}
 
 		[TestMethod]
@@ -194,6 +198,9 @@ namespace Brick_o_matic.Primitives.UnitTest
 			Assert.AreEqual(-2, node.BoundingBox.Position.Y);
 			Assert.AreEqual(-3, node.BoundingBox.Position.Z);
 			Assert.AreEqual(new Size(1, 1, 1), node.BoundingBox.Size);
+			Assert.AreEqual("Scene", node.Name);
+			Assert.AreEqual(1, node.Count);
+			Assert.AreEqual(null, node.Primitive);
 
 			scene = new Scene();
 			Assert.IsNotNull(scene);
@@ -204,6 +211,9 @@ namespace Brick_o_matic.Primitives.UnitTest
 			Assert.AreEqual(-2, node.BoundingBox.Position.Y);
 			Assert.AreEqual(-3, node.BoundingBox.Position.Z);
 			Assert.AreEqual(new Size(1, 1, 1), node.BoundingBox.Size);
+			Assert.AreEqual("Scene", node.Name);
+			Assert.AreEqual(1, node.Count);
+			Assert.AreEqual(null, node.Primitive);
 
 			scene = new Scene();
 			Assert.IsNotNull(scene);
@@ -216,6 +226,9 @@ namespace Brick_o_matic.Primitives.UnitTest
 			Assert.AreEqual(-2, node.BoundingBox.Position.Y);
 			Assert.AreEqual(-3, node.BoundingBox.Position.Z);
 			Assert.AreEqual(new Size(3, 5, 7), node.BoundingBox.Size);
+			Assert.AreEqual("Scene", node.Name);
+			Assert.AreEqual(2, node.Count);
+			Assert.AreEqual(null, node.Primitive);
 
 			scene = new Scene();
 			Assert.IsNotNull(scene);
@@ -228,6 +241,9 @@ namespace Brick_o_matic.Primitives.UnitTest
 			Assert.AreEqual(-2, node.BoundingBox.Position.Y);
 			Assert.AreEqual(-3, node.BoundingBox.Position.Z);
 			Assert.AreEqual(new Size(4, 6, 8), node.BoundingBox.Size);
+			Assert.AreEqual("Scene", node.Name);
+			Assert.AreEqual(2, node.Count);
+			Assert.AreEqual(null, node.Primitive);
 
 		}
 	}

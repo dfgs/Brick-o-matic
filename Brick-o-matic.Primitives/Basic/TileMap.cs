@@ -97,13 +97,14 @@ namespace Brick_o_matic.Primitives
 
 			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
 
-			node = new CSGNode();node.Name = "TileMap";
+			node = new CSGNode();node.Name = "TileMap"; node.Primitive = this;
 			if (Count == 0) node.BoundingBox = new Box(Position, new Size());
 			else
 			{
 				foreach (IPrimitive item in this.items)
 				{
 					childNode = item.BuildCSGNode(ResourceProvider);
+					node.Add(childNode);
 					minX = System.Math.Min(minX, item.Position.X * TileSize.X);
 					minY = System.Math.Min(minY, item.Position.Y * TileSize.Y);
 					minZ = System.Math.Min(minZ, item.Position.Z * TileSize.Z);

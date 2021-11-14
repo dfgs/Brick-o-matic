@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace TileMap_o_matic.Primitives.UnitTest
 {
+
+
+
 	[TestClass]
 	public class TileMapUnitTest
 	{
@@ -325,6 +328,9 @@ namespace TileMap_o_matic.Primitives.UnitTest
 			Assert.AreEqual(2, node.BoundingBox.Position.Y);
 			Assert.AreEqual(3, node.BoundingBox.Position.Z);
 			Assert.AreEqual(new Size(0, 0, 0), node.BoundingBox.Size);
+			Assert.AreEqual("TileMap", node.Name);
+			Assert.AreEqual(0, node.Count);
+			Assert.AreEqual(TileMap, node.Primitive);
 		}
 
 		[TestMethod]
@@ -345,6 +351,9 @@ namespace TileMap_o_matic.Primitives.UnitTest
 			Assert.AreEqual(10, node.BoundingBox.Position.Y);
 			Assert.AreEqual(10, node.BoundingBox.Position.Z);
 			Assert.AreEqual(new Size(10, 10, 10), node.BoundingBox.Size);
+			Assert.AreEqual("TileMap", node.Name);
+			Assert.AreEqual(1, node.Count);
+			Assert.AreEqual(TileMap, node.Primitive);
 
 
 
@@ -360,6 +369,9 @@ namespace TileMap_o_matic.Primitives.UnitTest
 			Assert.AreEqual(20, node.BoundingBox.Position.Y);
 			Assert.AreEqual(10, node.BoundingBox.Position.Z);
 			Assert.AreEqual(new Size(10, 10, 10), node.BoundingBox.Size);
+			Assert.AreEqual("TileMap", node.Name);
+			Assert.AreEqual(1, node.Count);
+			Assert.AreEqual(TileMap, node.Primitive);
 
 
 
@@ -375,6 +387,9 @@ namespace TileMap_o_matic.Primitives.UnitTest
 			Assert.AreEqual(10, node.BoundingBox.Position.Y);
 			Assert.AreEqual(20, node.BoundingBox.Position.Z);
 			Assert.AreEqual(new Size(10, 10, 10), node.BoundingBox.Size);
+			Assert.AreEqual("TileMap", node.Name);
+			Assert.AreEqual(1, node.Count);
+			Assert.AreEqual(TileMap, node.Primitive);
 
 
 			TileMap = new TileMap(new Position(10, 10, 10));
@@ -390,6 +405,9 @@ namespace TileMap_o_matic.Primitives.UnitTest
 			Assert.AreEqual(10, node.BoundingBox.Position.Y);
 			Assert.AreEqual(10, node.BoundingBox.Position.Z);
 			Assert.AreEqual(new Size(20, 10, 10), node.BoundingBox.Size);
+			Assert.AreEqual("TileMap", node.Name);
+			Assert.AreEqual(2, node.Count);
+			Assert.AreEqual(TileMap, node.Primitive);
 
 
 		}
@@ -418,6 +436,9 @@ namespace TileMap_o_matic.Primitives.UnitTest
 			Assert.AreEqual(10, node.BoundingBox.Position.Y);
 			Assert.AreEqual(10, node.BoundingBox.Position.Z);
 			Assert.AreEqual(new Size(10, 10, 10), node.BoundingBox.Size);
+			Assert.AreEqual("TileMap", node.Name);
+			Assert.AreEqual(1, node.Count);
+			Assert.AreEqual(TileMap, node.Primitive);
 
 
 
@@ -442,6 +463,9 @@ namespace TileMap_o_matic.Primitives.UnitTest
 			Assert.AreEqual(10, node.BoundingBox.Position.Y);
 			Assert.AreEqual(10, node.BoundingBox.Position.Z);
 			Assert.AreEqual(new Size(20, 20, 20), node.BoundingBox.Size);
+			Assert.AreEqual("TileMap", node.Name);
+			Assert.AreEqual(2, node.Count);
+			Assert.AreEqual(TileMap, node.Primitive);
 
 		}
 

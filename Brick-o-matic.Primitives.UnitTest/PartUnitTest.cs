@@ -132,8 +132,8 @@ namespace Part_o_matic.Primitives.UnitTest
 			b2 = new Brick(new Position(1, 1, 1));
 			p2.Add(b2);
 
-			part.Add(b1);
-			part.Add(b2);
+			part.Add(p1);
+			part.Add(p2);
 
 			box = part.GetBoundingBox(new Scene());
 			Assert.AreEqual(-1, box.Position.X);
@@ -199,15 +199,15 @@ namespace Part_o_matic.Primitives.UnitTest
 			b2 = new Brick();
 			p2.Add(b2);
 
-			part.Add(b1);
-			part.Add(b2);
+			part.Add(p1);
+			part.Add(p2);
 
 			bricks = part.Build(scene).ToArray();
 			Assert.AreEqual(2, bricks.Length);
 		}
 
 		[TestMethod]
-		public void ShouldReturnFlatBoundingICSGNodeWhenHasNoItems()
+		public void ShouldReturnFlatICSGNodeWhenHasNoItems()
 		{
 			Part part;
 			ICSGNode node;
@@ -219,10 +219,15 @@ namespace Part_o_matic.Primitives.UnitTest
 			Assert.AreEqual(2, node.BoundingBox.Position.Y);
 			Assert.AreEqual(3, node.BoundingBox.Position.Z);
 			Assert.AreEqual(new Size(0, 0, 0), node.BoundingBox.Size);
+
+			Assert.AreEqual("Part", node.Name);
+			Assert.AreEqual(0, node.Count);
+			Assert.AreEqual(part, node.Primitive);
+
 		}
 
 		[TestMethod]
-		public void ShouldReturnBoudingICSGNode()
+		public void ShouldReturnICSGNode()
 		{
 			Part part;
 			ICSGNode node;
@@ -237,6 +242,9 @@ namespace Part_o_matic.Primitives.UnitTest
 			Assert.AreEqual(-2, node.BoundingBox.Position.Y);
 			Assert.AreEqual(-3, node.BoundingBox.Position.Z);
 			Assert.AreEqual(new Size(1, 1, 1), node.BoundingBox.Size);
+			Assert.AreEqual("Part", node.Name);
+			Assert.AreEqual(1, node.Count);
+			Assert.AreEqual(part, node.Primitive);
 
 			part = new Part(new Position(1, 2, 3));
 			Assert.IsNotNull(part);
@@ -247,6 +255,9 @@ namespace Part_o_matic.Primitives.UnitTest
 			Assert.AreEqual(0, node.BoundingBox.Position.Y);
 			Assert.AreEqual(0, node.BoundingBox.Position.Z);
 			Assert.AreEqual(new Size(1, 1, 1), node.BoundingBox.Size);
+			Assert.AreEqual("Part", node.Name);
+			Assert.AreEqual(1, node.Count);
+			Assert.AreEqual(part, node.Primitive);
 
 			part = new Part(new Position(0, 0, 0));
 			Assert.IsNotNull(part);
@@ -259,6 +270,9 @@ namespace Part_o_matic.Primitives.UnitTest
 			Assert.AreEqual(-2, node.BoundingBox.Position.Y);
 			Assert.AreEqual(-3, node.BoundingBox.Position.Z);
 			Assert.AreEqual(new Size(3, 5, 7), node.BoundingBox.Size);
+			Assert.AreEqual("Part", node.Name);
+			Assert.AreEqual(2, node.Count);
+			Assert.AreEqual(part, node.Primitive);
 
 			part = new Part(new Position(0, 0, 0));
 			Assert.IsNotNull(part);
@@ -271,6 +285,9 @@ namespace Part_o_matic.Primitives.UnitTest
 			Assert.AreEqual(-2, node.BoundingBox.Position.Y);
 			Assert.AreEqual(-3, node.BoundingBox.Position.Z);
 			Assert.AreEqual(new Size(4, 6, 8), node.BoundingBox.Size);
+			Assert.AreEqual("Part", node.Name);
+			Assert.AreEqual(2, node.Count);
+			Assert.AreEqual(part, node.Primitive);
 
 		}
 		[TestMethod]
@@ -291,14 +308,17 @@ namespace Part_o_matic.Primitives.UnitTest
 			b2 = new Brick(new Position(1, 1, 1));
 			p2.Add(b2);
 
-			part.Add(b1);
-			part.Add(b2);
+			part.Add(p1);
+			part.Add(p2);
 
 			node = part.BuildCSGNode(new Scene());
 			Assert.AreEqual(-1, node.BoundingBox.Position.X);
 			Assert.AreEqual(-1, node.BoundingBox.Position.Y);
 			Assert.AreEqual(-1, node.BoundingBox.Position.Z);
 			Assert.AreEqual(new Size(3, 3, 3), node.BoundingBox.Size);
+			Assert.AreEqual("Part", node.Name);
+			Assert.AreEqual(2, node.Count);
+			Assert.AreEqual(part, node.Primitive);
 		}
 
 

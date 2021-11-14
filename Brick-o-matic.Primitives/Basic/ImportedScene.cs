@@ -59,11 +59,12 @@ namespace Brick_o_matic.Primitives
 
 			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
 
-			node = new CSGNode();node.Name = "Scene";
+			node = new CSGNode();node.Name = "Scene"; node.Primitive = this;
 			if (this.Scene == null) node.BoundingBox = new Box(Position, new Size(0,0,0));
 			else
 			{
 				childNode = this.Scene.BuildCSGNode(ResourceProvider);
+				node.Add(childNode);
 				node.BoundingBox= new Box(Position + childNode.BoundingBox.Position, childNode.BoundingBox.Size);
 			}
 

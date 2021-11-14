@@ -78,7 +78,7 @@ namespace Brick_o_matic.Primitives.UnitTest
 		}
 
 		[TestMethod]
-		public void ShouldReturnBoudingICSGNode()
+		public void ShouldReturnICSGNode()
 		{
 			Brick b;
 			ICSGNode node;
@@ -87,6 +87,9 @@ namespace Brick_o_matic.Primitives.UnitTest
 			node = b.BuildCSGNode(new Scene());
 			Assert.AreEqual(new Position(1, 2, 3), node.BoundingBox.Position);
 			Assert.AreEqual(new Size(5, 5, 5), node.BoundingBox.Size);
+			Assert.AreEqual("Brick", node.Name);
+			Assert.AreEqual(0, node.Count);
+			Assert.AreEqual(b, node.Primitive);
 
 		}
 		[TestMethod]

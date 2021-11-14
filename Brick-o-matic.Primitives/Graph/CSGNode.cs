@@ -45,9 +45,17 @@ namespace Brick_o_matic.Primitives
 			nodes.Add(Child);
 		}
 
-		
+		public IEnumerable<ICSGNode> GetIntersections(Box OtherBox)
+		{
+			if (!BoundingBox.IntersectWith(OtherBox)) yield break;
+			foreach(ICSGNode node in nodes.SelectMany(item=>item.GetIntersections(OtherBox)))
+			{
+				yield return node;
+			}
+			if (Primitive is Brick) yield return this;
+		}
 
-		
+
 
 
 	}

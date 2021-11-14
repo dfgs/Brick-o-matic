@@ -60,11 +60,12 @@ namespace Brick_o_matic.Primitives
 
 			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
 
-			node = new CSGNode(); node.Name = "FlipZ";
+			node = new CSGNode(); node.Name = "FlipZ";node.Primitive = this;
 			if (Item == null) node.BoundingBox = new Box(Position, new Size());
 			else
 			{
 				childNode = Item.BuildCSGNode(ResourceProvider);
+				node.Add(childNode);
 				node.BoundingBox = new Box(Position + new Position(childNode.BoundingBox.Position.X, childNode.BoundingBox.Position.Y, -childNode.BoundingBox.Position.Z - childNode.BoundingBox.Size.Z + 1), childNode.BoundingBox.Size);
 			}
 
