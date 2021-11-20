@@ -513,11 +513,11 @@ namespace Brick_o_matic.Primitives.UnitTest
 
 
 		[TestMethod]
-		public void ShouldGetBrickFirstPredicate()
+		public void ShouldParseNodesFirstPredicate()
 		{
 			Brick brick1, brick2;
 			ICSGNode node1, node2;
-			Brick[] bricks;
+			ICSGNode[] nodes;
 
 			brick1 = new Brick(new Position(0, 0, 0), new Size(2, 2, 2));
 			brick2 = new Brick(new Position(1, 0, 0), new Size(2, 2, 2));
@@ -533,26 +533,26 @@ namespace Brick_o_matic.Primitives.UnitTest
 			node1.Split(brick2.GetBoundingBox(new Scene()));
 			Assert.AreEqual(2, node1.NodeCount);
 
-			bricks = node1.GetBricks((node) => true).ToArray();
-			Assert.AreEqual(2, bricks.Length);
-			bricks = node1.GetBricks((node) => false).ToArray();
-			Assert.AreEqual(0, bricks.Length);
+			nodes = node1.ParseNodes((node) => true).ToArray();
+			Assert.AreEqual(3, nodes.Length);
+			nodes = node1.ParseNodes((node) => false).ToArray();
+			Assert.AreEqual(0, nodes.Length);
 
 			node2.Split(brick1.GetBoundingBox(new Scene()));
 			Assert.AreEqual(2, node2.NodeCount);
 
-			bricks = node2.GetBricks((node) => true).ToArray();
-			Assert.AreEqual(2, bricks.Length);
-			bricks = node2.GetBricks((node) => false).ToArray();
-			Assert.AreEqual(0, bricks.Length);
+			nodes = node2.ParseNodes((node) => true).ToArray();
+			Assert.AreEqual(3, nodes.Length);
+			nodes = node2.ParseNodes((node) => false).ToArray();
+			Assert.AreEqual(0, nodes.Length);
 
 		}
 		[TestMethod]
-		public void ShouldGetBrickSecondPredicate()
+		public void ShouldParseNodesSecondPredicate()
 		{
 			Brick brick1, brick2;
 			ICSGNode node1, node2;
-			Brick[] bricks;
+			ICSGNode[] nodes;
 
 			brick1 = new Brick(new Position(0, 0, 0), new Size(2, 2, 2));
 			brick2 = new Brick(new Position(1, 0, 0), new Size(2, 2, 2));
@@ -567,18 +567,18 @@ namespace Brick_o_matic.Primitives.UnitTest
 			node1.Split(brick2.GetBoundingBox(new Scene()));
 			Assert.AreEqual(2, node1.NodeCount);
 
-			bricks = node1.GetBricks((node) => node.SplitTag).ToArray();
-			Assert.AreEqual(1, bricks.Length);
-			bricks = node1.GetBricks((node) =>(node.NodeCount != 0) || (!node.SplitTag)).ToArray();
-			Assert.AreEqual(1, bricks.Length);
+			nodes = node1.ParseNodes((node) => node.SplitTag).ToArray();
+			Assert.AreEqual(2, nodes.Length);
+			nodes = node1.ParseNodes((node) =>(node.NodeCount != 0) || (!node.SplitTag)).ToArray();
+			Assert.AreEqual(2, nodes.Length);
 
 			node2.Split(brick1.GetBoundingBox(new Scene()));
 			Assert.AreEqual(2, node2.NodeCount);
 
-			bricks = node2.GetBricks((node) => node.SplitTag).ToArray();
-			Assert.AreEqual(1, bricks.Length);
-			bricks = node2.GetBricks((node) => (node.NodeCount != 0) || (!node.SplitTag)).ToArray();
-			Assert.AreEqual(1, bricks.Length);
+			nodes = node2.ParseNodes((node) => node.SplitTag).ToArray();
+			Assert.AreEqual(2, nodes.Length);
+			nodes = node2.ParseNodes((node) => (node.NodeCount != 0) || (!node.SplitTag)).ToArray();
+			Assert.AreEqual(2, nodes.Length);
 
 		}
 

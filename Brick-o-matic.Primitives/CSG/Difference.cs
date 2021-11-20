@@ -46,7 +46,6 @@ namespace Brick_o_matic.Primitives
 		public override IEnumerable<Brick> Build(IResourceProvider ResourceProvider)
 		{
 			ICSGNode nodeA,nodeB;
-			Brick[] bricks;
 
 			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
 
@@ -67,10 +66,9 @@ namespace Brick_o_matic.Primitives
 				nodeA.Split(intersectionNode.BoundingBox);
 			}
 
-			bricks = nodeA.GetBricks((node) => (node.NodeCount != 0) || (!node.SplitTag)).ToArray();
-			foreach (Brick brick in bricks)
+			foreach (ICSGNode node in nodeA.ParseNodes((node) => true ))
 			{
-				yield return brick;
+				if ((node.Brick!=null) && (!node.SplitTag)) yield return new Brick(node.BoundingBox.Position+this.Position,node.BoundingBox.Size,node.Brick.Color);
 			}
 
 		}

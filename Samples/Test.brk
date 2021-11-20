@@ -17,6 +17,7 @@ Scene(
 	Items:
 		
 		Difference(
+			Position:(10,0,0)
 			ItemA:Primitive(Name:BrickA)
 			ItemB:Primitive(Name:BrickB Position:(1,1,0))
 		)

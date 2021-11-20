@@ -204,25 +204,18 @@ namespace Brick_o_matic.Primitives
 
 		}
 
-		public IEnumerable<Brick> GetBricks(Func<ICSGNode, bool> Selector)
+		public IEnumerable<ICSGNode> ParseNodes(Func<ICSGNode, bool> Selector)
 		{
 			bool result;
-			Brick b;
 
 			if (Selector == null) throw new ArgumentNullException(nameof(Selector));
 
 			result = Selector(this);
 			if (!result) yield break;
 
-			if (Brick != null)
-			{
-				b = new Brick(BoundingBox.Position, BoundingBox.Size, Brick.Color);
-				yield return b;
-			}
-			else
-			{
-				foreach (Brick brick in nodes.SelectMany(item => item.GetBricks(Selector))) yield return brick;
-			}
+			yield return this;
+
+			foreach (ICSGNode node in nodes.SelectMany(item => item.ParseNodes(Selector))) yield return node;
 		}
 
 
