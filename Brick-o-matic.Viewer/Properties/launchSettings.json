@@ -2,7 +2,7 @@
   "profiles": {
     "Brick-o-matic.Viewer": {
       "commandName": "Project",
-      "commandLineArgs": "D:\\Projets\\Brick-o-matic\\Samples\\Personn.brk"
+      "commandLineArgs": "D:\\Projets\\Brick-o-matic\\Samples\\Test.brk"
     }
   }
 }

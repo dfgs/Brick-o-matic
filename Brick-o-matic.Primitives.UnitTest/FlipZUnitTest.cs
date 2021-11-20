@@ -105,7 +105,7 @@ namespace Brick_o_matic.Primitives.UnitTest
 
 
 
-		[TestMethod]
+		/*[TestMethod]
 		public void ShouldReturnFlatICSGNodeWhenHasNoPrimitive()
 		{
 			FlipZ transform;
@@ -113,7 +113,7 @@ namespace Brick_o_matic.Primitives.UnitTest
 
 			transform = new FlipZ(new Position(1, 2, 3));
 			Assert.IsNotNull(transform);
-			node = transform.BuildCSGNode(new Scene());
+			node = transform.BuildCSGNode(new Scene(), new Position());
 			Assert.AreEqual(1, node.BoundingBox.Position.X);
 			Assert.AreEqual(2, node.BoundingBox.Position.Y);
 			Assert.AreEqual(3, node.BoundingBox.Position.Z);
@@ -134,7 +134,7 @@ namespace Brick_o_matic.Primitives.UnitTest
 
 			transform = new FlipZ(new Position(0, 0, 0));
 			transform.Item = b;
-			node = transform.BuildCSGNode(new Scene());
+			node = transform.BuildCSGNode(new Scene(), new Position());
 			Assert.AreEqual(new Position(1, 1, -3), node.BoundingBox.Position);
 			Assert.AreEqual(new Size(1, 1, 2), node.BoundingBox.Size);
 			Assert.AreEqual("FlipZ", node.Name);
@@ -144,13 +144,13 @@ namespace Brick_o_matic.Primitives.UnitTest
 
 			transform = new FlipZ(new Position(2, 2, 2));
 			transform.Item = b;
-			node = transform.BuildCSGNode(new Scene());
+			node = transform.BuildCSGNode(new Scene(), new Position());
 			Assert.AreEqual(new Position(1 + 2, 1 + 2, -3 + 2), node.BoundingBox.Position);
 			Assert.AreEqual(new Size(1, 1, 2), node.BoundingBox.Size);
 			Assert.AreEqual("FlipZ", node.Name);
 			Assert.AreEqual(1, node.Count);
 			Assert.AreEqual(transform, node.Primitive);
-		}
+		}*/
 
 	}
 }

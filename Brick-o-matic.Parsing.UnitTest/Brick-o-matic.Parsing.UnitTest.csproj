@@ -49,6 +49,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Setters\CSG\ICSGSettersUnitTest.cs" />
     <Compile Include="Setters\Primitive\BrickSettersUnitTest.cs" />
     <Compile Include="Setters\Primitive\TileMapSettersUnitTest.cs" />
     <Compile Include="Setters\SceneSettersUnitTest.cs" />

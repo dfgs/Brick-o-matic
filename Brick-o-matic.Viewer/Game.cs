@@ -90,6 +90,7 @@ namespace Brick_o_matic.Viewer
             catch(Exception ex)
             {
                 File.WriteAllText("debug.log", ex.Message);
+                Console.WriteLine(ex.Message);
             }
 
             if (scene != null)

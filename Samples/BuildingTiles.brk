@@ -46,16 +46,17 @@ Scene(
 					Color:Gray
 				)
 
-				Primitive(
-					Position:(-7,0,10)
-					Name:Door
-				)
+				
 		)
 
 
 	Items:
-
-		Primitive(Name:Tile0)
+		
+		Difference(
+			ItemA:Primitive(Name:Tile0)
+			ItemB:Primitive(Name:Door Position:(-7,0,10))
+		)
+		
 		
 		
 	

@@ -53,24 +53,7 @@ namespace Brick_o_matic.Primitives
 
 		}
 
-		public override ICSGNode BuildCSGNode(IResourceProvider ResourceProvider)
-		{
-			CSGNode node;
-			ICSGNode childNode;
-
-			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
-
-			node = new CSGNode();node.Name = "FlipX"; node.Primitive = this;
-			if (Item == null) node.BoundingBox=new Box(Position, new Size());
-			else
-			{
-				childNode = Item.BuildCSGNode(ResourceProvider);
-				node.Add(childNode);
-				node.BoundingBox=new Box(Position + new Position(-childNode.BoundingBox.Position.X - childNode.BoundingBox.Size.X + 1, childNode.BoundingBox.Position.Y, childNode.BoundingBox.Position.Z), childNode.BoundingBox.Size);
-			}
-
-			return node;
-		}
+		
 
 	}
 }

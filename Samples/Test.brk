@@ -1,0 +1,29 @@
+Scene(
+	Resources:
+		Red=(255,0,0)
+		Blue=(0,0,255)
+		
+		BrickA=Brick(
+			Position:(0,0,0)
+			Size:(4,4,4)
+			Color:Red
+		)
+		BrickB=Brick(
+			Position:(0,0,0)
+			Size:(2,2,4)
+			Color:Blue
+		)
+		
+	Items:
+		
+		Difference(
+			ItemA:Primitive(Name:BrickA)
+			ItemB:Primitive(Name:BrickB Position:(1,1,0))
+		)
+
+		
+		
+		
+		
+		
+)

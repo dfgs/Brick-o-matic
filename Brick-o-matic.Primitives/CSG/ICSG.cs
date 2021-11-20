@@ -7,16 +7,18 @@ using System.Threading.Tasks;
 
 namespace Brick_o_matic.Primitives
 {
-	public interface IPrimitive: ISceneObject
+	public interface ICSG:IPrimitive
 	{
-		Position Position
+		IPrimitive ItemA
 		{
 			get;
 			set;
 		}
 
-		Box GetBoundingBox(IResourceProvider ResourceProvider);
-		IEnumerable<Brick> Build(IResourceProvider ResourceProvider);
-		
+		IPrimitive ItemB
+		{
+			get;
+			set;
+		}
 	}
 }

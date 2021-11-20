@@ -13,7 +13,7 @@ namespace Brick_o_matic.Parsing
     public static class Grammar
     {
         public static IParser<string> Name = Parse.AnyInRange('A', 'z').Then(
-            Parse.AnyOf('-','_','.').Or(Parse.AnyInRange('0','9')).Or(Parse.AnyInRange('A', 'z')).OneOrMoreTimes().ReaderIncludes(' ','\t','\r','\n'));
+            Parse.AnyOf('-','_','.').Or(Parse.AnyInRange('0','9')).Or(Parse.AnyInRange('A', 'z')).ZeroOrMoreTimes().ReaderIncludes(' ','\t','\r','\n'));
 
         public static IParser<string> FileName = Parse.Char('"').Then(Parse.Except('"').OneOrMoreTimes()).Then(Parse.Char('"'));
 
@@ -179,6 +179,25 @@ namespace Brick_o_matic.Parsing
         public static IParser<IImportedResourcesSetter> ImportedResourcesSetter = ImportedResourcesSceneSetter;//.Or<IImportedSceneSetter>(ImportSceneSetter);
         public static IParser<IEnumerable<IImportedResourcesSetter>> ImportedResourcesSetters = ImportedResourcesSetter.ZeroOrMoreTimes();
 
+        // ICSG setters
+        public static IParser<ICSGPositionSetter> ICSGPositionSetter =
+            from _ in Parse.String("Position:")
+            from value in Position
+            select new ICSGPositionSetter(value);
+
+        public static IParser<ICSGItemASetter> ICSGItemASetter =
+             from _ in Parse.String("ItemA:")
+             from value in Primitive
+             select new ICSGItemASetter(value);
+
+        public static IParser<ICSGItemBSetter> ICSGItemBSetter =
+             from _ in Parse.String("ItemB:")
+             from value in Primitive
+             select new ICSGItemBSetter(value);
+
+        public static IParser<ICSGSetter> ICSGSetter = ICSGPositionSetter.Or<ICSGSetter>(ICSGItemASetter).Or<ICSGSetter>(ICSGItemBSetter);
+        public static IParser<IEnumerable<ICSGSetter>> ICSGSetters = ICSGSetter.ZeroOrMoreTimes();
+
 
         // Primitives
         public static IParser<Brick> Brick =
@@ -258,6 +277,12 @@ namespace Brick_o_matic.Parsing
             from ___ in Parse.Char(')')
             select new FlipZ().Set(setters) as FlipZ;
 
+        public static IParser<Difference> Difference =
+             from _ in Parse.String("Difference")
+             from __ in Parse.Char('(')
+             from setters in ICSGSetters
+             from ___ in Parse.Char(')')
+             select new Difference().Set(setters) as Difference;
 
         // imported resources
 
@@ -269,7 +294,7 @@ namespace Brick_o_matic.Parsing
            select new ImportedResources().Set(setters);
 
 
-        public static IParser<IPrimitive> Primitive = Brick.Or<IPrimitive>(Part).Or<IPrimitive>(TileMap).Or<IPrimitive>(PrimitiveRef).Or<IPrimitive>(ImportedScene).Or<IPrimitive>(RotateX).Or<IPrimitive>(RotateY).Or<IPrimitive>(RotateZ).Or<IPrimitive>(FlipX).Or<IPrimitive>(FlipY).Or<IPrimitive>(FlipZ);
+        public static IParser<IPrimitive> Primitive = Brick.Or<IPrimitive>(Part).Or<IPrimitive>(TileMap).Or<IPrimitive>(PrimitiveRef).Or<IPrimitive>(ImportedScene).Or<IPrimitive>(RotateX).Or<IPrimitive>(RotateY).Or<IPrimitive>(RotateZ).Or<IPrimitive>(FlipX).Or<IPrimitive>(FlipY).Or<IPrimitive>(FlipZ).Or<IPrimitive>(Difference);
         public static IParser<IEnumerable<IPrimitive>> Primitives = Primitive.OneOrMoreTimes();
 
 

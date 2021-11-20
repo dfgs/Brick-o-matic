@@ -59,26 +59,7 @@ namespace Brick_o_matic.Primitives
 			}
 
 		}
-		public override ICSGNode BuildCSGNode(IResourceProvider ResourceProvider)
-		{
-			CSGNode node;
-			ICSGNode childNode;
-			Box childBox;
-
-			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
-
-			node = new CSGNode(); node.Name = "RotateZ"; node.Primitive = this;
-			if (Item == null) node.BoundingBox = new Box(Position, new Size());
-			else
-			{
-				childNode = Item.BuildCSGNode(ResourceProvider);
-				node.Add(childNode);
-				childBox = childNode.BoundingBox.RotateZ(Count);
-				node.BoundingBox = new Box(Position + childBox.Position, childBox.Size);
-			}
-
-			return node;
-		}
+		
 
 
 	}

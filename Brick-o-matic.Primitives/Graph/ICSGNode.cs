@@ -9,33 +9,54 @@ namespace Brick_o_matic.Primitives
 {
 	public interface ICSGNode
 	{
-		IPrimitive Primitive
-		{
-			get;
-		}
+		
 
 		Box BoundingBox
 		{
 			get;
 		}
 
-		int Count
+		int BrickCount
 		{
 			get;
 		}
+		int NodeCount
+		{
+			get;
+		}
+
 
 		string Name
 		{
 			get;
 		}
-		IEnumerable<ICSGNode> Nodes
+
+		bool SplitTag
 		{
 			get;
 		}
 
-		void Add(ICSGNode child);
 
-		IEnumerable<ICSGNode> GetIntersections(Box BoundingBox);
+		IEnumerable<ICSGNode> Nodes
+		{
+			get;
+		}
+		IEnumerable<Brick> Bricks
+		{
+			get;
+		}
+
+		void Build(IResourceProvider ResourceProvider, IPrimitive Primitive);
+		void Build(Box BoundingBox,IEnumerable<Brick> Bricks);
+
+		void Add(Brick Brick);
+		void Add(ICSGNode Node);
+
+		IEnumerable<ICSGNode> GetIntersections(Box OtherBox);
+		bool Split(Box OtherBox);
+
+
+		
 
 	}
 }

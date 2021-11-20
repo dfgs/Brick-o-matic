@@ -27,6 +27,5 @@ namespace Brick_o_matic.Primitives
 		}
 		public abstract Box GetBoundingBox(IResourceProvider ResourceProvider);
 		public abstract IEnumerable<Brick> Build(IResourceProvider ResourceProvider);
-		public abstract ICSGNode BuildCSGNode(IResourceProvider ResourceProvider);
 	}
 }

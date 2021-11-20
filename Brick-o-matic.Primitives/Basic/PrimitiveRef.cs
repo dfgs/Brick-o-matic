@@ -154,52 +154,7 @@ namespace Brick_o_matic.Primitives
 		}
 
 
-		public override ICSGNode BuildCSGNode(IResourceProvider ResourceProvider)
-		{
-			IPrimitive referencedPrimitive;
-			CSGNode node;
-			ICSGNode childNode;
-			string localName;
-			ResourceProviderRouter router;
-			IResourceProvider alternativeResourceProvider;
-
-			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
-
-
-			if (!ResourceProvider.TryGetResource(this.Name, out referencedPrimitive))
-			{
-				throw new InvalidOperationException($"Reference to primitive {Name} was not found");
-			}
-
-			alternativeResourceProvider = NameSpaceUtils.GetResourceLocation(ResourceProvider, Name, out localName);
-			if (alternativeResourceProvider == null)
-			{
-				router = new ResourceProviderRouter(this, ResourceProvider);
-			}
-			else
-			{
-				router = new ResourceProviderRouter(new ResourceProviderRouter(this, ResourceProvider), alternativeResourceProvider);
-			}
-
-
-			if (counter.Value >= 2) throw new InvalidOperationException($"Self referenced primitive detected ({Name})");
-			counter.Value++;
-
-			node = new CSGNode();node.Name = Name; node.Primitive = this;
-			childNode = referencedPrimitive.BuildCSGNode(router);
-			foreach ( ICSGNode item in childNode.Nodes)
-			{
-				node.Add(item);
-			}
-
-			counter.Value--;
-
-			node.BoundingBox= new Box(Position + childNode.BoundingBox.Position, childNode.BoundingBox.Size);
-
-			return node;
-
-
-		}
+		
 
 
 

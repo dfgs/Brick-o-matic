@@ -21,6 +21,7 @@ namespace Brick_o_matic.Parsing.UnitTest
 		[TestMethod]
 		public void ShouldParseName()
 		{
+			Assert.AreEqual("A", Grammar.Name.Parse("A", ' '));
 			Assert.AreEqual("Homer", Grammar.Name.Parse("Homer", ' '));
 			Assert.AreEqual("hOMEr", Grammar.Name.Parse("hOMEr", ' '));
 			Assert.AreEqual("Homer1", Grammar.Name.Parse("Homer1", ' '));

@@ -45,6 +45,8 @@
     <Compile Include="Basic\TileMap.cs" />
     <Compile Include="ColorRef.cs" />
     <Compile Include="Color.cs" />
+    <Compile Include="CSG\ICSG.cs" />
+    <Compile Include="CSG\Difference.cs" />
     <Compile Include="Graph\CSGNode.cs" />
     <Compile Include="Graph\ICSGNode.cs" />
     <Compile Include="IResourceProvider.cs" />
@@ -82,8 +84,6 @@
       <Name>Brick-o-matic.Math</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="CSG\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
