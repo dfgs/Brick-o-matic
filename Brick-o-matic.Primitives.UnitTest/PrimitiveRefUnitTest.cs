@@ -15,7 +15,7 @@ namespace PrimitiveRef_o_matic.Primitives.UnitTest
 		{
 			Scene scene;
 			PrimitiveRef primitive;
-			Box box;
+			IBox box;
 			Brick b;
 
 			scene = new Scene();

@@ -76,10 +76,10 @@ namespace Brick_o_matic.Primitives
 		
 		
 
-		public override Box GetBoundingBox(IResourceProvider ResourceProvider)
+		public override IBox GetBoundingBox(IResourceProvider ResourceProvider)
 		{
 			IPrimitive referencedPrimitive;
-			Box childBox;
+			IBox childBox;
 			string localName;
 			ResourceProviderRouter router;
 			IResourceProvider alternativeResourceProvider;

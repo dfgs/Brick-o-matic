@@ -54,7 +54,7 @@ namespace TileMap_o_matic.Primitives.UnitTest
 		public void ShouldReturnFlatBoundingBoxWhenHasNoItems()
 		{
 			TileMap TileMap;
-			Box box;
+			IBox box;
 
 			TileMap = new TileMap(new Position(1,2,3));
 			Assert.IsNotNull(TileMap);
@@ -69,7 +69,7 @@ namespace TileMap_o_matic.Primitives.UnitTest
 		public void ShouldReturnBoudingBox()
 		{
 			TileMap TileMap;
-			Box box;
+			IBox box;
 			Brick b;
 
 			TileMap = new TileMap(new Position(10, 10, 10));
@@ -137,7 +137,7 @@ namespace TileMap_o_matic.Primitives.UnitTest
 		public void ShouldReturnNestedBoudingBox()
 		{
 			TileMap TileMap;
-			Box box;
+			IBox box;
 			Part p;
 			Brick b;
 

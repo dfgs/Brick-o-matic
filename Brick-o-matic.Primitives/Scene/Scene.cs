@@ -83,32 +83,19 @@ namespace Brick_o_matic.Primitives
 
 		
 
-		public Box GetBoundingBox(IResourceProvider ResourceProvider)
+		public IBox GetBoundingBox(IResourceProvider ResourceProvider)
 		{
 			IResourceProvider router;
-
-			int minX = int.MaxValue, minY = int.MaxValue, minZ = int.MaxValue;
-			int maxX = int.MinValue, maxY = int.MinValue, maxZ = int.MinValue;
 			Box childBox;
 
-			if (ItemsCount == 0) return new Box(new Position(), new Size());
 
 			if ((ResourceProvider == null) || (ResourceProvider==this)) router = this;
 			else router = new ResourceProviderRouter(ResourceProvider, this);
 
-			foreach (IPrimitive item in this.items)
-			{
-				childBox = item.GetBoundingBox(router);
-				minX = System.Math.Min(minX, childBox.Position.X);
-				minY = System.Math.Min(minY, childBox.Position.Y);
-				minZ = System.Math.Min(minZ, childBox.Position.Z);
+			childBox = new Box(items.Select(item => item.GetBoundingBox(router)));
 
-				maxX = System.Math.Max(maxX, childBox.Position.X + childBox.Size.X);
-				maxY = System.Math.Max(maxY, childBox.Position.Y + childBox.Size.Y);
-				maxZ = System.Math.Max(maxZ, childBox.Position.Z + childBox.Size.Z);
-			}
+			return childBox;
 
-			return new Box(new Position(minX, minY, minZ), new Size(maxX - minX, maxY - minY, maxZ - minZ));
 
 		}
 

@@ -25,7 +25,7 @@ namespace Brick_o_matic.Primitives
 		{
 			this.Position = Position;
 		}
-		public abstract Box GetBoundingBox(IResourceProvider ResourceProvider);
+		public abstract IBox GetBoundingBox(IResourceProvider ResourceProvider);
 		public abstract IEnumerable<Brick> Build(IResourceProvider ResourceProvider);
 	}
 }

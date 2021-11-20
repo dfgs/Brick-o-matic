@@ -16,10 +16,10 @@ namespace Brick_o_matic.Primitives
 			get;
 		}
 
-		int BrickCount
+		/*int BrickCount
 		{
 			get;
-		}
+		}*/
 		int NodeCount
 		{
 			get;
@@ -41,22 +41,27 @@ namespace Brick_o_matic.Primitives
 		{
 			get;
 		}
-		IEnumerable<Brick> Bricks
+		/*IEnumerable<Brick> Bricks
+		{
+			get;
+		}//*/
+		Brick Brick
 		{
 			get;
 		}
 
-		void Build(IResourceProvider ResourceProvider, IPrimitive Primitive);
-		void Build(Box BoundingBox,IEnumerable<Brick> Bricks);
+		//void Build(IResourceProvider ResourceProvider, IPrimitive Primitive);
+		void Build(IEnumerable<Brick> Bricks);
 
-		void Add(Brick Brick);
+		//void Add(Brick Brick);
 		void Add(ICSGNode Node);
 
-		IEnumerable<ICSGNode> GetIntersections(Box OtherBox);
-		bool Split(Box OtherBox);
+		IEnumerable<ICSGNode> GetIntersections(IBox OtherBox);
+		bool Split(IBox OtherBox);
+
+		IEnumerable<Brick> GetBricks(Func<ICSGNode,bool> Selector);
 
 
-		
 
 	}
 }

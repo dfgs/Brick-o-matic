@@ -81,7 +81,7 @@ namespace Brick_o_matic.Viewer
 
         private void LoadMeshes()
         {
-            Box boundingBox;
+            IBox boundingBox;
 
             try
             {

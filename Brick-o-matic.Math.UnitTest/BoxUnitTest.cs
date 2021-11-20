@@ -20,7 +20,7 @@ namespace Brick_o_matic.Math.UnitTest
 		[TestMethod]
 		public void ShouldRotateX()
 		{
-			Box b, rotate;
+			IBox b, rotate;
 
 			b = new Box(new Position(5, 0, 1), new Size(5, 2, 4));
 			rotate = b.RotateX(0);
@@ -66,7 +66,7 @@ namespace Brick_o_matic.Math.UnitTest
 		[TestMethod]
 		public void ShouldRotateY()
 		{
-			Box b, rotate;
+			IBox b, rotate;
 
 			b = new Box(new Position(1, 5, 0), new Size(4, 5, 2));
 			rotate = b.RotateY(0);
@@ -112,7 +112,7 @@ namespace Brick_o_matic.Math.UnitTest
 		[TestMethod]
 		public void ShouldRotateZ()
 		{
-			Box b, rotate;
+			IBox b, rotate;
 
 			b = new Box(new Position(1, 0, 5), new Size(4, 2, 5));
 			rotate = b.RotateZ(0);

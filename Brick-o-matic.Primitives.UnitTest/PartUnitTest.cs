@@ -51,7 +51,7 @@ namespace Part_o_matic.Primitives.UnitTest
 		public void ShouldReturnFlatBoundingBoxWhenHasNoItems()
 		{
 			Part part;
-			Box box;
+			IBox box;
 
 			part = new Part(new Position(1,2,3));
 			Assert.IsNotNull(part);
@@ -66,7 +66,7 @@ namespace Part_o_matic.Primitives.UnitTest
 		public void ShouldReturnBoudingBox()
 		{
 			Part part;
-			Box box;
+			IBox box;
 			Brick b;
 
 			part = new Part(new Position(0, 0, 0));
@@ -120,7 +120,7 @@ namespace Part_o_matic.Primitives.UnitTest
 			Part part;
 			Part p1, p2;
 			Brick b1, b2;
-			Box box;
+			IBox box;
 
 			part = new Part();
 

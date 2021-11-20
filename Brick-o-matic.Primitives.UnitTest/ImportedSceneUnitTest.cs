@@ -17,7 +17,7 @@ namespace Import_o_matic.Primitives.UnitTest
 		{
 			Scene scene;
 			ImportedScene import;
-			Box box;
+			IBox box;
 			Brick b;
 
 			scene = new Scene();

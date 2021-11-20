@@ -27,7 +27,7 @@ namespace Brick_o_matic.Primitives.UnitTest
 		public void ShouldReturnFlatBoundingBoxWhenHasNoPrimitive()
 		{
 			FlipY transform;
-			Box box;
+			IBox box;
 
 			transform = new FlipY(new Position(1,2,3));
 			Assert.IsNotNull(transform);
@@ -42,7 +42,7 @@ namespace Brick_o_matic.Primitives.UnitTest
 		public void ShouldReturnBoudingBox()
 		{
 			FlipY transform;
-			Box box;
+			IBox box;
 			Brick b;
 
 			b = new Brick(new Position(1, 2, 1), new Size(1, 2, 1), new Color());

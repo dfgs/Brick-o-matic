@@ -18,7 +18,10 @@ namespace Brick_o_matic.Math
             get;
 		}
 
-       
+
+        IBox RotateX(int Count);
+        IBox RotateY(int Count);
+        IBox RotateZ(int Count);
 
 
 

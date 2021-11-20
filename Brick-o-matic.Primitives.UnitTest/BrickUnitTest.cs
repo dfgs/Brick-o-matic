@@ -68,7 +68,7 @@ namespace Brick_o_matic.Primitives.UnitTest
 		public void ShouldReturnBoudingBox()
 		{
 			Brick b;
-			Box box;
+			IBox box;
 
 			b = new Brick(new Position(1, 2, 3), new Size(5, 5, 5));
 			box = b.GetBoundingBox(new Scene());

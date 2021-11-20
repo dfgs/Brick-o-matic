@@ -44,11 +44,11 @@ namespace Brick_o_matic.Primitives
 			items.Add(Child);
 		}
 
-		public override Box GetBoundingBox(IResourceProvider ResourceProvider)
+		public override IBox GetBoundingBox(IResourceProvider ResourceProvider)
 		{
 			int minX=int.MaxValue, minY = int.MaxValue, minZ = int.MaxValue;
 			int maxX = int.MinValue, maxY = int.MinValue, maxZ = int.MinValue;
-			Box childBox;
+			IBox childBox;
 
 			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
 

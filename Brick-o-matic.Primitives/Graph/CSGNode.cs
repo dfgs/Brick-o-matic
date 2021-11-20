@@ -23,14 +23,18 @@ namespace Brick_o_matic.Primitives
 			set;
 		}
 
+		public Brick Brick
+		{
+			get;
+			set;
+		}
 
-
-		private List<Brick> bricks;
+		/*private List<Brick> bricks;
 		public IEnumerable<Brick> Bricks
 		{
 			get { return bricks; }
 		}
-		public int BrickCount => bricks.Count;
+		public int BrickCount => bricks.Count;//*/
 
 		private List<ICSGNode> nodes;
 		public IEnumerable<ICSGNode> Nodes
@@ -49,33 +53,30 @@ namespace Brick_o_matic.Primitives
 		public CSGNode()
 		{
 			nodes = new List<ICSGNode>();
-			bricks = new List<Brick>();
+			//bricks = new List<Brick>();
 		}
 
 
-		public void Add(Brick Brick)
+		/*public void Add(Brick Brick)
 		{
 			bricks.Add(Brick);
-		}
+		}//*/
 
 		public void Add(ICSGNode Node)
 		{
 			nodes.Add(Node);
 		}
 
-		public IEnumerable<ICSGNode> GetIntersections(Box OtherBox)
+		public IEnumerable<ICSGNode> GetIntersections(IBox OtherBox)
 		{
 			if (!BoundingBox.IntersectWith(OtherBox)) yield break;
 
-			if (NodeCount == 0)
+			if (Brick != null)
 			{
-				foreach (Brick brick in bricks)
+				if (OtherBox.IntersectWith(BoundingBox))
 				{
-					if (OtherBox.IntersectWith(brick))
-					{
-						yield return this;
-						yield break;
-					}
+					yield return this;
+					yield break;
 				}
 			}
 
@@ -88,7 +89,7 @@ namespace Brick_o_matic.Primitives
 			}
 			
 		}
-		public bool Split(Box OtherBox)
+		public bool Split(IBox OtherBox)
 		{
 			CSGNode childNode;
 			bool result;
@@ -96,14 +97,13 @@ namespace Brick_o_matic.Primitives
 			result = false;
 			if (!BoundingBox.IntersectWith(OtherBox)) return result;
 
-			if (NodeCount == 0)
+			if (Brick != null)
 			{
 				foreach (Box splitBox in BoundingBox.SplitWith(OtherBox))
 				{
 					childNode = new CSGNode(); childNode.Name = Name;
 					childNode.BoundingBox = splitBox;
-					foreach (Brick brick in bricks) childNode.Add(brick);
-					
+					childNode.Brick = Brick;
 					// tag split items;
 					if (splitBox.IntersectWith(OtherBox))
 					{
@@ -113,6 +113,7 @@ namespace Brick_o_matic.Primitives
 					}
 					Add(childNode);
 				}
+				this.Brick = null;
 			}
 			else
 			{
@@ -127,54 +128,104 @@ namespace Brick_o_matic.Primitives
 
 		
 
-		public void Build(IResourceProvider ResourceProvider, IPrimitive Primitive)
+		/*public void Build(IResourceProvider ResourceProvider, IPrimitive Primitive)
 		{
 			Build(Primitive.GetBoundingBox(ResourceProvider),Primitive.Build(ResourceProvider));
-		}
+		}*/
 
-		public void Build(Box BoundingBox, IEnumerable<Brick> Bricks)
+		public void Build(IEnumerable<Brick> Bricks)
 		{
-			Box boundingBoxA, boundingBoxB;
-			int midSize;
+			List<Brick> listA, listB;
+			int midPos;
 			CSGNode nodeA, nodeB;
 
-			this.BoundingBox = BoundingBox;
+			this.BoundingBox = new Box(Bricks);
 
-			foreach (Brick brick in Bricks)
+			if (Bricks.Count()==1)
 			{
-				if (BoundingBox.IntersectWith(brick)) Add(brick);
+				this.Brick = Bricks.First();
+				return;
 			}
 
-			if (BrickCount <= 1) return;
-			if ((BoundingBox.Size.X <= 1) && (BoundingBox.Size.Y <= 1) && (BoundingBox.Size.Z <= 1)) return;
+			listA = new List<Brick>();
+			listB = new List<Brick>();
+
+
+			if ((BoundingBox.Size.X >= BoundingBox.Size.Y) && (BoundingBox.Size.X >= BoundingBox.Size.Z))
+			{
+				midPos = BoundingBox.Position.X+ BoundingBox.Size.X / 2;
+				foreach(Brick brick in Bricks)
+				{
+					if (brick.Position.X < midPos) listA.Add(brick);
+					else listB.Add(brick);
+				}
+			}
+			else if (BoundingBox.Size.Y >= BoundingBox.Size.Z)
+			{
+				midPos = BoundingBox.Position.Y + BoundingBox.Size.Y / 2;
+				foreach (Brick brick in Bricks)
+				{
+					if (brick.Position.Y < midPos) listA.Add(brick);
+					else listB.Add(brick);
+				}               
+			}
+			else
+			{
+				midPos = BoundingBox.Position.Z + BoundingBox.Size.Z / 2;
+				foreach (Brick brick in Bricks)
+				{
+					if (brick.Position.Z < midPos) listA.Add(brick);
+					else listB.Add(brick);
+				}            
+			}
+
+			if (listA.Count==0)
+			{
+				for(int t=0;t<listB.Count/2;t++)
+				{
+					listA.Add(listB[0]);
+					listB.RemoveAt(0);
+				}
+			}
+			else if (listB.Count == 0)
+			{
+				for (int t = 0; t < listA.Count / 2; t++)
+				{
+					listB.Add(listA[0]);
+					listA.RemoveAt(0);
+				}
+			}
 
 			nodeA = new CSGNode();Add(nodeA);
 			nodeB = new CSGNode();Add(nodeB);
 
-			if ((BoundingBox.Size.X>=BoundingBox.Size.Y) && (BoundingBox.Size.X >= BoundingBox.Size.Z))
+			nodeA.Build(listA);
+			nodeB.Build(listB);
+
+		}
+
+		public IEnumerable<Brick> GetBricks(Func<ICSGNode, bool> Selector)
+		{
+			bool result;
+			Brick b;
+
+			if (Selector == null) throw new ArgumentNullException(nameof(Selector));
+
+			result = Selector(this);
+			if (!result) yield break;
+
+			if (Brick != null)
 			{
-				midSize = BoundingBox.Size.X / 2;
-				boundingBoxA = new Box(BoundingBox.Position, new Size(midSize, BoundingBox.Size.Y, BoundingBox.Size.Z));
-				boundingBoxB = new Box(new Position(BoundingBox.Position.X + midSize,BoundingBox.Position.Y,BoundingBox.Position.Z), new Size(BoundingBox.Size.X-midSize, BoundingBox.Size.Y, BoundingBox.Size.Z));
-			}
-			else if (BoundingBox.Size.Y >= BoundingBox.Size.Z)
-			{
-				midSize = BoundingBox.Size.Y / 2;
-				boundingBoxA = new Box(BoundingBox.Position, new Size(BoundingBox.Size.X, midSize, BoundingBox.Size.Z));
-				boundingBoxB = new Box(new Position(BoundingBox.Position.X, BoundingBox.Position.Y + midSize, BoundingBox.Position.Z), new Size(BoundingBox.Size.X, BoundingBox.Size.Y - midSize,BoundingBox.Size.Z)); ;
+				b = new Brick(BoundingBox.Position, BoundingBox.Size, Brick.Color);
+				yield return b;
 			}
 			else
 			{
-				midSize = BoundingBox.Size.Z / 2;
-				boundingBoxA = new Box(BoundingBox.Position, new Size(BoundingBox.Size.X, BoundingBox.Size.Y, midSize));
-				boundingBoxB = new Box(new Position(BoundingBox.Position.X , BoundingBox.Position.Y, BoundingBox.Position.Z + midSize), new Size(BoundingBox.Size.X, BoundingBox.Size.Y, BoundingBox.Size.Z - midSize));
+				foreach (Brick brick in nodes.SelectMany(item => item.GetBricks(Selector))) yield return brick;
 			}
-
-
-			nodeA.Build(boundingBoxA, this.Bricks);
-			nodeB.Build(boundingBoxB, this.Bricks);
-
 		}
+
+
 
 
 

@@ -26,9 +26,9 @@ namespace Brick_o_matic.Primitives
 		{
 		}
 		
-		public override Box GetBoundingBox(IResourceProvider ResourceProvider)
+		public override IBox GetBoundingBox(IResourceProvider ResourceProvider)
 		{
-			Box childBox;
+			IBox childBox;
 
 			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
 			if (Item == null) return new Box(Position, new Size());

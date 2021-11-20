@@ -96,7 +96,7 @@ namespace Brick_o_matic.Primitives.UnitTest
 		[TestMethod]
 		public void ShouldReturnFlatBoundingBoxWhenHasNoItems()
 		{
-			Box box;
+			IBox box;
 			Scene scene;
 
 			scene = new Scene();
@@ -112,7 +112,7 @@ namespace Brick_o_matic.Primitives.UnitTest
 		public void ShouldReturnBoudingBox()
 		{
 			Scene scene;
-			Box box;
+			IBox box;
 			Brick b;
 
 			scene = new Scene();

@@ -20,7 +20,7 @@ namespace Brick_o_matic.Primitives
 		}
 		void Add(IPrimitive Child);
 
-		Box GetBoundingBox(IResourceProvider ResourceProvider);
+		IBox GetBoundingBox(IResourceProvider ResourceProvider);
 		IEnumerable<Brick> Build(IResourceProvider ResourceProvider);
 
 

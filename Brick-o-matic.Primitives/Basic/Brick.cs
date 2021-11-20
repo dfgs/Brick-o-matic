@@ -39,7 +39,18 @@ namespace Brick_o_matic.Primitives
 			this.Size = Size; this.Color = Color;
 		}
 
-
+		IBox IBox.RotateX(int Count)
+		{
+			return RotateX(Count);
+		}
+		IBox IBox.RotateY(int Count)
+		{
+			return RotateY(Count);
+		}
+		IBox IBox.RotateZ(int Count)
+		{
+			return RotateZ(Count);
+		}
 
 		public Brick RotateX(int Count)
 		{
@@ -87,7 +98,7 @@ namespace Brick_o_matic.Primitives
 			return new Brick(new Position(System.Math.Min(rCornerA.X,rCornerB.X), System.Math.Min(rCornerA.Y,rCornerB.Y), rCornerA.Z), newSize, Color);
 		}
 
-		public override Box GetBoundingBox(IResourceProvider ResourceProvider)
+		public override IBox GetBoundingBox(IResourceProvider ResourceProvider)
 		{
 			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
 			return new Box(Position, Size);

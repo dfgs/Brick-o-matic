@@ -29,38 +29,24 @@ namespace Brick_o_matic.Primitives
 		{
 		}
 		
-		public override Box GetBoundingBox(IResourceProvider ResourceProvider)
+		public override IBox GetBoundingBox(IResourceProvider ResourceProvider)
 		{
-			int minX = int.MaxValue, minY = int.MaxValue, minZ = int.MaxValue;
-			int maxX = int.MinValue, maxY = int.MinValue, maxZ = int.MinValue;
-			Box childBox;
+			IBox childBox;
 
 			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
 
 			if (ItemA == null) return new Box(Position, new Size());
 			if (ItemB == null) return ItemA.GetBoundingBox(ResourceProvider);
 
-
+			childBox = new Box(Build(ResourceProvider));
 			
-			foreach (Brick brick in Build(ResourceProvider))
-			{
-				childBox = brick.GetBoundingBox(ResourceProvider);
-
-				minX = System.Math.Min(minX, childBox.Position.X);
-				minY = System.Math.Min(minY, childBox.Position.Y);
-				minZ = System.Math.Min(minZ, childBox.Position.Z);
-
-				maxX = System.Math.Max(maxX, childBox.Position.X + childBox.Size.X);
-				maxY = System.Math.Max(maxY, childBox.Position.Y + childBox.Size.Y);
-				maxZ = System.Math.Max(maxZ, childBox.Position.Z + childBox.Size.Z);
-			}
-			
-			return new Box(Position + new Position(minX, minY, minZ), new Size(maxX - minX, maxY - minY, maxZ - minZ));
+			return new Box(Position + childBox.Position, childBox.Size);
 		}
 
 		public override IEnumerable<Brick> Build(IResourceProvider ResourceProvider)
 		{
 			ICSGNode nodeA,nodeB;
+			Brick[] bricks;
 
 			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
 
@@ -68,22 +54,25 @@ namespace Brick_o_matic.Primitives
 			if (ItemB == null)
 			{
 				foreach (Brick brick in ItemA.Build(ResourceProvider)) yield return brick;
+				yield break;
 			}
 
-			yield break;
+			nodeA = new CSGNode();
+			nodeA.Build(ItemA.Build(ResourceProvider));
+			nodeB = new CSGNode();
+			nodeB.Build(ItemB.Build(ResourceProvider));
 
-			/*nodeA = ItemA.BuildCSGNode(ResourceProvider,Position);
-			nodeB=ItemB.BuildCSGNode(ResourceProvider,Position);
-			foreach(ICSGNode intersectionNode in nodeB.GetIntersections(nodeA.BoundingBox))
+			foreach (ICSGNode intersectionNode in nodeB.GetIntersections(nodeA.BoundingBox))
 			{
 				nodeA.Split(intersectionNode.BoundingBox);
-			}*/
+			}
 
-			/*foreach(Brick brick in nodeA.Bricks((node)=>(!(node.Primitive is Brick)) || (!node.SplitTag)))
+			bricks = nodeA.GetBricks((node) => (node.NodeCount != 0) || (!node.SplitTag)).ToArray();
+			foreach (Brick brick in bricks)
 			{
 				yield return brick;
-			}*/
-			yield break;
+			}
+
 		}
 
 		

@@ -16,7 +16,7 @@ namespace Brick_o_matic.Primitives.UnitTest
 
 		
 
-		[TestMethod]
+		/*[TestMethod]
 		public void ShouldAddBrick()
 		{
 			CSGNode node;
@@ -54,7 +54,7 @@ namespace Brick_o_matic.Primitives.UnitTest
 			Assert.AreEqual(b, items[1]);
 			Assert.AreEqual(c, items[2]);
 
-		}
+		}//*/
 
 		[TestMethod]
 		public void ShouldBuild_SplitBoudingBox_OnXAxis()
@@ -67,21 +67,21 @@ namespace Brick_o_matic.Primitives.UnitTest
 			part.Add(new Brick(new Position(1, 0, 0), new Size(1, 1, 1)));
 
 			node = new CSGNode();
-			Assert.AreEqual(0, node.BrickCount);
-			node.Build(new Scene(), part);
+			Assert.IsNull(node.Brick);
+			node.Build( part.Build(new Scene()));
 
-			Assert.AreEqual(2, node.BrickCount);
+			Assert.IsNull(node.Brick);
 			Assert.AreEqual(new Position(-1, 0, 0), node.BoundingBox.Position);
 			Assert.AreEqual(new Size(3, 1, 1), node.BoundingBox.Size);
 			Assert.AreEqual(2, node.NodeCount);
 
-			Assert.AreEqual(1, node.Nodes.ElementAt(0).BrickCount);
+			Assert.IsNotNull(node.Nodes.ElementAt(0).Brick);
 			Assert.AreEqual(new Position(-1, 0, 0), node.Nodes.ElementAt(0).BoundingBox.Position);
 			Assert.AreEqual(new Size(1, 1, 1), node.Nodes.ElementAt(0).BoundingBox.Size);
 
-			Assert.AreEqual(1, node.Nodes.ElementAt(1).BrickCount);
-			Assert.AreEqual(new Position(0, 0, 0), node.Nodes.ElementAt(1).BoundingBox.Position);
-			Assert.AreEqual(new Size(2, 1, 1), node.Nodes.ElementAt(1).BoundingBox.Size);
+			Assert.IsNotNull(node.Nodes.ElementAt(1).Brick);
+			Assert.AreEqual(new Position(1, 0, 0), node.Nodes.ElementAt(1).BoundingBox.Position);
+			Assert.AreEqual(new Size(1, 1, 1), node.Nodes.ElementAt(1).BoundingBox.Size);
 		}
 
 		[TestMethod]
@@ -95,21 +95,20 @@ namespace Brick_o_matic.Primitives.UnitTest
 			part.Add(new Brick(new Position(0, 1, 0), new Size(1, 1, 1)));
 
 			node = new CSGNode();
-			Assert.AreEqual(0, node.BrickCount);
-			node.Build(new Scene(), part);
+			Assert.IsNull(node.Brick);
+			node.Build(part.Build(new Scene()));
 
-			Assert.AreEqual(2, node.BrickCount);
 			Assert.AreEqual(new Position(0, -1, 0), node.BoundingBox.Position);
 			Assert.AreEqual(new Size(1, 3, 1), node.BoundingBox.Size);
 			Assert.AreEqual(2, node.NodeCount);
 
-			Assert.AreEqual(1, node.Nodes.ElementAt(0).BrickCount);
+			Assert.IsNotNull(node.Nodes.ElementAt(0).Brick);
 			Assert.AreEqual(new Position(0, -1, 0), node.Nodes.ElementAt(0).BoundingBox.Position);
 			Assert.AreEqual(new Size(1, 1, 1), node.Nodes.ElementAt(0).BoundingBox.Size);
 
-			Assert.AreEqual(1, node.Nodes.ElementAt(1).BrickCount);
-			Assert.AreEqual(new Position(0, 0, 0), node.Nodes.ElementAt(1).BoundingBox.Position);
-			Assert.AreEqual(new Size(1, 2, 1), node.Nodes.ElementAt(1).BoundingBox.Size);
+			Assert.IsNotNull(node.Nodes.ElementAt(0).Brick);
+			Assert.AreEqual(new Position(0, 1, 0), node.Nodes.ElementAt(1).BoundingBox.Position);
+			Assert.AreEqual(new Size(1, 1, 1), node.Nodes.ElementAt(1).BoundingBox.Size);
 		}
 
 		[TestMethod]
@@ -123,21 +122,20 @@ namespace Brick_o_matic.Primitives.UnitTest
 			part.Add(new Brick(new Position(0, 0, 1), new Size(1, 1, 1)));
 
 			node = new CSGNode();
-			Assert.AreEqual(0, node.BrickCount);
-			node.Build(new Scene(), part);
+			Assert.IsNull(node.Brick);
+			node.Build(part.Build(new Scene()));
 
-			Assert.AreEqual(2, node.BrickCount);
 			Assert.AreEqual(new Position(0, 0, -1), node.BoundingBox.Position);
 			Assert.AreEqual(new Size(1, 1, 3), node.BoundingBox.Size);
 			Assert.AreEqual(2, node.NodeCount);
 
-			Assert.AreEqual(1, node.Nodes.ElementAt(0).BrickCount);
+			Assert.IsNotNull(node.Nodes.ElementAt(0).Brick);
 			Assert.AreEqual(new Position(0, 0, -1), node.Nodes.ElementAt(0).BoundingBox.Position);
 			Assert.AreEqual(new Size(1, 1, 1), node.Nodes.ElementAt(0).BoundingBox.Size);
 
-			Assert.AreEqual(1, node.Nodes.ElementAt(1).BrickCount);
-			Assert.AreEqual(new Position(0, 0, 0), node.Nodes.ElementAt(1).BoundingBox.Position);
-			Assert.AreEqual(new Size(1, 1, 2), node.Nodes.ElementAt(1).BoundingBox.Size);
+			Assert.IsNotNull(node.Nodes.ElementAt(0).Brick);
+			Assert.AreEqual(new Position(0, 0, 1), node.Nodes.ElementAt(1).BoundingBox.Position);
+			Assert.AreEqual(new Size(1, 1, 1), node.Nodes.ElementAt(1).BoundingBox.Size);
 		}
 
 		[TestMethod]
@@ -161,20 +159,38 @@ namespace Brick_o_matic.Primitives.UnitTest
 			
 
 			node = new CSGNode();
-			Assert.AreEqual(0, node.BrickCount);
-			node.Build(new Scene(), part);
-			Assert.AreEqual(1000, node.BrickCount);
-			Assert.AreEqual(500, node.Nodes.ElementAt(0).BrickCount);
-			Assert.AreEqual(250, node.Nodes.ElementAt(0).Nodes.ElementAt(0).BrickCount);
-			Assert.AreEqual(125, node.Nodes.ElementAt(0).Nodes.ElementAt(0).Nodes.ElementAt(0).BrickCount);
-			Assert.AreEqual(125, node.Nodes.ElementAt(0).Nodes.ElementAt(0).Nodes.ElementAt(1).BrickCount);
-			Assert.AreEqual(250, node.Nodes.ElementAt(0).Nodes.ElementAt(1).BrickCount);
-			Assert.AreEqual(500, node.Nodes.ElementAt(1).BrickCount);
+			Assert.IsNull(node.Brick);
+			node.Build(part.Build(new Scene()));
+			Assert.AreEqual(2, node.NodeCount);
+			Assert.AreEqual(2, node.Nodes.ElementAt(0).NodeCount);
+			Assert.AreEqual(2, node.Nodes.ElementAt(0).Nodes.ElementAt(0).NodeCount);
+			Assert.AreEqual(2, node.Nodes.ElementAt(0).Nodes.ElementAt(0).Nodes.ElementAt(0).NodeCount);
+			Assert.AreEqual(2, node.Nodes.ElementAt(0).Nodes.ElementAt(0).Nodes.ElementAt(1).NodeCount);
+			Assert.AreEqual(2, node.Nodes.ElementAt(0).Nodes.ElementAt(1).NodeCount);
+			Assert.AreEqual(2, node.Nodes.ElementAt(1).NodeCount);
+		}
+		[TestMethod]
+		public void ShouldNotGoInInfiniteLoopWhileBuilding()
+		{
+			CSGNode node;
+			Part part;
+
+			part = new Part();
+			part.Add(new Brick(new Position(1, 2, 3), new Size(2)));
+			part.Add(new Brick(new Position(1, 2, 3), new Size(2)));
+			part.Add(new Brick(new Position(1, 2, 3), new Size(2)));
+
+
+			node = new CSGNode();
+			Assert.IsNull(node.Brick);
+			node.Build(part.Build(new Scene()));
+			Assert.AreEqual(2, node.NodeCount);
+			
 		}
 
 
 
-		
+
 		[TestMethod]
 		public void ShouldNotGetIntersectionsWithBrick()
 		{
@@ -186,7 +202,7 @@ namespace Brick_o_matic.Primitives.UnitTest
 			brick = new Brick(new Position(), new Size(10, 1, 1));
 			otherBox = new Box(new Position(5, 2, 0), new Size(1, 1, 1));
 			node = new CSGNode();
-			node.Build(new Scene(),brick);
+			node.Build(brick.Build(new Scene()));
 
 			intersectNodes = node.GetIntersections(otherBox).ToArray();
 			Assert.AreEqual(0, intersectNodes.Length);
@@ -205,12 +221,12 @@ namespace Brick_o_matic.Primitives.UnitTest
 			brick = new Brick(new Position(), new Size(10, 1, 1));
 			otherBox = new Box(new Position(5, 0, 0),new Size(1,1,1));
 			node = new CSGNode();
-			node.Build(new Scene(),brick);
+			node.Build(brick.Build(new Scene()));
 
 			intersectNodes = node.GetIntersections(otherBox).ToArray();
 			Assert.AreEqual(1, intersectNodes.Length);
-			Assert.AreEqual(brick.Position, intersectNodes[0].Bricks.ElementAt(0).Position);
-			Assert.AreEqual(brick.Size, intersectNodes[0].Bricks.ElementAt(0).Size);
+			Assert.AreEqual(brick.Position, intersectNodes[0].BoundingBox.Position);
+			Assert.AreEqual(brick.Size, intersectNodes[0].BoundingBox.Size);
 		}
 
 		[TestMethod]
@@ -228,7 +244,7 @@ namespace Brick_o_matic.Primitives.UnitTest
 			part.Add(brick1); part.Add(brick2);
 
 			node = new CSGNode();
-			node.Build(new Scene(),part);
+			node.Build(part.Build(new Scene()));
 
 			otherBox = new Box(new Position(5, 5, 0), new Size(1, 1, 1));
 			intersectNodes = node.GetIntersections(otherBox).ToArray();
@@ -251,19 +267,19 @@ namespace Brick_o_matic.Primitives.UnitTest
 			part.Add(brick1);part.Add(brick2);
 
 			node = new CSGNode();
-			node.Build(new Scene(),part);
+			node.Build(part.Build(new Scene()));
 
 			otherBox = new Box(new Position(5, 0, 0), new Size(1, 1, 1));
 			intersectNodes = node.GetIntersections(otherBox).ToArray();
 			Assert.AreEqual(1, intersectNodes.Length);
-			Assert.AreEqual(brick1.Position, intersectNodes[0].Bricks.ElementAt(0).Position);
-			Assert.AreEqual(brick1.Size, intersectNodes[0].Bricks.ElementAt(0).Size);
+			Assert.AreEqual(brick1.Position, intersectNodes[0].BoundingBox.Position);
+			Assert.AreEqual(brick1.Size, intersectNodes[0].BoundingBox.Size);
 
 			otherBox = new Box(new Position(0, 5, 0), new Size(1, 1, 1));
 			intersectNodes = node.GetIntersections(otherBox).ToArray();
 			Assert.AreEqual(1, intersectNodes.Length);
-			Assert.AreEqual(brick2.Position, intersectNodes[0].Bricks.ElementAt(0).Position);
-			Assert.AreEqual(brick2.Size, intersectNodes[0].Bricks.ElementAt(0).Size);
+			Assert.AreEqual(brick2.Position, intersectNodes[0].BoundingBox.Position);
+			Assert.AreEqual(brick2.Size, intersectNodes[0].BoundingBox.Size);
 		}
 
 
@@ -278,10 +294,10 @@ namespace Brick_o_matic.Primitives.UnitTest
 			brick2 = new Brick(new Position(3, 3, 3), new Size(2, 2, 2));
 			node1 = new CSGNode();
 			node2 = new CSGNode();
-				
-			node1.Build(new Scene(),brick1);
+
+			node1.Build(brick1.Build(new Scene()));
 			Assert.AreEqual(0, node1.NodeCount);
-			node2.Build(new Scene(),brick2);
+			node2.Build(brick2.Build(new Scene()));
 			Assert.AreEqual(0, node1.NodeCount);
 
 			node1.Split(brick2.GetBoundingBox(new Scene()));
@@ -305,14 +321,13 @@ namespace Brick_o_matic.Primitives.UnitTest
 			node1 = new CSGNode();
 			node2 = new CSGNode();
 
-			node1.Build(new Scene(),brick1);
+			node1.Build(brick1.Build(new Scene()));
 			Assert.AreEqual(0, node1.NodeCount);
-			node2.Build(new Scene(),brick2);
+			node2.Build(brick2.Build(new Scene()));
 			Assert.AreEqual(0, node1.NodeCount);
 
 			node1.Split(brick2.GetBoundingBox(new Scene()));
 			Assert.AreEqual(8, node1.NodeCount);
-			Assert.AreEqual(1, node1.Nodes.ElementAt(0).BrickCount);
 			Assert.IsTrue(node1.SplitTag);
 			// parts of box 1
 			Assert.IsFalse(FindNode(node1.Nodes, new Position(0, 0, 0), new Size(1, 1, 1)).SplitTag);
@@ -352,20 +367,18 @@ namespace Brick_o_matic.Primitives.UnitTest
 			node1 = new CSGNode();
 			node2 = new CSGNode();
 
-			node1.Build(new Scene(),brick1);
+			node1.Build(brick1.Build(new Scene()));
 			Assert.AreEqual(0, node1.NodeCount);
-			node2.Build(new Scene(),brick2);
+			node2.Build(brick2.Build(new Scene()));
 			Assert.AreEqual(0, node1.NodeCount);
 
 			node1.Split(brick2.GetBoundingBox(new Scene()));
 			Assert.AreEqual(1, node1.NodeCount);
-			Assert.AreEqual(1, node1.Nodes.ElementAt(0).BrickCount);
 			Assert.IsTrue(node1.SplitTag);
 			Assert.IsTrue(node1.Nodes.ElementAt(0).SplitTag);
 
 			node2.Split(brick1.GetBoundingBox(new Scene()));
 			Assert.AreEqual(1, node2.NodeCount);
-			Assert.AreEqual(1, node2.Nodes.ElementAt(0).BrickCount);
 			Assert.IsTrue(node2.SplitTag);
 			Assert.IsTrue(node2.Nodes.ElementAt(0).SplitTag);
 
@@ -382,21 +395,19 @@ namespace Brick_o_matic.Primitives.UnitTest
 			node1 = new CSGNode();
 			node2 = new CSGNode();
 
-			node1.Build(new Scene(),brick1);
+			node1.Build(brick1.Build(new Scene()));
 			Assert.AreEqual(0, node1.NodeCount);
-			node2.Build(new Scene(),brick2);
+			node2.Build(brick2.Build(new Scene()));
 			Assert.AreEqual(0, node1.NodeCount);
 
 			node1.Split(brick2.GetBoundingBox(new Scene()));
 			Assert.AreEqual(2, node1.NodeCount);
-			Assert.AreEqual(1, node1.Nodes.ElementAt(0).BrickCount);
 			Assert.IsTrue(node1.SplitTag);
 			Assert.IsFalse(FindNode(node1.Nodes, new Position(0, 0, 0), new Size(1, 2, 2)).SplitTag);
 			Assert.IsTrue(FindNode(node1.Nodes, new Position(1, 0, 0), new Size(1, 2, 2)).SplitTag);
 
 			node2.Split(brick1.GetBoundingBox(new Scene()));
 			Assert.AreEqual(2, node2.NodeCount);
-			Assert.AreEqual(1, node2.Nodes.ElementAt(0).BrickCount);
 			Assert.IsTrue(node2.SplitTag);
 			Assert.IsTrue(FindNode(node2.Nodes, new Position(1, 0, 0), new Size(1, 2, 2)).SplitTag);
 			Assert.IsFalse(FindNode(node2.Nodes, new Position(2, 0, 0), new Size(1, 2, 2)).SplitTag);
@@ -415,14 +426,13 @@ namespace Brick_o_matic.Primitives.UnitTest
 			node1 = new CSGNode();
 			node2 = new CSGNode();
 
-			node1.Build(new Scene(),brick1);
+			node1.Build(brick1.Build(new Scene()));
 			Assert.AreEqual(0, node1.NodeCount);
-			node2.Build(new Scene(),brick2);
+			node2.Build(brick2.Build(new Scene()));
 			Assert.AreEqual(0, node1.NodeCount);
 
 			node1.Split(brick2.GetBoundingBox(new Scene()));
 			Assert.AreEqual(27, node1.NodeCount);
-			Assert.AreEqual(1, node1.Nodes.ElementAt(0).BrickCount);
 			Assert.IsTrue(node1.SplitTag);
 			for (int x = 0; x < 3; x++)
 			{
@@ -438,7 +448,6 @@ namespace Brick_o_matic.Primitives.UnitTest
 
 			node2.Split(brick1.GetBoundingBox(new Scene()));
 			Assert.AreEqual(1, node2.NodeCount);
-			Assert.AreEqual(1, node2.Nodes.ElementAt(0).BrickCount);
 			Assert.IsTrue(node2.SplitTag);
 			Assert.IsTrue(FindNode(node2.Nodes, new Position(1, 1, 1), new Size(1, 1, 1)).SplitTag);
 
@@ -458,14 +467,13 @@ namespace Brick_o_matic.Primitives.UnitTest
 			node1 = new CSGNode();
 			node2 = new CSGNode();
 
-			node1.Build(new Scene(),brick1);
+			node1.Build(brick1.Build(new Scene()));
 			Assert.AreEqual(0, node1.NodeCount);
-			node2.Build(new Scene(),brick2);
+			node2.Build(brick2.Build(new Scene()));
 			Assert.AreEqual(0, node1.NodeCount);
 
 			node1.Split(brick2.GetBoundingBox(new Scene()));
 			Assert.AreEqual(18, node1.NodeCount);
-			Assert.AreEqual(1, node1.Nodes.ElementAt(0).BrickCount);
 			Assert.IsTrue(node1.SplitTag);
 			// parts of box 1
 			Assert.IsFalse(FindNode(node1.Nodes, new Position(0, 0, 0), new Size(1, 1, 1)).SplitTag);
@@ -496,7 +504,6 @@ namespace Brick_o_matic.Primitives.UnitTest
 
 			node2.Split(brick1.GetBoundingBox(new Scene()));
 			Assert.AreEqual(2, node2.NodeCount);
-			Assert.AreEqual(1, node2.Nodes.ElementAt(0).BrickCount);
 			Assert.IsTrue(node2.SplitTag);
 			// parts of box 2
 			Assert.IsTrue(FindNode(node2.Nodes, new Position(1, 1, 1), new Size(1, 1, 1)).SplitTag);    // intersection with box1
@@ -505,7 +512,7 @@ namespace Brick_o_matic.Primitives.UnitTest
 		}
 
 
-		/*[TestMethod]
+		[TestMethod]
 		public void ShouldGetBrickFirstPredicate()
 		{
 			Brick brick1, brick2;
@@ -514,16 +521,17 @@ namespace Brick_o_matic.Primitives.UnitTest
 
 			brick1 = new Brick(new Position(0, 0, 0), new Size(2, 2, 2));
 			brick2 = new Brick(new Position(1, 0, 0), new Size(2, 2, 2));
+			node1 = new CSGNode();
+			node2 = new CSGNode();
 
-			node1 = brick1.BuildCSGNode(new Scene(), new Position());
-			Assert.AreEqual(0, node1.Count);
-			Assert.AreEqual(brick1, node1.Primitive);
-			node2 = brick2.BuildCSGNode(new Scene(), new Position());
-			Assert.AreEqual(0, node1.Count);
-			Assert.AreEqual(brick1, node1.Primitive);
+
+			node1.Build(brick1.Build(new Scene()));
+			Assert.AreEqual(0, node1.NodeCount);
+			node2.Build(brick2.Build(new Scene()));
+			Assert.AreEqual(0, node1.NodeCount);
 
 			node1.Split(brick2.GetBoundingBox(new Scene()));
-			Assert.AreEqual(2, node1.Count);
+			Assert.AreEqual(2, node1.NodeCount);
 
 			bricks = node1.GetBricks((node) => true).ToArray();
 			Assert.AreEqual(2, bricks.Length);
@@ -531,7 +539,7 @@ namespace Brick_o_matic.Primitives.UnitTest
 			Assert.AreEqual(0, bricks.Length);
 
 			node2.Split(brick1.GetBoundingBox(new Scene()));
-			Assert.AreEqual(2, node2.Count);
+			Assert.AreEqual(2, node2.NodeCount);
 
 			bricks = node2.GetBricks((node) => true).ToArray();
 			Assert.AreEqual(2, bricks.Length);
@@ -548,31 +556,31 @@ namespace Brick_o_matic.Primitives.UnitTest
 
 			brick1 = new Brick(new Position(0, 0, 0), new Size(2, 2, 2));
 			brick2 = new Brick(new Position(1, 0, 0), new Size(2, 2, 2));
+			node1 = new CSGNode();
+			node2 = new CSGNode();
 
-			node1 = brick1.BuildCSGNode(new Scene(), new Position());
-			Assert.AreEqual(0, node1.Count);
-			Assert.AreEqual(brick1, node1.Primitive);
-			node2 = brick2.BuildCSGNode(new Scene(), new Position());
-			Assert.AreEqual(0, node1.Count);
-			Assert.AreEqual(brick1, node1.Primitive);
+			node1.Build(brick1.Build(new Scene()));
+			Assert.AreEqual(0, node1.NodeCount);
+			node2.Build(brick2.Build(new Scene()));
+			Assert.AreEqual(0, node1.NodeCount);
 
 			node1.Split(brick2.GetBoundingBox(new Scene()));
-			Assert.AreEqual(2, node1.Count);
+			Assert.AreEqual(2, node1.NodeCount);
 
 			bricks = node1.GetBricks((node) => node.SplitTag).ToArray();
 			Assert.AreEqual(1, bricks.Length);
-			bricks = node1.GetBricks((node) =>(node.Primitive ==null) || (!node.SplitTag)).ToArray();
+			bricks = node1.GetBricks((node) =>(node.NodeCount != 0) || (!node.SplitTag)).ToArray();
 			Assert.AreEqual(1, bricks.Length);
 
 			node2.Split(brick1.GetBoundingBox(new Scene()));
-			Assert.AreEqual(2, node2.Count);
+			Assert.AreEqual(2, node2.NodeCount);
 
 			bricks = node2.GetBricks((node) => node.SplitTag).ToArray();
 			Assert.AreEqual(1, bricks.Length);
-			bricks = node2.GetBricks((node) => (node.Primitive==null) || (!node.SplitTag)).ToArray();
+			bricks = node2.GetBricks((node) => (node.NodeCount != 0) || (!node.SplitTag)).ToArray();
 			Assert.AreEqual(1, bricks.Length);
 
-		}*/
+		}
 
 	}
 }
