@@ -36,11 +36,15 @@ namespace Brick_o_matic.Primitives
 			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
 
 			if (ItemA == null) return new Box(Position, new Size());
-			if (ItemB == null) return ItemA.GetBoundingBox(ResourceProvider);
+			if (ItemB == null)
+			{
+				childBox = ItemA.GetBoundingBox(ResourceProvider);
+				return new Box(Position+childBox.Position, childBox.Size);
+			}
 
 			childBox = new Box(Build(ResourceProvider));
 			
-			return new Box(Position + childBox.Position, childBox.Size);
+			return new Box( childBox.Position, childBox.Size);
 		}
 
 		public override IEnumerable<Brick> Build(IResourceProvider ResourceProvider)
@@ -52,7 +56,10 @@ namespace Brick_o_matic.Primitives
 			if (ItemA == null) yield break;
 			if (ItemB == null)
 			{
-				foreach (Brick brick in ItemA.Build(ResourceProvider)) yield return brick;
+				foreach (Brick brick in ItemA.Build(ResourceProvider))
+				{
+					yield return new Brick( Position+brick.Position,brick.Size,brick.Color) ;
+				}
 				yield break;
 			}
 
