@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="CSGNodeUnitTest.cs" />
     <Compile Include="ColorRefUnitTest.cs" />
+    <Compile Include="UnionUnitTest.cs" />
     <Compile Include="IntersectionUnitTest.cs" />
     <Compile Include="FlipZUnitTest.cs" />
     <Compile Include="FlipYUnitTest.cs" />

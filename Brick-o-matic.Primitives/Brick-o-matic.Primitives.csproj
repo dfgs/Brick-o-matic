@@ -45,6 +45,7 @@
     <Compile Include="Basic\TileMap.cs" />
     <Compile Include="ColorRef.cs" />
     <Compile Include="Color.cs" />
+    <Compile Include="CSG\Union.cs" />
     <Compile Include="CSG\Intersection.cs" />
     <Compile Include="CSG\ICSG.cs" />
     <Compile Include="CSG\Difference.cs" />
