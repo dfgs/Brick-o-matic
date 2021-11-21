@@ -204,16 +204,22 @@ namespace Brick_o_matic.Primitives
 
 		}
 
-		public IEnumerable<ICSGNode> ParseNodes(Func<ICSGNode, bool> Selector)
+		public IEnumerable<ICSGNode> ParseNodes(Func<ICSGNode, ParseActions> Selector)
 		{
-			bool result;
+			ParseActions action;
 
 			if (Selector == null) throw new ArgumentNullException(nameof(Selector));
 
-			result = Selector(this);
-			if (!result) yield break;
-
-			yield return this;
+			action = Selector(this);
+			switch(action)
+			{
+				case ParseActions.Prune:yield break;
+				case ParseActions.Yield:yield return this;
+					break;
+				default:
+					break;
+			}
+			//yield return this;
 
 			foreach (ICSGNode node in nodes.SelectMany(item => item.ParseNodes(Selector))) yield return node;
 		}

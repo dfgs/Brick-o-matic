@@ -59,7 +59,7 @@ namespace Brick_o_matic.Primitives
 		IEnumerable<ICSGNode> GetIntersections(IBox OtherBox);
 		bool Split(IBox OtherBox);
 
-		IEnumerable<ICSGNode> ParseNodes(Func<ICSGNode,bool> Selector);
+		IEnumerable<ICSGNode> ParseNodes(Func<ICSGNode,ParseActions> Selector);
 
 
 

@@ -533,54 +533,22 @@ namespace Brick_o_matic.Primitives.UnitTest
 			node1.Split(brick2.GetBoundingBox(new Scene()));
 			Assert.AreEqual(2, node1.NodeCount);
 
-			nodes = node1.ParseNodes((node) => true).ToArray();
+			nodes = node1.ParseNodes((node) => ParseActions.Yield).ToArray();
 			Assert.AreEqual(3, nodes.Length);
-			nodes = node1.ParseNodes((node) => false).ToArray();
+			nodes = node1.ParseNodes((node) => ParseActions.Prune).ToArray();
 			Assert.AreEqual(0, nodes.Length);
 
 			node2.Split(brick1.GetBoundingBox(new Scene()));
 			Assert.AreEqual(2, node2.NodeCount);
 
-			nodes = node2.ParseNodes((node) => true).ToArray();
+			nodes = node2.ParseNodes((node) => ParseActions.Yield).ToArray();
 			Assert.AreEqual(3, nodes.Length);
-			nodes = node2.ParseNodes((node) => false).ToArray();
+			nodes = node2.ParseNodes((node) => ParseActions.Prune).ToArray();
 			Assert.AreEqual(0, nodes.Length);
 
 		}
-		[TestMethod]
-		public void ShouldParseNodesSecondPredicate()
-		{
-			Brick brick1, brick2;
-			ICSGNode node1, node2;
-			ICSGNode[] nodes;
+		
 
-			brick1 = new Brick(new Position(0, 0, 0), new Size(2, 2, 2));
-			brick2 = new Brick(new Position(1, 0, 0), new Size(2, 2, 2));
-			node1 = new CSGNode();
-			node2 = new CSGNode();
-
-			node1.Build(brick1.Build(new Scene()));
-			Assert.AreEqual(0, node1.NodeCount);
-			node2.Build(brick2.Build(new Scene()));
-			Assert.AreEqual(0, node1.NodeCount);
-
-			node1.Split(brick2.GetBoundingBox(new Scene()));
-			Assert.AreEqual(2, node1.NodeCount);
-
-			nodes = node1.ParseNodes((node) => node.SplitTag).ToArray();
-			Assert.AreEqual(2, nodes.Length);
-			nodes = node1.ParseNodes((node) =>(node.NodeCount != 0) || (!node.SplitTag)).ToArray();
-			Assert.AreEqual(2, nodes.Length);
-
-			node2.Split(brick1.GetBoundingBox(new Scene()));
-			Assert.AreEqual(2, node2.NodeCount);
-
-			nodes = node2.ParseNodes((node) => node.SplitTag).ToArray();
-			Assert.AreEqual(2, nodes.Length);
-			nodes = node2.ParseNodes((node) => (node.NodeCount != 0) || (!node.SplitTag)).ToArray();
-			Assert.AreEqual(2, nodes.Length);
-
-		}
 
 	}
 }

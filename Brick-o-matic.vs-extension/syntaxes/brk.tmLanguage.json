@@ -42,7 +42,7 @@
 		"storages": {
 			"patterns": [{
 				"name": "storage.type.brk",
-				"match": "(Scene|Brick|Part|Primitive|TileMap|Tile)"
+				"match": "(Scene|Brick|Part|Primitive|TileMap|Tile|Difference|Intersection|Union)"
 			}]
 		},
 		"supports": {

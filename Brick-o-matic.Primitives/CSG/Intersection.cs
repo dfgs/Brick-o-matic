@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Brick_o_matic.Primitives
 {
-	public class Difference : Primitive,ICSG
+	public class Intersection : Primitive,ICSG
 	{
 
 
@@ -22,10 +22,10 @@ namespace Brick_o_matic.Primitives
 			set;
 		}
 
-		public Difference()
+		public Intersection()
 		{
 		}
-		public Difference(Position Position):base(Position)
+		public Intersection(Position Position):base(Position)
 		{
 		}
 		
@@ -36,11 +36,8 @@ namespace Brick_o_matic.Primitives
 			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
 
 			if (ItemA == null) return new Box(Position, new Size());
-			if (ItemB == null)
-			{
-				childBox = ItemA.GetBoundingBox(ResourceProvider);
-				return new Box(Position+childBox.Position, childBox.Size);
-			}
+			if (ItemB == null) return new Box(Position, new Size());
+			
 
 			childBox = new Box(Build(ResourceProvider));
 			
@@ -54,14 +51,8 @@ namespace Brick_o_matic.Primitives
 			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
 
 			if (ItemA == null) yield break;
-			if (ItemB == null)
-			{
-				foreach (Brick brick in ItemA.Build(ResourceProvider))
-				{
-					yield return new Brick( Position+brick.Position,brick.Size,brick.Color) ;
-				}
-				yield break;
-			}
+			if (ItemB == null) yield break;
+			
 
 			nodeA = new CSGNode();
 			nodeA.Build(ItemA.Build(ResourceProvider));
@@ -75,7 +66,8 @@ namespace Brick_o_matic.Primitives
 
 			foreach (ICSGNode node in nodeA.ParseNodes((node) =>
 				{
-					if ((node.Brick != null) && (!node.SplitTag)) return ParseActions.Yield;
+					if (!node.SplitTag) return ParseActions.Prune;
+					if (node.Brick != null) return ParseActions.Yield;
 					return ParseActions.Continue;
 				} 
 			))

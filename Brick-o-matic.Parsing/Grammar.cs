@@ -284,6 +284,13 @@ namespace Brick_o_matic.Parsing
              from ___ in Parse.Char(')')
              select new Difference().Set(setters) as Difference;
 
+        public static IParser<Intersection> Intersection =
+             from _ in Parse.String("Intersection")
+             from __ in Parse.Char('(')
+             from setters in ICSGSetters
+             from ___ in Parse.Char(')')
+             select new Intersection().Set(setters) as Intersection;
+
         // imported resources
 
         public static IParser<ImportedResources> ImportedResources =
@@ -294,7 +301,7 @@ namespace Brick_o_matic.Parsing
            select new ImportedResources().Set(setters);
 
 
-        public static IParser<IPrimitive> Primitive = Brick.Or<IPrimitive>(Part).Or<IPrimitive>(TileMap).Or<IPrimitive>(PrimitiveRef).Or<IPrimitive>(ImportedScene).Or<IPrimitive>(RotateX).Or<IPrimitive>(RotateY).Or<IPrimitive>(RotateZ).Or<IPrimitive>(FlipX).Or<IPrimitive>(FlipY).Or<IPrimitive>(FlipZ).Or<IPrimitive>(Difference);
+        public static IParser<IPrimitive> Primitive = Brick.Or<IPrimitive>(Part).Or<IPrimitive>(TileMap).Or<IPrimitive>(PrimitiveRef).Or<IPrimitive>(ImportedScene).Or<IPrimitive>(RotateX).Or<IPrimitive>(RotateY).Or<IPrimitive>(RotateZ).Or<IPrimitive>(FlipX).Or<IPrimitive>(FlipY).Or<IPrimitive>(FlipZ).Or<IPrimitive>(Difference).Or<IPrimitive>(Intersection);
         public static IParser<IEnumerable<IPrimitive>> Primitives = Primitive.OneOrMoreTimes();
 
 
