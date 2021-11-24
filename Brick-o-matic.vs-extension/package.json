@@ -10,10 +10,7 @@
     "categories": [
         "Programming Languages"
     ],
-    "activationEvents": [
-		"onCustomEditor:EldenoraSoft.brick"
-	],
-    "main": "./out/extension.js",
+    
     "contributes": {
         "languages": [{
             "id": "brk",
@@ -25,22 +22,7 @@
             "language": "brk",
             "scopeName": "source.brk",
             "path": "./syntaxes/brk.tmLanguage.json"
-        }],
-        "customEditors": [{
-            "viewType": "EldenoraSoft.brick",
-            "displayName": "Brick file editor",
-            "selector": [
-            {
-                "filenamePattern": "*.brk"
-            }
-            ],
-            "priority": "default"
-        }]
-    },
-    "scripts": {
-		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -p ./",
-		"lint": "tslint -p ./",
-		"watch": "tsc -w -p ./"
-	}
+        }]        
+    }
+   
 }

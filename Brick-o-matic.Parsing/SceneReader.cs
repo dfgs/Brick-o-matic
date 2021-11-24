@@ -1,4 +1,5 @@
 ﻿using Brick_o_matic.Primitives;
+using ParserLib;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,7 +20,10 @@ namespace Brick_o_matic.Parsing
 		}
 		public static Scene ReadFromFile(string FileName)
 		{
+			int line, column;
 			ParserLib.StreamReader reader;
+			ParserLib.StreamPosConverter posConverter;
+			bool result;
 
 			try
 			{
@@ -29,10 +33,39 @@ namespace Brick_o_matic.Parsing
 					return Grammar.Scene.Parse(reader);
 				}
 			}
-			catch(Exception ex)
+			catch(UnexpectedCharException ex)
 			{
-				throw new Exception($"{Path.GetFileName(FileName)}:1:1: error: {ex.Message}");
+				try
+				{
+					posConverter = new ParserLib.StreamPosConverter(1024);
+					using (FileStream stream = new FileStream(FileName, FileMode.Open))
+					{
+						result = posConverter.TryGetLineAndColumn(stream, ex.Position, out line, out column);
+					}
+				}
+				catch (Exception ex2)
+				{
+					throw new Exception($"{Path.GetFileName(FileName)}:1:1: error: {ex2.Message}");
+				}
+				if (result)
+				{
+					throw new Exception($"{Path.GetFileName(FileName)}:{line}:{column}: error: {ex.Message}");
+				}
+				else
+				{
+					throw new Exception($"{Path.GetFileName(FileName)}:1:1: error: {ex.Message}");
+				}
+				
+			}
+			catch (Exception ex2)
+			{
+				throw new Exception($"{Path.GetFileName(FileName)}:1:1: error: {ex2.Message}");
 			}
 		}
+
+
+
+
+
 	}
 }

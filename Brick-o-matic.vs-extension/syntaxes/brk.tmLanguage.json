@@ -1,7 +1,11 @@
 {
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	
+	"scopeName": "source.brk",
 	"name": "Brick",
+	 
 	"patterns": [
+		
 		{
 			"include": "#keywords"
 		},
@@ -20,29 +24,36 @@
 		{
 			"include": "#constants"
 		}
+		
 	],
 	"repository": {
+		"punctuations": {
+			"begin": "\\(",
+			"end": "\\)",
+			"beginCaptures": {
+			  "0": { "name": "punctuation.paren.open" }
+			},
+			"endCaptures": {
+			  "0": { "name": "punctuation.paren.close" }
+			}
+		},
 		"keywords": {
 			"patterns": [{
-				"name": "keyword.control.brk",
-				"match": "\\b(zzz)\\b"
-			},
-			{
 				"name": "keyword.other.brk",
-				"match": "Resources|Items"
-			}]
+				"match": "\\b(Resources|Items)(?=:)\\b"
+			}] 
 		},
 		"variables": {
 			"patterns": [{
-				"name": "variable.parameter.brk",
-				"match": "[^:]+(?=:)"
+				"name": "support.type.property-name.brk",
+				"match": "\\b(Name|Position|Size|Color|ItemA|ItemB)(?=:)\\b"
 			}]
 		},
 
 		"storages": {
 			"patterns": [{
 				"name": "storage.type.brk",
-				"match": "(Scene|Brick|Part|Primitive|TileMap|Tile|Difference|Intersection|Union)"
+				"match": "\\b(Scene|Brick|Part|Primitive|TileMap|Tile|Difference|Intersection|Union)\\b"
 			}]
 		},
 		"supports": {
@@ -52,9 +63,8 @@
 			},
 			{
 				"name": "support.variable.brk",
-				"match": "[A-z]+([-_\\.]|[A-z]|[0-9]*)"
-			}
-			]
+				"match": "[A-z]([-_\\.]|[A-z]|[0-9])*"
+			}]
 		},
 		"constants": {
 			"patterns": [{
@@ -67,6 +77,6 @@
 			"begin": "\"",
 			"end": "\""
 		}
-	},
-	"scopeName": "source.brk"
+	}
+	
 }
