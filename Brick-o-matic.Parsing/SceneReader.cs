@@ -21,10 +21,17 @@ namespace Brick_o_matic.Parsing
 		{
 			ParserLib.StreamReader reader;
 
-			using (FileStream stream = new FileStream(FileName, FileMode.Open))
+			try
 			{
-				reader = new ParserLib.StreamReader(stream, ' ', '\t', '\r', '\n');
-				return Grammar.Scene.Parse(reader);
+				using (FileStream stream = new FileStream(FileName, FileMode.Open))
+				{
+					reader = new ParserLib.StreamReader(stream, ' ', '\t', '\r', '\n');
+					return Grammar.Scene.Parse(reader);
+				}
+			}
+			catch(Exception ex)
+			{
+				throw new Exception($"{Path.GetFileName(FileName)}:1:1: error: {ex.Message}");
 			}
 		}
 	}

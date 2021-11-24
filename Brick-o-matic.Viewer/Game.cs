@@ -95,16 +95,24 @@ namespace Brick_o_matic.Viewer
 
             if (scene != null)
             {
-                boundingBox = scene.GetBoundingBox(null);
-                meshes = scene.Build(null).Select(item => new BrickMesh(scene, item)).ToArray();
-
-                if (camera.Distance == 0)
+                try
                 {
-                    camera.Distance = 2.5f *  boundingBox.Size.Y;
+                    boundingBox = scene.GetBoundingBox(null);
+                    meshes = scene.Build(null).Select(item => new BrickMesh(scene, item)).ToArray();
+
+                    if (camera.Distance == 0)
+                    {
+                        camera.Distance = 2.5f * boundingBox.Size.Y;
+                    }
+                    Array.ForEach(meshes, item => item.LoadContent(GraphicsDevice));
+                }
+                catch (Exception ex)
+                {
+                    File.WriteAllText("debug.log", ex.Message);
+                    Console.WriteLine(ex.Message);
                 }
             }
-            Array.ForEach(meshes, item => item.LoadContent(GraphicsDevice));
-
+  
         }
 
         protected override void Update(GameTime gameTime)
@@ -153,11 +161,13 @@ namespace Brick_o_matic.Viewer
             
             GraphicsDevice.RasterizerState = rasterizerState;
 
-            
-            foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+            if (meshes != null)
             {
-                pass.Apply();
-                Array.ForEach(meshes, item => item.Draw(GraphicsDevice));
+                foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+                {
+                    pass.Apply();
+                    Array.ForEach(meshes, item => item.Draw(GraphicsDevice));
+                }
             }
 
             base.Draw(gameTime);

@@ -16,49 +16,36 @@ Scene(
 				)
 		)
 
-		Tile0=Part(
+		Cell=Brick(
+			Color:Gray
+			Position:(-16,1,-16)
+			Size:(32,1,32)
+		)
+		Tile0=Part
+		(
 			Items:
-				
-				Brick(
-					Position:(-11,0,-11)
-					Size:(22,32,22)
-					Color:WallColor
+				Union(
+					ItemA:Brick(
+						Color:Gray
+						Position:(-16,1,-16)
+						Size:(32,1,32)
+					)
+					ItemB:Brick(
+						Position:(-11,0,-11)
+						Size:(22,32,22)
+						Color:WallColor
+					)
 				)
-				
-				Brick(
-					Position:(-16,1,-16)
-					Size:(5,1,32)
-					Color:Gray
-				)
-				Brick(
-					Position:(11,1,-16)
-					Size:(5,1,32)
-					Color:Gray
-				)
-				Brick(
-					Position:(-11,1,-16)
-					Size:(22,1,5)
-					Color:Gray
-				)
-				Brick(
-					Position:(-11,1,11)
-					Size:(22,1,5)
-					Color:Gray
-				)
-
 				
 		)
 
 
 	Items:
 		
-		Difference(
+		Union(
 			ItemA:Primitive(Name:Tile0)
 			ItemB:Primitive(Name:Door Position:(-7,0,10))
 		)
 		
-		
-		
-	
 	
 )
