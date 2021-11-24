@@ -71,6 +71,7 @@ namespace Brick_o_matic.BuildToOBJ
 		{
 			Brick[] bricks;
 			int index;
+			int brickIndex;
 
 			Directory.CreateDirectory(global::Brick_o_matic.BuildToOBJ.Properties.Settings.Default.OutFolder);
 
@@ -102,31 +103,31 @@ namespace Brick_o_matic.BuildToOBJ
 					// bottom face
 					writer.WriteLine("vn 0 -1 1");
 
-					index = 0;
+					index = 0; brickIndex = 0;
 					foreach (Brick brick in bricks)
 					{
-						writer.WriteLine("o brick");
+						writer.WriteLine($"o brick{brickIndex}");
 						WriteBrickVertices(writer, brick);
 						// front face
-						writer.WriteLine($"f {index + 0}//0 {index + 1}//0 {index + 3}//0");
-						writer.WriteLine($"f {index + 1}//0 {index + 2}//0 {index + 3}//0");
+						writer.WriteLine($"f {index + 1}//1 {index + 2}//1 {index + 4}//1");
+						writer.WriteLine($"f {index + 2}//1 {index + 3}//1 {index + 4}//1");
 						// back face
-						writer.WriteLine($"f {index + 4}//1 {index + 7}//1 {index + 5}//1");
-						writer.WriteLine($"f {index + 5}//1 {index + 7}//1 {index + 6}//1");
+						writer.WriteLine($"f {index + 5}//2 {index + 8}//2 {index + 6}//2");
+						writer.WriteLine($"f {index + 6}//2 {index + 8}//2 {index + 7}//2");
 						// left face
-						writer.WriteLine($"f {index + 8}//2 {index + 9}//2 {index + 11}//2");
-						writer.WriteLine($"f {index + 9}//2 {index + 10}//2 {index + 11}//2");
+						writer.WriteLine($"f {index + 9}//3 {index + 10}//3 {index + 12}//3");
+						writer.WriteLine($"f {index + 10}//3 {index + 11}//3 {index + 12}//3");
 						// right face
-						writer.WriteLine($"f {index + 12}//3 {index + 15}//3 {index + 13}//3");
-						writer.WriteLine($"f {index + 13}//3 {index + 15}//3 {index + 14}//3");
+						writer.WriteLine($"f {index + 13}//4 {index + 16}//4 {index + 14}//4");
+						writer.WriteLine($"f {index + 14}//4 {index + 16}//4 {index + 15}//4");
 						// top face
-						writer.WriteLine($"f {index + 16}//4 {index + 19}//4 {index + 17}//4");
-						writer.WriteLine($"f {index + 17}//4 {index + 19}//4 {index + 18}//4");
+						writer.WriteLine($"f {index + 17}//5 {index + 20}//5 {index + 18}//5");
+						writer.WriteLine($"f {index + 18}//5 {index + 20}//5 {index + 19}//5");
 						// bottom face
-						writer.WriteLine($"f {index + 20}//5 {index + 21}//5 {index + 23}//5");
-						writer.WriteLine($"f {index + 21}//5 {index + 22}//5 {index + 23}//5");
+						writer.WriteLine($"f {index + 21}//6 {index + 22}//6 {index + 24}//6");
+						writer.WriteLine($"f {index + 22}//6 {index + 23}//6 {index + 24}//6");
 
-						index += 24;
+						index += 24; brickIndex++;
 					}
 					writer.Flush();
 				}

@@ -3,7 +3,7 @@ Scene(
 		Red=(255,0,0)
 		Blue=(0,0,255)
 		LegColor=Blue
-		ddd
+		
 		PersonnScene=ImportScene(
 			Position:(0,0,0)
 			FileName:"D:\Projets\Brick-o-matic\Samples\Personn.brk"
