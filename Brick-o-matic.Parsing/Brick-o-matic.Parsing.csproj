@@ -50,6 +50,13 @@
     <Compile Include="Setters\Primitives\CSG\ICSGSetter.cs" />
     <Compile Include="Setters\Primitives\CSG\ICSGItemASetter.cs" />
     <Compile Include="Setters\Primitives\CSG\ICSGPositionSetter.cs" />
+    <Compile Include="Setters\Primitives\Switch\ISwitchSetter.cs" />
+    <Compile Include="Setters\Primitives\Switch\IWhenSetter.cs" />
+    <Compile Include="Setters\Primitives\Switch\SwitchItemsSetter.cs" />
+    <Compile Include="Setters\Primitives\Switch\SwitchVariableSetter.cs" />
+    <Compile Include="Setters\Primitives\Switch\SwitchPositionSetter.cs" />
+    <Compile Include="Setters\Primitives\Switch\WhenReturnSetter.cs" />
+    <Compile Include="Setters\Primitives\Switch\WhenValueSetter.cs" />
     <Compile Include="Setters\Primitives\TileMap\ITileMapSetter.cs" />
     <Compile Include="Setters\Primitives\TileMap\TileMapItemsSetter.cs" />
     <Compile Include="Setters\Primitives\TileMap\TileMapTileSizeSetter.cs" />
@@ -97,8 +104,6 @@
       <Name>Brick-o-matic.Primitives</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Setters\Primitives\Switch\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

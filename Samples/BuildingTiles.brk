@@ -41,17 +41,17 @@ Scene(
 					ItemB:
 						Switch
 						(
-							Variable:WallStyle
-							When(
-								Value:"Style1"
-								Return:Primitive(Name:Door Position:(-7,0,10))
-							)
-							When(
-							 	Value:"Style2"
-								Return:Brick(Position:(-7,0,10) Color:(255,0,0))
-							)
-						)
-						
+							Variable: WallStyle
+							Items:
+								When(
+									Value:"Style1"
+									Return:Primitive(Name:Door Position:(-7,0,10))
+								)
+								When(
+									Value:"Style2"
+									Return:Brick(Position:(-7,0,10) Size:(5,5,1) Color:(255,0,0))
+								)
+						)						
 				)
 		)
 		Tile1=Part
@@ -75,6 +75,10 @@ Scene(
 		)
 
 	Items:
-		Primitive(Name:Tile1)
+		Primitive(
+			Resources:
+				WallStyle="Style2"
+			Name:Tile0
+		)
 		
 )

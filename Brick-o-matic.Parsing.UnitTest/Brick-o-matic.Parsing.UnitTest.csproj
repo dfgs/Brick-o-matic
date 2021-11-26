@@ -53,6 +53,8 @@
     <Compile Include="Setters\Primitive\BrickSettersUnitTest.cs" />
     <Compile Include="Setters\Primitive\TileMapSettersUnitTest.cs" />
     <Compile Include="Setters\SceneSettersUnitTest.cs" />
+    <Compile Include="Setters\Switch\SwitchSettersUnitTest.cs" />
+    <Compile Include="Setters\Switch\WhenSettersUnitTest.cs" />
     <Compile Include="Setters\Transform\IFlipSettersUnitTest.cs" />
     <Compile Include="Setters\Transform\IRotateSettersUnitTest.cs" />
     <Compile Include="Setters\Primitive\ImportSceneSettersUnitTest.cs" />

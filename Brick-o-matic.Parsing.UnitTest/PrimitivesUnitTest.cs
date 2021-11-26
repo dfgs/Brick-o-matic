@@ -350,7 +350,32 @@ namespace Brick_o_matic.Parsing.UnitTest
 			Assert.IsInstanceOfType(b.ItemA, typeof(Brick));
 			Assert.IsInstanceOfType(b.ItemB, typeof(Brick));
 		}
+		[TestMethod]
+		public void ShouldParseSwitch()
+		{
+			Switch b;
 
+			b = Grammar.Switch.Parse("Switch()", ' ');
+			Assert.IsNotNull(b);
+			Assert.AreEqual(new Position(), b.Position);
+
+			b = Grammar.Switch.Parse("Switch(Position:(1,2,3))", ' ');
+			Assert.IsNotNull(b);
+			Assert.AreEqual(new Position(1, 2, 3), b.Position);
+
+			b = Grammar.Switch.Parse("Switch(Position:(3,2,1) Items: When(Value:\"1\" Return:Brick()) When(Value:\"2\" Return:Brick()) )", ' ');
+			Assert.IsNotNull(b);
+			Assert.AreEqual(new Position(3, 2, 1), b.Position);
+			Assert.AreEqual(2,b.Count);
+
+			b = Grammar.Switch.Parse("Switch(Variable: WallStyle Items: When(Value: \"Style1\" Return: Primitive(Name: Door Position: (-7, 0, 10))) When(Value: \"Style2\" Return: Brick(Position: (-7, 0, 10) Color: (255, 0, 0))))", ' ');
+			Assert.IsNotNull(b);
+			Assert.AreEqual(new Position(0, 0, 0), b.Position);
+			Assert.AreEqual(2, b.Count);
+
+
+			
+		}
 
 		[TestMethod]
 		public void ShouldParsePrimitive()
@@ -416,6 +441,12 @@ namespace Brick_o_matic.Parsing.UnitTest
 			Assert.IsNotNull(item);
 			Assert.IsInstanceOfType(item, typeof(Union));
 
+			item = Grammar.Primitive.Parse("Switch(Position: (3, 2, 1) Items: When(Value:\"1\" Return:Brick()) When(Value:\"2\" Return:Brick()) )", ' ');
+			Assert.IsNotNull(item);
+			Assert.IsInstanceOfType(item, typeof(Switch));
+
+
+			
 		}
 
 
@@ -429,9 +460,9 @@ namespace Brick_o_matic.Parsing.UnitTest
 			Assert.AreEqual(1, items.Length);
 			Assert.IsInstanceOfType(items[0], typeof(Part));
 
-			items = Grammar.Primitives.Parse("Part() Brick(Position:(1,2,3)) Primitive(Name:homer) ImportScene(Position:(1,2,3)) RotateX( Position:(1,2,3) Count:3 ) RotateY( Position:(1,2,3) Count:3 ) RotateZ( Position:(1,2,3) Count:3 ) FlipX( Position:(1,2,3)  ) FlipY( Position:(1,2,3) ) FlipZ( Position:(1,2,3) ) TileMap(Position:(1,2,3) ) Difference(Position:(3,2,1) ItemA:Brick() ItemB:Brick() ) Intersection(Position:(3,2,1) ItemA:Brick() ItemB:Brick() )  Union(Position:(3,2,1) ItemA:Brick() ItemB:Brick() )        )", ' ').ToArray();
+			items = Grammar.Primitives.Parse("Part() Brick(Position:(1,2,3)) Primitive(Name:homer) ImportScene(Position:(1,2,3)) RotateX( Position:(1,2,3) Count:3 ) RotateY( Position:(1,2,3) Count:3 ) RotateZ( Position:(1,2,3) Count:3 ) FlipX( Position:(1,2,3)  ) FlipY( Position:(1,2,3) ) FlipZ( Position:(1,2,3) ) TileMap(Position:(1,2,3) ) Difference(Position:(3,2,1) ItemA:Brick() ItemB:Brick() ) Intersection(Position:(3,2,1) ItemA:Brick() ItemB:Brick() )  Union(Position:(3,2,1) ItemA:Brick() ItemB:Brick() )  Switch()       )", ' ').ToArray();
 			Assert.IsNotNull(items);
-			Assert.AreEqual(14, items.Length);
+			Assert.AreEqual(15, items.Length);
 			Assert.IsInstanceOfType(items[0], typeof(Part));
 			Assert.IsInstanceOfType(items[1], typeof(Brick));
 			Assert.IsInstanceOfType(items[2], typeof(PrimitiveRef));
@@ -446,6 +477,7 @@ namespace Brick_o_matic.Parsing.UnitTest
 			Assert.IsInstanceOfType(items[11], typeof(Difference));
 			Assert.IsInstanceOfType(items[12], typeof(Intersection));
 			Assert.IsInstanceOfType(items[13], typeof(Union));
+			Assert.IsInstanceOfType(items[14], typeof(Switch));
 		}
 
 
@@ -456,10 +488,10 @@ namespace Brick_o_matic.Parsing.UnitTest
 
 			scene = Grammar.Scene.Parse("Scene()", ' ');
 			Assert.IsNotNull(scene);
-			scene = Grammar.Scene.Parse("Scene( Resources: b1 = Brick() Red = (255,0,0) Items: Brick() Primitive() Part() ImportScene() RotateX() RotateY() RotateZ() FlipX() FlipY() FlipZ() TileMap() Difference() Intersection() Union() )", ' ');
+			scene = Grammar.Scene.Parse("Scene( Resources: b1 = Brick() Red = (255,0,0) Items: Brick() Primitive() Part() ImportScene() RotateX() RotateY() RotateZ() FlipX() FlipY() FlipZ() TileMap() Difference() Intersection() Union() Switch() )", ' ');
 			Assert.IsNotNull(scene);
 			Assert.AreEqual(2, scene.ResourcesCount);
-			Assert.AreEqual(14, scene.ItemsCount);
+			Assert.AreEqual(15, scene.ItemsCount);
 
 
 			//Assert.AreEqual(new Position(), b.Position);

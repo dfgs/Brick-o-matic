@@ -215,6 +215,51 @@ namespace Brick_o_matic.Parsing
         public static IParser<ICSGSetter> ICSGSetter = ICSGPositionSetter.Or<ICSGSetter>(ICSGItemASetter).Or<ICSGSetter>(ICSGItemBSetter);
         public static IParser<IEnumerable<ICSGSetter>> ICSGSetters = ICSGSetter.ZeroOrMoreTimes();
 
+        // When setters
+
+        public static IParser<WhenValueSetter> WhenValueSetter =
+            from _ in Parse.String("Value:")
+            from value in String
+            select new WhenValueSetter(value);
+        public static IParser<WhenReturnSetter> WhenReturnSetter =
+             from _ in Parse.String("Return:")
+             from value in Primitive
+             select new WhenReturnSetter(value);
+
+        public static IParser<IWhenSetter> WhenSetter = WhenValueSetter.Or<IWhenSetter>(WhenReturnSetter);
+        public static IParser<IEnumerable<IWhenSetter>> WhenSetters = WhenSetter.ZeroOrMoreTimes();
+
+
+
+        // Switch setters
+
+        public static IParser<SwitchPositionSetter> SwitchPositionSetter =
+            from _ in Parse.String("Position:")
+            from value in Position
+            select new SwitchPositionSetter(value);
+        public static IParser<SwitchVariableSetter> SwitchVariableSetter =
+            from _ in Parse.String("Variable:")
+            from value in Name
+            select new SwitchVariableSetter(value);
+        public static IParser<SwitchItemsSetter> SwitchItemsSetter =
+             from _ in Parse.String("Items:")
+             from value in Whens
+             select new SwitchItemsSetter(value);
+
+        public static IParser<ISwitchSetter> SwitchSetter = SwitchPositionSetter.Or<ISwitchSetter>(SwitchItemsSetter).Or<ISwitchSetter>(SwitchVariableSetter);
+        public static IParser<IEnumerable<ISwitchSetter>> SwitchSetters = SwitchSetter.ZeroOrMoreTimes();
+
+
+        // Whens
+        public static IParser<When> When =
+            from _ in Parse.String("When")
+            from __ in Parse.Char('(')
+            from setters in WhenSetters
+            from ___ in Parse.Char(')')
+            select new When().Set(setters);
+        public static IParser<IEnumerable<IWhen>> Whens = When.ZeroOrMoreTimes();
+
+
 
         // Primitives
         public static IParser<Brick> Brick =
@@ -315,6 +360,14 @@ namespace Brick_o_matic.Parsing
             from ___ in Parse.Char(')')
             select new Union().Set(setters) as Union;
 
+        public static IParser<Switch> Switch =
+          from _ in Parse.String("Switch")
+          from __ in Parse.Char('(')
+          from setters in SwitchSetters
+          from ___ in Parse.Char(')')
+          select new Switch().Set(setters);
+
+
         // imported resources
 
         public static IParser<ImportedResources> ImportedResources =
@@ -325,7 +378,7 @@ namespace Brick_o_matic.Parsing
            select new ImportedResources().Set(setters);
 
 
-        public static IParser<IPrimitive> Primitive = Brick.Or<IPrimitive>(Part).Or<IPrimitive>(TileMap).Or<IPrimitive>(PrimitiveRef).Or<IPrimitive>(ImportedScene).Or<IPrimitive>(RotateX).Or<IPrimitive>(RotateY).Or<IPrimitive>(RotateZ).Or<IPrimitive>(FlipX).Or<IPrimitive>(FlipY).Or<IPrimitive>(FlipZ).Or<IPrimitive>(Difference).Or<IPrimitive>(Intersection).Or<IPrimitive>(Union);
+        public static IParser<IPrimitive> Primitive = Brick.Or<IPrimitive>(Part).Or<IPrimitive>(TileMap).Or<IPrimitive>(PrimitiveRef).Or<IPrimitive>(ImportedScene).Or<IPrimitive>(RotateX).Or<IPrimitive>(RotateY).Or<IPrimitive>(RotateZ).Or<IPrimitive>(FlipX).Or<IPrimitive>(FlipY).Or<IPrimitive>(FlipZ).Or<IPrimitive>(Difference).Or<IPrimitive>(Intersection).Or<IPrimitive>(Union).Or<IPrimitive>(Switch);
         public static IParser<IEnumerable<IPrimitive>> Primitives = Primitive.OneOrMoreTimes();
 
 

@@ -10,6 +10,9 @@
 			"include": "#keywords"
 		},
 		{
+			"include": "#supports"
+		},
+		{
 			"include": "#strings"
 		},
 		{
@@ -19,7 +22,7 @@
 			"include": "#storages"
 		},
 		{
-			"include": "#supports"
+			"include": "#supports2"
 		},
 		{
 			"include": "#constants"
@@ -46,21 +49,24 @@
 		"variables": {
 			"patterns": [{
 				"name": "support.type.property-name.brk",
-				"match": "\\b(Name|Position|Size|Color|ItemA|ItemB)(?=:)\\b"
+				"match": "\\b(Name|Position|Size|Color|ItemA|ItemB|Variable|Value|Return)(?=:)\\b"
 			}]
 		},
 
 		"storages": {
 			"patterns": [{
 				"name": "storage.type.brk",
-				"match": "\\b(Scene|Brick|Part|Primitive|TileMap|Tile|Difference|Intersection|Union)\\b"
+				"match": "\\b(Scene|Brick|Part|Primitive|TileMap|Tile|Difference|Intersection|Union|Switch)\\b"
 			}]
 		},
 		"supports": {
 			"patterns": [{
 				"name": "support.function.brk",
-				"match": "ImportScene|ImportResources"
-			},
+				"match": "ImportScene|ImportResources|When"
+			}]
+		},
+		"supports2": {
+			"patterns": [
 			{
 				"name": "support.variable.brk",
 				"match": "[A-z]([-_\\.]|[A-z]|[0-9])*"
