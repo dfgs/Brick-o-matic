@@ -56,7 +56,24 @@ namespace Brick_o_matic.Parsing
 
 
         public static IParser<IColor> Color = StaticColor.Or(ColorRef);
+
+        public static IParser<string> EscapedChar =
+            from _ in Parse.Char('\\')
+            from value in Parse.Any()
+            select value;
+        public static IParser<string> Char = EscapedChar.Or(Parse.Except('"'));
+
+        public static IParser<String> String =
+            from _ in Parse.Char('"')
+            from value in Char.OneOrMoreTimes()
+            from __ in Parse.Char('"')
+            select value;
         
+        public static IParser<Variable> Variable =
+             from value in String
+             select new Variable(value);
+
+
         // Brick setters
         public static IParser<BrickPositionSetter> BrickPositionSetter =
             from _ in Parse.String("Position:")
@@ -314,7 +331,7 @@ namespace Brick_o_matic.Parsing
 
 
         // resources
-        public static IParser<ISceneObject> SceneObject = Primitive.Or<ISceneObject>(ImportedResources).Or<ISceneObject>(Color);
+        public static IParser<ISceneObject> SceneObject = Primitive.Or<ISceneObject>(ImportedResources).Or<ISceneObject>(Color).Or<ISceneObject>(Variable);
 
         public static IParser<Resource> Resource =
             from name in Name

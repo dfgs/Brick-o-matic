@@ -70,8 +70,30 @@ namespace Brick_o_matic.Parsing.UnitTest
 			Assert.ThrowsException<UnexpectedCharException>(() => Grammar.StaticColor.Parse("(256,2,3)", ' '));
 			Assert.ThrowsException<UnexpectedCharException>(() => Grammar.StaticColor.Parse("(-1,2,3)", ' '));
 		}
+		[TestMethod]
+		public void ShouldParseEscapedChar()
+		{
+			Assert.AreEqual("A", Grammar.EscapedChar.Parse(@"\A", ' '));
+			Assert.AreEqual("\"", Grammar.EscapedChar.Parse("\\\"", ' '));
+		}
+		[TestMethod]
+		public void ShouldParseChar()
+		{
+			Assert.AreEqual("A", Grammar.Char.Parse(@"A", ' '));
+			Assert.AreEqual("\"", Grammar.EscapedChar.Parse("\\\"", ' '));
+		}
+		[TestMethod]
+		public void ShouldParseString()
+		{
+			Assert.AreEqual("test", Grammar.String.Parse("\"test\"", ' '));
+			Assert.AreEqual("\"test\"", Grammar.String.Parse("\"\\\"test\\\"\"", ' '));
+		}
 
-		
-
+		[TestMethod]
+		public void ShouldParseVariable()
+		{
+			Assert.AreEqual("test", Grammar.Variable.Parse("\"test\"", ' ').Value);
+			Assert.AreEqual("\"test\"", Grammar.Variable.Parse("\"\\\"test\\\"\"", ' ').Value);
+		}
 	}
 }

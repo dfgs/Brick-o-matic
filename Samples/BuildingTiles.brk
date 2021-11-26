@@ -5,6 +5,7 @@ Scene(
 		DoorColor=(255,255,255)
 		WindowColor=(65,190,204)
 		WallColor=(96,96,96)
+		WallStyle="Style1"
 
 		Door=Part
 		(
@@ -37,7 +38,20 @@ Scene(
 							Color:WallColor
 						)
 					)
-					ItemB:Primitive(Name:Door Position:(-7,0,10))
+					ItemB:
+						Switch
+						(
+							Variable:WallStyle
+							When(
+								Value:"Style1"
+								Return:Primitive(Name:Door Position:(-7,0,10))
+							)
+							When(
+							 	Value:"Style2"
+								Return:Brick(Position:(-7,0,10) Color:(255,0,0))
+							)
+						)
+						
 				)
 		)
 		Tile1=Part

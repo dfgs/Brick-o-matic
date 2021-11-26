@@ -31,6 +31,11 @@ namespace Brick_o_matic.Parsing.UnitTest
 			Assert.IsNotNull(item);
 			Assert.IsInstanceOfType(item, typeof(Color));
 
+			item = Grammar.SceneObject.Parse("\"test\"", ' ');
+			Assert.IsNotNull(item);
+			Assert.IsInstanceOfType(item, typeof(Variable));
+
+
 			item = Grammar.SceneObject.Parse("Red", ' ');
 			Assert.IsNotNull(item);
 			Assert.IsInstanceOfType(item, typeof(ColorRef));
@@ -45,14 +50,19 @@ namespace Brick_o_matic.Parsing.UnitTest
 			Assert.IsNotNull(resource);
 			Assert.AreEqual("ResourceName", resource.Name);
 			Assert.IsInstanceOfType(resource.Object, typeof(Brick));
-			
+
 			resource = Grammar.Resource.Parse("Color=(255,255,0)", ' ');
 			Assert.IsNotNull(resource);
 			Assert.AreEqual("Color", resource.Name);
 			Assert.IsInstanceOfType(resource.Object, typeof(Color));
+			
+			resource = Grammar.Resource.Parse("V=\"test\"", ' ');
+			Assert.IsNotNull(resource);
+			Assert.AreEqual("V", resource.Name);
+			Assert.IsInstanceOfType(resource.Object, typeof(Variable));
 		}
 
-		
+
 
 	}
 }

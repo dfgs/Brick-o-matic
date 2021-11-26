@@ -97,5 +97,8 @@
       <Name>Brick-o-matic.Primitives</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Setters\Primitives\Switch\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

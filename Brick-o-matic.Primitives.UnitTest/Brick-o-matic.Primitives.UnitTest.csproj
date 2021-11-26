@@ -49,6 +49,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SwitchUnitTest.cs" />
     <Compile Include="CSGNodeUnitTest.cs" />
     <Compile Include="ColorRefUnitTest.cs" />
     <Compile Include="UnionUnitTest.cs" />
