@@ -2,7 +2,7 @@ Scene(
 	Resources:
 		Black=(0,0,0)
 		Gray=(128,128,128)
-		DoorColor=(222,255,255)
+		DoorColor=(255,255,255)
 		WindowColor=(65,190,204)
 		WallColor=(96,96,96)
 
@@ -25,27 +25,42 @@ Scene(
 		(
 			Items:
 				Union(
-					ItemA:Brick(
-						Color:Gray
-						Position:(-16,1,-16)
-						Size:(32,1,32)
+					ItemA:Union(
+						ItemA:Brick(
+							Color:Gray
+							Position:(-16,1,-16)
+							Size:(32,1,32)
+						)
+						ItemB:Brick(
+							Position:(-11,0,-11)
+							Size:(22,32,22)
+							Color:WallColor
+						)
 					)
-					ItemB:Brick(
-						Position:(-11,0,-11)
-						Size:(22,32,22)
-						Color:WallColor
-					)
+					ItemB:Primitive(Name:Door Position:(-7,0,10))
 				)
-				
 		)
-
+		Tile1=Part
+		(
+			Items:
+				Union(
+					ItemA:Union(
+						ItemA:Brick(
+							Color:Gray
+							Position:(-16,1,-16)
+							Size:(32,1,32)
+						)
+						ItemB:Brick(
+							Position:(-11,0,-11)
+							Size:(27,32,22)
+							Color:WallColor
+						)
+					)
+					ItemB:Primitive(Name:Door Position:(-7,0,10))
+				)
+		)
 
 	Items:
+		Primitive(Name:Tile1)
 		
-		Union(
-			ItemA:Primitive(Name:Tile0)
-			ItemB:Primitive(Name:Door Position:(-7,0,10))
-		)
-		
-	
 )

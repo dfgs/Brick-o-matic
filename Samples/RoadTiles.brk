@@ -1,7 +1,7 @@
 Scene(
 	Resources:
 		Black=(0,0,0)
-		White=(222,255,255)
+		White=(255,255,255)
 		Gray=(128,128,128)
 
 		Tile0=Part(
