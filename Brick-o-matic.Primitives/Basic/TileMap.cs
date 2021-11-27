@@ -53,7 +53,8 @@ namespace Brick_o_matic.Primitives
 			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
 
 			if (Count == 0) return new Box(Position, new Size());
-			
+
+
 			foreach (IPrimitive item in this.items)
 			{
 				childBox = item.GetBoundingBox(ResourceProvider);

@@ -2,26 +2,30 @@ Scene(
 	Resources:
 		Red=(255,0,0)
 		Blue=(0,0,255)
-		
+		WallStyle="Style1"
+	
 		BrickA=Brick(
-			Position:(0,0,0)
+			Position:(1,0,0)
 			Size:(4,4,4)
 			Color:Red
 		)
 		BrickB=Brick(
-			Position:(0,0,0)
+			Position:(1,0,0)
 			Size:(2,2,4)
 			Color:Blue
 		)
 		
 	Items:
-		
-		Union(
-			Position:(1,1,1)
-			ItemA:Primitive(Name:BrickA)
-			ItemB:Primitive(Name:BrickB Position:(1,1,0))
+		Brick(
+			Position:(0,0,0)
+			Size:(1,1,1)
+			Color:(255,255,255)
 		)
-
+		Union(
+			Position:(0,1,0)
+			ItemA:Primitive(Name:BrickA Position:(1,0,0))
+			ItemB:Primitive(Name:BrickB)
+		)
 		
 		
 		

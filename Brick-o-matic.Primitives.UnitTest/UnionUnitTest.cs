@@ -82,7 +82,7 @@ namespace Union_o_matic.Primitives.UnitTest
 			Assert.AreEqual(new Position(1, 2, 3), box.Position);
 			Assert.AreEqual(new Size(3, 3, 1), box.Size);
 		}
-
+		
 
 		[TestMethod]
 		public void ShouldGetEmptyBricks()
@@ -143,7 +143,7 @@ namespace Union_o_matic.Primitives.UnitTest
 			Assert.IsNotNull(FindBrick(bricks, csg.Position + new Position(2, 1, 0), new Size(1)));
 			Assert.IsNotNull(FindBrick(bricks, csg.Position + new Position(1, 2, 0), new Size(1)));
 		}
-
+		
 
 
 

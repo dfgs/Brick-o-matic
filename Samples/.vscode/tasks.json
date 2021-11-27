@@ -7,7 +7,7 @@
         "label": "Build",
         "type": "shell",
         "windows": {
-            "command": "..\\Brick-o-matic.BuildToOBJ\\bin\\Debug\\Brick-o-matic.BuildToOBJ.exe ${file}"
+            "command": "..\\Brick-o-matic.BuildToGLTF\\bin\\Debug\\Brick-o-matic.BuildToGLTF.exe ${file}"
         },
         
         "problemMatcher": {

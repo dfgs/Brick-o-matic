@@ -97,8 +97,8 @@ namespace Brick_o_matic.Viewer
             {
                 try
                 {
-                    boundingBox = scene.GetBoundingBox(null);
                     meshes = scene.Build(null).Select(item => new BrickMesh(scene, item)).ToArray();
+                    boundingBox = scene.GetBoundingBox(null);
 
                     if (camera.Distance == 0)
                     {

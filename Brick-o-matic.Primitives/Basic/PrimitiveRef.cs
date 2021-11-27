@@ -11,7 +11,8 @@ namespace Brick_o_matic.Primitives
 {
 	public class PrimitiveRef : Primitive,IPrimitiveRef
 	{
-		private ThreadLocal<int> counter;
+		private ThreadLocal<int> boxCounter;
+		private ThreadLocal<int> buildCounter;
 
 		private Dictionary<string, Resource> resources;
 		public IEnumerable<Resource> Resources
@@ -40,12 +41,14 @@ namespace Brick_o_matic.Primitives
 		public PrimitiveRef()
 		{
 			resources = new Dictionary<string, Resource>();
-			counter = new ThreadLocal<int>();
+			boxCounter = new ThreadLocal<int>();
+			buildCounter = new ThreadLocal<int>();
 		}
 		public PrimitiveRef(Position Position):base(Position)
 		{
 			resources = new Dictionary<string, Resource>();
-			counter = new ThreadLocal<int>();
+			boxCounter = new ThreadLocal<int>();
+			buildCounter = new ThreadLocal<int>();
 		}
 
 		public void AddResource(string Name, ISceneObject Object)
@@ -104,12 +107,13 @@ namespace Brick_o_matic.Primitives
 			}
 
 
-			if (counter.Value >= 2) throw new InvalidOperationException($"Self referenced primitive detected ({Name})");
-			counter.Value++;
+			if (boxCounter.Value >= 2) 
+				throw new InvalidOperationException($"Self referenced primitive detected ({Name})");
+			boxCounter.Value++;
 
 			childBox = referencedPrimitive.GetBoundingBox(router);
 
-			counter.Value--;
+			boxCounter.Value--;
 
 			return new Box(Position + childBox.Position, childBox.Size);
 
@@ -140,15 +144,16 @@ namespace Brick_o_matic.Primitives
 			}
 
 
-			if (counter.Value >= 2) throw new InvalidOperationException($"Self referenced primitive detected ({Name})");
-			counter.Value++;
+			if (buildCounter.Value >= 3) 
+				throw new InvalidOperationException($"Self referenced primitive detected ({Name})");
+			buildCounter.Value++;
 
 			foreach (Brick brick in referencedPrimitive.Build(router))
 			{
 				yield return new Brick(this.Position + brick.Position, brick.Size,brick.Color);
 			}
 
-			counter.Value--;
+			buildCounter.Value--;
 
 
 		}

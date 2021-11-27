@@ -54,9 +54,10 @@ Scene(
 			Position:(-1,0,2)
 			TileSize:(32,32,32)
 
-			Items:
-				Primitive(Position:(0,0,0) Name:Building.Tile0)
-				Primitive( Position:(1,0,0) Name:Road.Tile14)
+			Items: 
+				Primitive(Position:(0,1,0) Resources:WallStyle="Style2" Name:Building.Tile0)
+				Primitive(Position:(0,0,0) Resources:WallStyle="Style1" Name:Building.Tile0)
+				Primitive(Position:(1,0,0) Resources:WallStyle="Style2" Name:Building.Tile0)
 				Primitive( Position:(0,0,1) Name:Road.Tile14)
 				Primitive( Position:(1,0,1) Name:Road.Tile11)
 				Primitive(Position:(1,0,-1) Name:Road.Tile3)

@@ -36,19 +36,19 @@ namespace Brick_o_matic.Math
 
 		public Box(IEnumerable<IBox> Boxes)
 		{
-			IBox[] boxes;
+			
 
 			int minX = int.MaxValue, minY = int.MaxValue, minZ = int.MaxValue;
 			int maxX = int.MinValue, maxY = int.MinValue, maxZ = int.MinValue;
 
-			boxes = Boxes.ToArray();
-			if (boxes.Length==0)
+			//boxes = Boxes.ToArray();
+			if (!Boxes.Any())
 			{
 				Position = new Position();Size = new Size();
 				return;
 			}
 
-			foreach (IBox childBox in boxes)
+			foreach (IBox childBox in Boxes)
 			{
 				minX = System.Math.Min(minX, childBox.Position.X);
 				minY = System.Math.Min(minY, childBox.Position.Y);

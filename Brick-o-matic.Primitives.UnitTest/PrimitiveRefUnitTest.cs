@@ -66,14 +66,24 @@ namespace PrimitiveRef_o_matic.Primitives.UnitTest
 			Brick b;
 
 			scene = new Scene();
+
 			b = new Brick(new Position(-1, -2, -3), new Size(1, 1, 1));
 			scene.AddResource("b", b);
 
 			primitive = new PrimitiveRef(new Position(0, 0, 0));
 			primitive.Name = "b";
-
 			bricks = primitive.Build(scene).ToArray();
 			Assert.AreEqual(1, bricks.Length);
+			Assert.AreEqual(new Position(-1, -2, -3), bricks[0].Position);
+
+
+			primitive = new PrimitiveRef(new Position(1, 2, 3));
+			primitive.Name = "b";
+			bricks = primitive.Build(scene).ToArray();
+			Assert.AreEqual(1, bricks.Length);
+			Assert.AreEqual(new Position(0, 0, 0), bricks[0].Position);
+
+
 		}
 
 		[TestMethod]
