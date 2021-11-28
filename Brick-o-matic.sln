@@ -25,8 +25,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brick-o-matic.TextMate", "B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Brick-o-matic.Viewer", "Brick-o-matic.Viewer\Brick-o-matic.Viewer.csproj", "{EADF2FE9-CC1F-4C54-94CE-4B200B12DC56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brick-o-matic.Editor", "Brick-o-matic.Editor\Brick-o-matic.Editor.csproj", "{7EBE7B3E-582C-4C13-B730-1F341AFE1685}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModelLib", "..\ViewModelLib\ViewModelLib\ViewModelLib.csproj", "{9CD722C0-3ABE-48C7-A2FE-B18FBC6B5DAA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brick-o-matic.BuildToOBJ", "Brick-o-matic.BuildToOBJ\Brick-o-matic.BuildToOBJ.csproj", "{C59AC526-0264-4C66-8350-C2857B266969}"
@@ -36,6 +34,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpGLTF.Core", "..\SharpGLTF\src\SharpGLTF.Core\SharpGLTF.Core.csproj", "{C02571E2-277F-4417-9671-7B9E8CD0CAB3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpGLTF.Toolkit", "..\SharpGLTF\src\SharpGLTF.Toolkit\SharpGLTF.Toolkit.csproj", "{B1B6D1CD-3DF4-4B09-A24F-E9C2E6ADA356}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brick-o-matic.Editor", "Brick-o-matic.Editor\Brick-o-matic.Editor.csproj", "{7EBE7B3E-582C-4C13-B730-1F341AFE1685}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -117,12 +117,6 @@ Global
 		{EADF2FE9-CC1F-4C54-94CE-4B200B12DC56}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EADF2FE9-CC1F-4C54-94CE-4B200B12DC56}.Release|x86.ActiveCfg = Release|Any CPU
 		{EADF2FE9-CC1F-4C54-94CE-4B200B12DC56}.Release|x86.Build.0 = Release|Any CPU
-		{7EBE7B3E-582C-4C13-B730-1F341AFE1685}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7EBE7B3E-582C-4C13-B730-1F341AFE1685}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7EBE7B3E-582C-4C13-B730-1F341AFE1685}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{7EBE7B3E-582C-4C13-B730-1F341AFE1685}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7EBE7B3E-582C-4C13-B730-1F341AFE1685}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7EBE7B3E-582C-4C13-B730-1F341AFE1685}.Release|x86.ActiveCfg = Release|Any CPU
 		{9CD722C0-3ABE-48C7-A2FE-B18FBC6B5DAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9CD722C0-3ABE-48C7-A2FE-B18FBC6B5DAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CD722C0-3ABE-48C7-A2FE-B18FBC6B5DAA}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -161,6 +155,14 @@ Global
 		{B1B6D1CD-3DF4-4B09-A24F-E9C2E6ADA356}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B1B6D1CD-3DF4-4B09-A24F-E9C2E6ADA356}.Release|x86.ActiveCfg = Release|Any CPU
 		{B1B6D1CD-3DF4-4B09-A24F-E9C2E6ADA356}.Release|x86.Build.0 = Release|Any CPU
+		{7EBE7B3E-582C-4C13-B730-1F341AFE1685}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EBE7B3E-582C-4C13-B730-1F341AFE1685}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EBE7B3E-582C-4C13-B730-1F341AFE1685}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7EBE7B3E-582C-4C13-B730-1F341AFE1685}.Debug|x86.Build.0 = Debug|Any CPU
+		{7EBE7B3E-582C-4C13-B730-1F341AFE1685}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EBE7B3E-582C-4C13-B730-1F341AFE1685}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EBE7B3E-582C-4C13-B730-1F341AFE1685}.Release|x86.ActiveCfg = Release|Any CPU
+		{7EBE7B3E-582C-4C13-B730-1F341AFE1685}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
