@@ -1,0 +1,104 @@
+﻿<Window x:Class="Brick_o_matic.Viewer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Brick_o_matic.Viewer" 
+		xmlns:views="clr-namespace:Brick_o_matic.Viewer.Views"
+        mc:Ignorable="d" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen" WindowState="Maximized"
+        Title="Brick-o-matic viewer" Height="640" Width="800">
+	<Window.Resources>
+		<RoutedUICommand x:Key="Build"/>
+		<RoutedUICommand x:Key="ZoomIn"/>
+		<RoutedUICommand x:Key="ZoomOut"/>
+		<Style TargetType="{x:Type Image}">
+			<Style.Triggers>
+				<Trigger Property="IsEnabled" Value="False">
+					<Trigger.Setters>
+						<Setter Property="Opacity" Value="0.5"/>
+					</Trigger.Setters>
+				</Trigger>
+			</Style.Triggers>
+		</Style>
+	</Window.Resources>
+
+	<Window.InputBindings>
+		<KeyBinding Command="{StaticResource Build}" Key="F5"/>
+	</Window.InputBindings>
+	
+	<Window.CommandBindings>
+		<CommandBinding Command="New" CanExecute="NewCommandBinding_CanExecute" Executed="NewCommandBinding_Executed"/>
+		<CommandBinding Command="Open" CanExecute="OpenCommandBinding_CanExecute" Executed="OpenCommandBinding_Executed"/>
+		<CommandBinding Command="Close" CanExecute="CloseCommandBinding_CanExecute" Executed="CloseCommandBinding_Executed"/>
+		<CommandBinding Command="Save" CanExecute="SaveCommandBinding_CanExecute" Executed="SaveCommandBinding_Executed"/>
+		<CommandBinding Command="SaveAs" CanExecute="SaveAsCommandBinding_CanExecute" Executed="SaveAsCommandBinding_Executed"/>
+		<CommandBinding Command="{StaticResource Build}" CanExecute="BuildCommandBinding_CanExecute" Executed="BuildCommandBinding_Executed"/>
+		<CommandBinding Command="{StaticResource ZoomIn}" CanExecute="ZoomInCommandBinding_CanExecute" Executed="ZoomInCommandBinding_Executed"/>
+		<CommandBinding Command="{StaticResource ZoomOut}" CanExecute="ZoomOutCommandBinding_CanExecute" Executed="ZoomOutCommandBinding_Executed"/>
+	</Window.CommandBindings>
+	
+    <DockPanel>
+		<StatusBar DockPanel.Dock="Bottom">
+			<TextBlock Text="Modified:"/>
+			<TextBlock Text="{Binding SelectedItem.IsModified}"/>
+			<Separator/>
+			<TextBlock Text="Position:"/>
+			<TextBlock Text="{Binding SelectedItem.Position}"/>
+		</StatusBar>
+
+		<ToolBarTray DockPanel.Dock="Top">
+			<ToolBar>
+				<Button Command="New" ToolTip="New project">
+					<Image Stretch="None" Source="Images/page_white.png" />
+				</Button>
+				<Button Command="Open" ToolTip="Open project">
+					<Image Stretch="None" Source="Images/folder.png" />
+				</Button>
+				<Button Command="Close" ToolTip="Close project">
+					<Image Stretch="None" Source="Images/cross.png" />
+				</Button>
+				<Button Command="Save" ToolTip="Save project">
+					<Image Stretch="None" Source="Images/disk.png" />
+				</Button>
+				<Button Command="SaveAs" ToolTip="Save project as">
+					<Image Stretch="None" Source="Images/disk.png" />
+				</Button>
+				<Button Command="{StaticResource Build}" ToolTip="Build">
+					<Image Stretch="None" Source="Images/cog.png" />
+				</Button>
+			</ToolBar>
+			
+			<ToolBar>
+				<Button Command="Cut" ToolTip="Cut">
+					<Image Stretch="None" Source="Images/cut.png" />
+				</Button>
+				<Button Command="Copy" ToolTip="Copy">
+					<Image Stretch="None" Source="Images/page_white_copy.png" />
+				</Button>
+				<Button Command="Paste" ToolTip="Paste">
+					<Image Stretch="None" Source="Images/paste_plain.png" />
+				</Button>
+			</ToolBar>
+			<ToolBar>
+				<Button Command="Undo" ToolTip="Undo">
+					<Image Stretch="None" Source="Images/arrow_undo.png" />
+				</Button>
+				<Button Command="Redo" ToolTip="Redo">
+					<Image Stretch="None" Source="Images/arrow_redo.png" />
+				</Button>
+			</ToolBar>
+			<ToolBar>
+				<Button Command="{StaticResource ZoomOut}" ToolTip="Zoom out">
+					<Image Stretch="None" Source="Images/magifier_zoom_out.png" />
+				</Button>
+				<TextBox Width="50" Text="{Binding SelectedItem.Zoom,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+				<Button Command="{StaticResource ZoomIn}" ToolTip="Zoom in">
+					<Image Stretch="None" Source="Images/magnifier_zoom_in.png" />
+				</Button>
+			</ToolBar>
+		</ToolBarTray>
+
+		<views:ProjectsView/>
+	</DockPanel>
+	
+</Window>
