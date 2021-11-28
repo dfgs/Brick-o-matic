@@ -8,6 +8,7 @@ namespace Brick_o_matic.Primitives
 {
 	public class ResourceProviderRouter : IResourceProvider
 	{
+
 		private IResourceProvider primary;
 		private IResourceProvider secondary;
 
@@ -41,5 +42,9 @@ namespace Brick_o_matic.Primitives
 			if (primary.TryGetResource(Name, out Object)) return true;
 			return secondary.TryGetResource(Name, out Object);
 		}
+
+		
+
+
 	}
 }

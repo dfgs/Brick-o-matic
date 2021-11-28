@@ -4,7 +4,7 @@ using Brick_o_matic.Primitives;
 using Brick_o_matic.Math;
 using System.Linq;
 
-namespace Part_o_matic.Primitives.UnitTest
+namespace Brick_o_matic.Primitives.UnitTest
 {
 	[TestClass]
 	public class PartUnitTest

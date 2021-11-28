@@ -5,7 +5,7 @@ using Brick_o_matic.Math;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace Union_o_matic.Primitives.UnitTest
+namespace Brick_o_matic.Primitives.UnitTest
 {
 	[TestClass]
 	public class UnionUnitTest

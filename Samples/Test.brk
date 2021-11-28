@@ -14,7 +14,7 @@ Scene(
 			Size:(2,2,4)
 			Color:Blue
 		)
-		
+		Switch()
 	Items:
 		Brick(
 			Position:(0,0,0)

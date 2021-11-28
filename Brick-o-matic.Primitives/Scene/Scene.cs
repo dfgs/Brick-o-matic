@@ -116,7 +116,22 @@ namespace Brick_o_matic.Primitives
 		}
 
 		
+	
 
+		public void Validate()
+		{
+			ILocker locker;
+
+			locker = new Locker();
+			foreach (Resource resource in resources.Values)
+			{
+				resource.Object.Validate(this, locker);
+			}
+			foreach (IPrimitive primitive in items)
+			{
+				primitive.Validate(this,locker);
+			}
+		}
 
 	}
 }

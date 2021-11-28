@@ -11,8 +11,6 @@ namespace Brick_o_matic.Primitives
 {
 	public class PrimitiveRef : Primitive,IPrimitiveRef
 	{
-		private ThreadLocal<int> boxCounter;
-		private ThreadLocal<int> buildCounter;
 
 		private Dictionary<string, Resource> resources;
 		public IEnumerable<Resource> Resources
@@ -41,14 +39,10 @@ namespace Brick_o_matic.Primitives
 		public PrimitiveRef()
 		{
 			resources = new Dictionary<string, Resource>();
-			boxCounter = new ThreadLocal<int>();
-			buildCounter = new ThreadLocal<int>();
 		}
 		public PrimitiveRef(Position Position):base(Position)
 		{
 			resources = new Dictionary<string, Resource>();
-			boxCounter = new ThreadLocal<int>();
-			buildCounter = new ThreadLocal<int>();
 		}
 
 		public void AddResource(string Name, ISceneObject Object)
@@ -107,13 +101,7 @@ namespace Brick_o_matic.Primitives
 			}
 
 
-			if (boxCounter.Value >= 2) 
-				throw new InvalidOperationException($"Self referenced primitive detected ({Name})");
-			boxCounter.Value++;
-
 			childBox = referencedPrimitive.GetBoundingBox(router);
-
-			boxCounter.Value--;
 
 			return new Box(Position + childBox.Position, childBox.Size);
 
@@ -144,22 +132,47 @@ namespace Brick_o_matic.Primitives
 			}
 
 
-			if (buildCounter.Value >= 3) 
-				throw new InvalidOperationException($"Self referenced primitive detected ({Name})");
-			buildCounter.Value++;
-
 			foreach (Brick brick in referencedPrimitive.Build(router))
 			{
 				yield return new Brick(this.Position + brick.Position, brick.Size,brick.Color);
 			}
 
-			buildCounter.Value--;
 
 
 		}
 
+		public override void Validate(IResourceProvider ResourceProvider, ILocker Locker)
+		{
+			IPrimitive referencedPrimitive;
+			string localName;
+			ResourceProviderRouter router;
+			IResourceProvider alternativeResourceProvider;
 
-		
+			if (Locker == null) throw new ArgumentNullException(nameof(Locker));
+			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
+
+			if (!ResourceProvider.TryGetResource(this.Name, out referencedPrimitive))
+			{
+				throw new InvalidOperationException($"Reference to primitive {Name} was not found");
+			}
+
+			alternativeResourceProvider = NameSpaceUtils.GetResourceLocation(ResourceProvider, Name, out localName);
+			if (alternativeResourceProvider == null)
+			{
+				router = new ResourceProviderRouter(this, ResourceProvider);
+			}
+			else
+			{
+				router = new ResourceProviderRouter(new ResourceProviderRouter(this, ResourceProvider), alternativeResourceProvider);
+			}
+
+			Locker.Lock(Name);
+			referencedPrimitive.Validate(router, Locker);
+			Locker.Release(Name);
+
+			
+		}
+
 
 
 

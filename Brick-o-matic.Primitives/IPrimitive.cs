@@ -17,6 +17,7 @@ namespace Brick_o_matic.Primitives
 
 		IBox GetBoundingBox(IResourceProvider ResourceProvider);
 		IEnumerable<Brick> Build(IResourceProvider ResourceProvider);
-		
+
+		//void Validate(IResourceProvider ResourceProvider,ILocker Locker);
 	}
 }

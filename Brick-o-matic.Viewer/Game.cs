@@ -86,8 +86,9 @@ namespace Brick_o_matic.Viewer
             try
             {
                 scene = SceneReader.ReadFromFile(fileName);
+                scene.Validate();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 File.WriteAllText("debug.log", ex.Message);
                 Console.WriteLine(ex.Message);

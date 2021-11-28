@@ -22,7 +22,6 @@ namespace Brick_o_matic.Primitives
 
 		void AddResource(string Name, ISceneObject Object);
 
-		void LockResource(string Name);
-		void ReleaseResource(string Name);
+		
 	}
 }

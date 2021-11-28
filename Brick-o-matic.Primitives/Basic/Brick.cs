@@ -117,7 +117,12 @@ namespace Brick_o_matic.Primitives
 			yield return new Brick(Position, Size, color); ;
 		}
 
-		
+		public override void Validate(IResourceProvider ResourceProvider, ILocker Locker)
+		{
+			if (Locker == null) throw new ArgumentNullException(nameof(Locker));
+			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
+		}
+
 
 	}
 }

@@ -18,5 +18,13 @@ namespace Brick_o_matic.Primitives
 		{
 
 		}
+		public void Validate(IResourceProvider ResourceProvider, ILocker Locker)
+		{
+			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
+			if (Locker == null) throw new ArgumentNullException(nameof(Locker));
+			
+		}
+
+
 	}
 }

@@ -24,6 +24,7 @@ namespace Brick_o_matic.BuildToOBJ
 			try
 			{
 				scene=SceneReader.ReadFromFile(args[0]);
+				scene.Validate();
 			}
 			catch(Exception ex)
 			{

@@ -89,7 +89,16 @@ namespace Brick_o_matic.Primitives
 
 		}
 
-		
+		public override void Validate(IResourceProvider ResourceProvider, ILocker Locker)
+		{
+			if (Locker == null) throw new ArgumentNullException(nameof(Locker));
+			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
+			foreach (IPrimitive item in this.items)
+			{
+				item.Validate(ResourceProvider, Locker);
+			}
 
-	}
+		}
+
+		}
 }

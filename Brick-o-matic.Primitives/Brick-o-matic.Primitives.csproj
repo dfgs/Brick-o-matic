@@ -52,8 +52,10 @@
     <Compile Include="CSG\ParseActions.cs" />
     <Compile Include="Graph\CSGNode.cs" />
     <Compile Include="Graph\ICSGNode.cs" />
+    <Compile Include="ILocker.cs" />
     <Compile Include="IVariable.cs" />
     <Compile Include="IResourceProvider.cs" />
+    <Compile Include="Locker.cs" />
     <Compile Include="NameSpaceUtils.cs" />
     <Compile Include="ResourceProviderRouter.cs" />
     <Compile Include="Switch\IWhen.cs" />

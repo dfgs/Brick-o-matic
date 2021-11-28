@@ -15,12 +15,9 @@ namespace Brick_o_matic.Primitives
 			private set;
 		}
 
-		private ThreadLocal<int> counter;
-		
 		public ColorRef(string Name)
 		{
 			this.Name = Name;
-			counter = new ThreadLocal<int>();
 		}
 
 		public override string ToString()
@@ -34,20 +31,31 @@ namespace Brick_o_matic.Primitives
 
 			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
 
-			if (counter.Value >= 2) throw new InvalidOperationException($"Self referenced color detected ({Name})");
-			counter.Value++;
-
 			if (!ResourceProvider.TryGetResource(Name,  out color))
 			{
 				throw new InvalidOperationException($"Reference to color {Name} was not found");
 			}
 			color.GetComponents(ResourceProvider, out R, out G, out B);
-			counter.Value--;
 
 		}
 
+		public void Validate(IResourceProvider ResourceProvider, ILocker Locker)
+		{
+			IColor color;
+
+			if (ResourceProvider == null) throw new ArgumentNullException(nameof(ResourceProvider));
+			if (Locker == null) throw new ArgumentNullException(nameof(Locker));
 
 
+			if (!ResourceProvider.TryGetResource(Name, out color))
+			{
+				throw new InvalidOperationException($"Reference to color {Name} was not found");
+			}
+
+			Locker.Lock(Name);
+			color.Validate(ResourceProvider, Locker);
+			Locker.Release(Name);
+		}
 
 
 	}

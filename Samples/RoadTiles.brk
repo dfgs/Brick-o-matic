@@ -6,7 +6,12 @@ Scene(
 
 		Tile0=Part(
 			Items:
-				
+				Switch(
+
+				)
+				toto(
+
+				)
 				Brick(
 					Position:(-11,0,-11)
 					Size:(22,1,22)

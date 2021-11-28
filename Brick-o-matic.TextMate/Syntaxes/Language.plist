@@ -9,48 +9,48 @@
 	<key>patterns</key>
 	<array>
 		<dict>
-			<key>match</key>
-			<string>//.*</string>
 			<key>name</key>
-			<string>comment.line</string>
+			<string>keyword.other.brk</string>
+			<key>match</key>
+			<string>\b(Resources|Items)(?=:)\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>support.function.brk</string>
+			<key>match</key>
+			<string>ImportScene|ImportResources|When</string>
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>/\*</string>
+			<string>&quot;</string>
 			<key>end</key>
-			<string>\*/</string>
+			<string>&quot;</string>
 			<key>name</key>
-			<string>comment.block</string>
-		</dict>
-		<dict>
-			<key>match</key>
-			<string>Scene|Brick|Part|Primitive</string>
-			<key>name</key>
-			<string>entity.name.type</string>
-		</dict>
-		<dict>
-			<key>match</key>
-			<string>\(\d+,\d+,\d+\)</string>
-			<key>name</key>
-			<string>constant.other</string>
+			<string>string.quoted.double.brk</string>
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>keyword.control</string>
+			<string>support.type.property-name.brk</string>
 			<key>match</key>
-			<string>(Resources|Items):</string>
+			<string>\b(Name|Position|Size|Color|ItemA|ItemB|Variable|Value|Return)(?=:)\b</string>
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>variable.language</string>
+			<string>storage.type.brk</string>
 			<key>match</key>
-			<string>Position:</string>
+			<string>\b(Scene|Brick|Part|Primitive|TileMap|Tile|Difference|Intersection|Union|Switch)\b</string>
 		</dict>
 		<dict>
-			<key>match</key>
-			<string>[A-z](.|_|\d|[A-z])*</string>
 			<key>name</key>
-			<string>variable.other</string>
+			<string>support.variable.brk</string>
+			<key>match</key>
+			<string>[A-z]([-_\.]|[A-z]|[0-9])*</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>constant.numeric.brk</string>
+			<key>match</key>
+			<string>\(-?[0-9]+,-?[0-9]+,-?[0-9]+\)</string>
 		</dict>
 	</array>
 	<key>uuid</key>

@@ -30,6 +30,7 @@ namespace Brick_o_matic.BuildToGLTF
 			try
 			{
 				scene = Parsing.SceneReader.ReadFromFile(args[0]);
+				scene.Validate();
 			}
 			catch (Exception ex)
 			{

@@ -62,11 +62,10 @@ namespace Brick_o_matic.Primitives.UnitTest
 		}
 
 		[TestMethod]
-		public void ShouldDetectSelfReferencedColor()
+		public void ShouldNotValidateSelfReferencedColor()
 		{
 			ColorRef color, redRef;
 			Scene scene;
-			byte R, G, B;
 
 			redRef = new ColorRef("Color");
 			color = new ColorRef("RedRef");
@@ -75,7 +74,7 @@ namespace Brick_o_matic.Primitives.UnitTest
 			scene.AddResource("Color", color);
 			scene.AddResource("RedRef", redRef);
 
-			Assert.ThrowsException<InvalidOperationException>(()=>color.GetComponents(scene, out R, out G, out B));
+			Assert.ThrowsException<InvalidOperationException>(()=>color.Validate(scene, new Locker()));
 			
 
 		}
