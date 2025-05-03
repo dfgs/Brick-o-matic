@@ -72,6 +72,18 @@ namespace Brick_o_matic.Parsing.UnitTest
 			Assert.AreEqual(new Position(1, 2, 3), p.Position);
 			Assert.AreEqual(3, p.Count);
 		}
+
+		[TestMethod]
+		public void ShouldNotParsePart()
+		{
+			IParseResult<Part> result;
+
+			result = Grammar.Part.TryParse("Part( Items: Brick() Part() Test() )", ' ');
+			Assert.IsFalse(result.IsSuccess);
+			Assert.AreEqual(28, ((UnexpectedCharParseResult<Part>)result).Position);
+
+		}
+
 		[TestMethod]
 		public void ShouldParseTileMap()
 		{

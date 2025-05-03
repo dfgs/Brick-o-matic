@@ -61,8 +61,7 @@ namespace Brick_o_matic.Parsing.UnitTest
 			Assert.AreEqual("V", resource.Name);
 			Assert.IsInstanceOfType(resource.Object, typeof(Variable));
 		}
-
-
+		
 
 	}
 }

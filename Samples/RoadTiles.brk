@@ -9,9 +9,7 @@ Scene(
 				Switch(
 
 				)
-				toto(
-
-				)
+				
 				Brick(
 					Position:(-11,0,-11)
 					Size:(22,1,22)

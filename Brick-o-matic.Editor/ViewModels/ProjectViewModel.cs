@@ -5,6 +5,7 @@ using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 using ICSharpCode.AvalonEdit.Utils;
+using ParserLib;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -168,7 +169,7 @@ namespace Brick_o_matic.Viewer.ViewModels
 
 			var hlManager = HighlightingManager.Instance;
 			
-			using (Stream s = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("Brick_o_matic.Viewer.Highlighting.xshd"))
+			using (Stream s = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("Brick_o_matic.Editor.Highlighting.xshd"))
 			{
 				using (XmlTextReader reader = new XmlTextReader(s))
 				{
@@ -234,7 +235,7 @@ namespace Brick_o_matic.Viewer.ViewModels
 			Point3D position;
 			PerspectiveCamera camera;
 			int cameraLength;
-			Box boundingBox;
+			IBox boundingBox;
 
 			if (scene == null) boundingBox = new Box();
 			else boundingBox = scene.GetBoundingBox(null);
@@ -271,10 +272,12 @@ namespace Brick_o_matic.Viewer.ViewModels
 			scene = new Scene();
 			try
 			{
-				scene=SceneReader.Read(Document.Text);
+				scene=SceneReader.Read(FileName, Document.Text);
+				scene.Validate();
 			}
 			catch(ParserLib.UnexpectedCharException unexpected)
 			{
+				
 				SetError(unexpected.Message);
 				Position = (int)unexpected.Position;
 				return;

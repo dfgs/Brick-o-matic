@@ -16,7 +16,7 @@ Scene(
 		)
 		PersonnRes=ImportResources(
 			FileName:"D:\Projets\Brick-o-matic\Samples\Personn.brk"
-		)
+		)		
 	Items:
 		RotateY(
 			Position:(60,2,-43)

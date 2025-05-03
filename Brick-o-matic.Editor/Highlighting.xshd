@@ -22,15 +22,20 @@
 			<Word>FlipX</Word>
 			<Word>FlipY</Word>
 			<Word>FlipZ</Word>
+			<Word>TileMap</Word>
+			<Word>Difference</Word>
+			<Word>Intersection</Word>
+			<Word>Union</Word>
+			<Word>Switch</Word>
 		</Keywords>
 
 		<Rule foreground="DarkGray" fontStyle="italic">\(\s*-?[0-9]+\s*,\s*-?[0-9]+\s*,\s*-?[0-9]+\s*\)</Rule>
 		<Rule fontWeight="bold">\=|\(|\)</Rule>
-		<Rule fontWeight="bold" foreground="CornFlowerBlue">Items:|Resources:</Rule>
+		<Rule fontWeight="bold" foreground="CornFlowerBlue">Items:|Resources:|When:</Rule>
 
-		<Rule foreground="SteelBlue">[A-z](-|_|[0-9]|[A-z]|\.)+:</Rule>
+		<Rule foreground="SteelBlue">[A-z](-|_|[0-9]|[A-z]|\.)*:</Rule>
 
-		<Rule foreground="Maroon">[A-z](-|_|[0-9]|[A-z])+</Rule>
+		<Rule foreground="Maroon">[A-z](-|_|[0-9]|[A-z])*</Rule>
 
 		
 		
